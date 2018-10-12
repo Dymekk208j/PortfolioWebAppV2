@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
 {
@@ -22,6 +23,6 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
             return new ApplicationDbContext();
         }
 
-        //public DbSet<AboutMe> AboutMe { get; set; }
+        public DbSet<AboutMe> AboutMe { get; set; }
     }
 }

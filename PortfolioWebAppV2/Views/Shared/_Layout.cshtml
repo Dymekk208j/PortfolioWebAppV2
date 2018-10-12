@@ -29,7 +29,7 @@
                     <div class="btn-group float-right">
                         <button type="button" class="btn btn-success" onclick="">Strona główna</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">Projekty</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">O mnie</button>
+                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">CV</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">Kontakt</button>
                         @if (User.IsInRole("Admin"))
@@ -61,7 +61,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="">Projekty</a>
-                                <a class="dropdown-item" href="">O mnie</a>
+                                <a class="dropdown-item" href="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</a>
                                 <a class="dropdown-item" href="">CV</a>
                                 <a class="dropdown-item" href="">Kontakt</a>
                                 
@@ -78,7 +78,7 @@
             </div>
 
             <div class="row">
-                @*@(!Request.IsAuthenticated ? Html.Partial("_LoginPanelPartial", new MyPortfolioWebApp.Models.ViewModels.LoginViewModel()) : Html.Partial("_LogedPanelPartial"))*@
+                @(!Request.IsAuthenticated ? Html.Partial("_LoginPanelPartial", new PortfolioWebAppV2.Models.ViewModels.LoginViewModel()) : Html.Partial("_LogedPanelPartial"))
             </div>
 
 

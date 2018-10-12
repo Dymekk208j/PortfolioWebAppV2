@@ -1,7 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using System.Data.Entity;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
+using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext;
+using PortfolioWebAppV2.Models.ViewModels;
 
 namespace PortfolioWebAppV2
 {
@@ -16,8 +20,10 @@ namespace PortfolioWebAppV2
 
             Mapper.Initialize(config =>
             {
-                //config.CreateMap<AboutMeViewModel, AboutMe>().ReverseMap();
+                config.CreateMap<AboutMeViewModel, AboutMe>().ReverseMap();
             });
+
+            Database.SetInitializer(new DbInitializer());
         }
     }
 }
