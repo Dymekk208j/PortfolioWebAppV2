@@ -22,16 +22,16 @@
         <div class="container-fluid ">
             <div class="row">
                 <div class="col">
-                    @Html.Partial("_SocialMediaBarPartialView")
+                   @Html.Action("GetSocialMediaBarPartial", "Home")
                 </div>
 
                 <div class="col">
                     <div class="btn-group float-right">
-                        <button type="button" class="btn btn-success" onclick="">Strona główna</button>
+                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")';return false;">Strona główna</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">Projekty</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">CV</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">Kontakt</button>
+                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Contact", "Home")';return false;">Kontakt</button>
                         @if (User.IsInRole("Admin"))
                         {
                             <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">Panel administratora</button>
@@ -63,7 +63,7 @@
                                 <a class="dropdown-item" href="">Projekty</a>
                                 <a class="dropdown-item" href="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</a>
                                 <a class="dropdown-item" href="">CV</a>
-                                <a class="dropdown-item" href="">Kontakt</a>
+                                <a class="dropdown-item" href="location.href='@Url.Action("Contact", "Home")';return false;">Kontakt</a>
                                 
 
                                 @if (User.IsInRole("Admin"))

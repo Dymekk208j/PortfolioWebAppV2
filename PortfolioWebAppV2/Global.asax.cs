@@ -21,6 +21,8 @@ namespace PortfolioWebAppV2
             Mapper.Initialize(config =>
             {
                 config.CreateMap<AboutMeViewModel, AboutMe>().ReverseMap();
+                config.CreateMap<ContactViewModel, Contact>().ReverseMap();
+
             });
 
             Database.SetInitializer(new DbInitializer());

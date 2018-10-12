@@ -7,19 +7,37 @@ namespace PortfolioWebAppV2.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
         public ActionResult AboutMe()
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
-            var aboutMe = dbContext.AboutMe.FirstOrDefault();
-            var arg = AutoMapper.Mapper.Map<AboutMe, AboutMeViewModel>(aboutMe);
+            var arg = AutoMapper.Mapper.Map<AboutMe, AboutMeViewModel>(dbContext.AboutMe.FirstOrDefault());
 
             return View(arg);
+        }
+
+        [HttpGet]
+        public ActionResult Contact()
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            var arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
+
+            return View(arg);
+        }
+
+        [HttpGet]
+        public ActionResult GetSocialMediaBarPartial()
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            var arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
+
+            return PartialView("_SocialMediaBarPartialView", arg);
         }
     }
 }

@@ -38,6 +38,12 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             aboutMePage.ForEach(g => context.AboutMe.Add(g));
             context.SaveChanges();
 
+            var contact = new List<Contact>
+            {
+                new Contact() { ContactId = 1, Email1 = "kontakt@DamianDziura.pl", Email2 = "Dymekk208j@gmail.com", FacebookLink = "https://www.facebook.com/dymekk208j", GitHubLink = "https://github.com/Dymekk208j/", LinkedInLink = "https://www.linkedin.com/in/damian-dziura-27a821114/", PhoneNumber = "+48 510-075-067" }
+            };
+            contact.ForEach(g => context.Contacts.Add(g));
+            context.SaveChanges();
 
             //var achivments = new List<Achivment>
             //{
@@ -117,7 +123,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             //  };
             //contact.ForEach(g => context.Contact.Add(g));
             //context.SaveChanges();
-            
+
 
         }
 

@@ -24,5 +24,14 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         }
 
         public DbSet<AboutMe> AboutMe { get; set; }
+        public DbSet<Achivment> Achivments { get; set; }
+        public DbSet<AdditionalInfo> AdditionalInfos { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<EmploymentHistory> EmploymentHistories { get; set; }
+        public DbSet<PrivateInformation> PrivateInformations { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Technology> Technologies{ get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+
     }
 }
