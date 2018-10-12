@@ -345,6 +345,7 @@
     <Content Include="Views\Shared\_AdminPanelLayout.cshtml" />
     <Content Include="Views\AdminPanel\Index.cshtml" />
     <Content Include="Views\AdminPanel\EditContact.cshtml" />
+    <Content Include="Views\AdminPanel\EditAboutMe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -44,5 +44,33 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditContact");
         }
+
+        [HttpGet]
+        public ActionResult EditAboutMe()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(db.AboutMe.FirstOrDefault());
+
+
+            return View(aboutMeViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAboutMe(AboutMeViewModel aboutMeViewModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var abm = db.AboutMe.FirstOrDefault();
+
+            if (abm != null)
+            {
+                AboutMe aboutMe = Mapper.Map<AboutMeViewModel, AboutMe>(aboutMeViewModel);
+                aboutMe.AboutMeId = abm.AboutMeId;
+                db.Entry(aboutMe).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            
+
+            return RedirectToAction("EditAboutMe");
+        }
     }
 }
