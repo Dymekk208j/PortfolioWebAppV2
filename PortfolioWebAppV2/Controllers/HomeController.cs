@@ -71,5 +71,45 @@ namespace PortfolioWebAppV2.Controllers
             return View(project);
         }
 
+        [HttpGet]
+        public ActionResult Cv()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            
+            CvViewModel cvViewModel = new CvViewModel()
+            {
+                Contact = db.Contacts.FirstOrDefault(),
+                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
+                Achivments = db.Achivments.Where(a => a.ShowInCv).ToList(),
+                AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
+                Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
+                EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),
+                Projects = db.Projects.Where(a => a.ShowInCv).ToList(),
+                Technologies = db.Technologies.Where(a => a.ShowInCv).ToList()
+            };
+
+            return View(cvViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult PrintCv()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            CvViewModel cvViewModel = new CvViewModel()
+            {
+                Contact = db.Contacts.FirstOrDefault(),
+                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
+                Achivments = db.Achivments.Where(a => a.ShowInCv).ToList(),
+                AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
+                Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
+                EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),
+                Projects = db.Projects.Where(a => a.ShowInCv).ToList(),
+                Technologies = db.Technologies.Where(a => a.ShowInCv).ToList()
+            };
+
+            return View(cvViewModel);
+        }
+
     }
 }

@@ -1,0 +1,303 @@
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model PortfolioWebAppV2.Models.ViewModels.CvViewModel
+
+
+<section style="background: white;">
+    <div class="container">
+        <div class="card mb-3" style="margin-bottom:2em; margin-top:2em; border-color: gray;">
+
+            <div class="card-body">
+
+
+                <div class="row" style="margin-top: 1em;" id="AboutMeRow">
+                    <div class="col-2" style="padding-left: 0 !important;">
+                        <img src="@Html.Raw(Model.PrivateInformation.ImageLink)" alt="" />
+                    </div>
+                    <div class="col text-right">
+                        @Html.Raw(Model.PrivateInformation.Street + " " + Model.PrivateInformation.HouseNumber + "/" + Model.PrivateInformation.FlatNumber)<br />
+                        @Html.Raw(Model.PrivateInformation.PostCode + " " + Model.PrivateInformation.City)<br />
+                        @Html.Raw(Model.PrivateInformation.PhoneNumber + " | " + Model.PrivateInformation.HomePage)<br />
+                        @Html.Raw(Model.PrivateInformation.Email)<br />
+                        <a href="@Html.Raw(Model.Contact.GitHubLink)">@Html.Raw(Model.Contact.GitHubLink)</a>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; background-color: cornflowerblue;" id="MeBar">
+                    <div class="col text-left">
+                        <h3 style="color: white;">@Html.Raw(Model.PrivateInformation.FirstName + " " + Model.PrivateInformation.LastName)</h3>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: dotted; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="CommercialProjectsRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Projekty komercyjne</h6>
+                    </div>
+                    <div class="col text-left">
+                        @{
+
+                            foreach (var a in Model.Projects.Where(x => x.Commercial))
+                            {
+                                int techCount = a.Technologies.Count();
+                                <p>
+                                    <b>@Html.Name(a.Title)</b><br />
+                                    @if (a.Technologies.Any())
+                                    {
+                                        int z = 0;
+                                        foreach (var j in a.Technologies)
+                                        {
+
+                                            if (techCount > 1 && z < techCount - 1)
+                                            {
+                                                <i>@Html.Raw(j.Name),</i>
+                                            }
+                                            else
+                                            {
+                                                <i>@Html.Raw(j.Name)</i>
+                                            }
+                                            z++;
+                                        }
+                                    }
+
+                                    <br />
+                                    @Html.Name(a.ShordDescription)
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="NotCommercialProjectsRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Projekty niekomercyjne</h6>
+                    </div>
+                    <div class="col text-left">
+                        @{
+
+                            foreach (var a in Model.Projects.Where(x => x.Commercial == false))
+                            {
+                                int techCount = a.Technologies.Count();
+                                <p>
+                                    <b>@Html.Name(a.Title)</b><br />
+                                    @if (a.Technologies.Any())
+                                    {
+                                        int z = 0;
+                                        foreach (var j in a.Technologies)
+                                        {
+
+                                            if (techCount > 1 && z < techCount - 1)
+                                            {
+                                                <i>@Html.Raw(j.Name),</i>
+                                            }
+                                            else
+                                            {
+                                                <i>@Html.Raw(j.Name)</i>
+                                            }
+                                            z++;
+                                        }
+                                    }
+
+                                    <br />
+                                    @Html.Name(a.ShordDescription)
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 1em;" id="TechnologiesRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Technologie</h6>
+                    </div>
+                    <div class="col text-left">
+                        <div id="VeryWell" class="d-inline">
+                            <span style="font-weight: bold;">Dobra znajmość: </span>
+                            @{
+                                int i = 0;
+                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell))
+                                {
+                                    <span> @Html.Name(a.Name)</span>
+                                    if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell) - 1)
+                                    {
+                                        <span>@Html.Raw(",")</span>
+                                    }
+                                    i++;
+                                }
+
+                            }
+                        </div>
+
+                        <br />
+                        <div id="good" class="d-inline">
+                            <span style="font-weight: bold;">Znajmość podstaw: </span>
+                            @{
+                                i = 0;
+                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well))
+                                {
+                                    <span> @Html.Name(a.Name)</span>
+                                    if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well) - 1)
+                                    {
+                                        @Html.Raw(",")
+                                    }
+                                    i++;
+                                }
+                            }
+                        </div>
+
+                        <br />
+                        <div id="ok" class="d-inline">
+                            <span style="font-weight: bold;">Styczność z: </span>
+                            @{
+                                i = 0;
+                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok))
+                                {
+                                    <span> @Html.Name(a.Name)</span>
+                                    if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok) - 1)
+                                    {
+                                        @Html.Raw(",")
+                                    }
+                                    i++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchivmentsRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Osiągnięcia</h6>
+                    </div>
+                    <div class="col text-left">
+                        @{
+                            foreach (var a in Model.Achivments)
+                            {
+                                <p>
+                                    <b>@Html.Name(a.Title)</b><br />
+                                    <i>@Html.Name(a.Date.ToString("dd/MM/yyyy"))</i><br />
+                                    @Html.Name(a.Description)<br />
+                                </p>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 1em;" id="AdditionalInfo">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Dodatkowe informacje</h6>
+                    </div>
+                    <div class="col text-left">
+                        <div id="Langs" class="d-inline">
+                            <span style="font-weight: bold;">Języki obce: </span>
+                            @{
+                                i = 0;
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 0))
+                                {
+                                    <span> @Html.Name(a.Title)</span>
+                                    if (Model.AdditionalInfos.Count(x => x.Type == 0) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 0) - 1)
+                                    {
+                                        @Html.Raw(", ")
+                                    }
+                                    i++;
+                                }
+                            }
+                        </div>
+
+                        <br />
+                        <div id="AddiSkills" class="d-inline">
+                            <span style="font-weight: bold;">Dodatkowe umiejętności: </span>
+                            @{
+                                i = 0;
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 1))
+                                {
+                                    <span> @Html.Name(a.Title)</span>
+                                    if (Model.AdditionalInfos.Count(x => x.Type == 1) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 1) - 1)
+                                    {
+                                        @Html.Raw(", ")
+                                    }
+                                    i++;
+                                }
+                            }
+                        </div>
+
+                        <br />
+                        <div id="Intrested" class="d-inline">
+                            <span style="font-weight: bold;">Zainteresowania: </span>
+                            @{
+                                i = 0;
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 2))
+                                {
+                                    <span> @Html.Name(a.Title)</span>
+                                    if (Model.AdditionalInfos.Count(x => x.Type == 2) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 2) - 1)
+                                    {
+                                        @Html.Raw(", ")
+                                    }
+                                    i++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="EmploymentHistoriesRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Historia zatrudnienia</h6>
+                    </div>
+                    <div class="col text-left">
+                        <div id="EmpHistory" class="d-inline">
+                            @{
+                                foreach (var a in Model.EmploymentHistories.OrderByDescending(x => x.StartDate))
+                                {
+                                    <b>
+                                        <span>@Html.Name(a.Position)</span>
+                                        <span>, @Html.Name(a.CompanyName)</span>
+                                        <span>, @Html.Name(a.CityOfEmployment)</span>
+                                    </b>
+                                    <br />
+                                    if (a.CurrentPlaceOfEmployment)
+                                    {
+                                        <p>@Html.Raw(a.StartDate.ToString("dd/MM/yyyy") + " - " + "Obecnie")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@Html.Raw(a.StartDate.ToString("dd/MM/yyyy") + " - " + a.EndDate.ToString("dd/MM/yyyy"))</p>
+                                    }
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em;" id="EducationRow">
+                    <div class="col-4">
+                        <h6 style="color: cornflowerblue;">Wykształcenie</h6>
+                    </div>
+                    <div class="col text-left">
+                        <div id="educ" class="d-inline">
+                            @{
+                                foreach (var a in Model.Educations.OrderByDescending(x => x.StartDate))
+                                {
+                                    <b>
+                                        <span>@Html.Name(a.SchooleName)</span>
+                                        <span>, @Html.Name(a.Department)</span>
+                                        <span>, @Html.Name(a.Specialization)</span>
+                                    </b>
+                                    <br />
+                                    if (a.CurrentPlaceOfEducation)
+                                    {
+                                        <p>@Html.Raw(a.StartDate.ToString("dd/MM/yyyy") + " - " + "Obecnie")</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@Html.Raw(a.StartDate.ToString("dd/MM/yyyy") + " - " + a.EndDate.ToString("dd/MM/yyyy"))</p>
+                                    }
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <button type="button" id="print" class="btn btn-sm btn-primary float-right" onclick="location.href='@Url.Action("PrintCv", "Home")';return false;">Drukuj</button>
+            </div>
+        </div>
+    </div>
+</section>
