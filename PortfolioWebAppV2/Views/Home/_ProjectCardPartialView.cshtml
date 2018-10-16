@@ -12,25 +12,25 @@
                         @*<b style="margin-left: 1em;">Autor:</b> <a href="#">@Html.Name(AccountController.GetAuthorName(Model.AuthorId)) </a>*@
                         <b style="margin-left: 1em;">Technologie:</b>
                         @{
-                            //int techCount = Model.Technologies.Count();
+                            int techCount = Model.Technologies.Count();
                             if (Model.Technologies.Any())
                             {
                                 int a = 0;
                                 foreach (var i in Model.Technologies)
                                 {
 
-                                    @*if (techCount > 1 && a < techCount - 1)
+                                    if (techCount > 1 && a < techCount - 1)
                                     {
                                         <a href="#">@Html.Raw(i.Name),</a>
                                     }
                                     else
-                                    {*@
+                                    {
                                         <a href="#">@Html.Raw(i.Name)</a>
-                                    //}
-                                    //a++;
+                                        }
+                                        a++;
+                                    }
                                 }
                             }
-                        }
                     </footer>
 
                 </blockquote>
@@ -56,8 +56,7 @@
 
             <div class="card-footer" style="padding-bottom: 3px !important; padding-top: 3px !important;">
                 @*//TODO: Dodac przycisk wiecej*@
-
-                @*<button type="button" id="@Html.Raw("MoreBtn" + Model.ProjectId)" class="btn btn-sm btn-primary float-right" onclick="location.href='@Url.Action("ProjectView", "Projects", new { projectId = Model.ProjectId})';return false;">Więcej</button>*@
+                <button type="button" id="@Html.Raw("MoreBtn" + Model.ProjectId)" class="btn btn-sm btn-primary float-right" onclick="location.href='@Url.Action("Project", "Home", new { id = Model.ProjectId})';return false;">Więcej</button>
 
             </div>
         </div>

@@ -58,5 +58,14 @@ namespace PortfolioWebAppV2.Controllers
 
             return View(projectsViewModel);
         }
+
+        [HttpGet]
+        public ActionResult Project(int id)
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            var project = dbContext.Projects.FirstOrDefault(a => a.ProjectId == id);
+
+            return View(project);
+        }
     }
 }

@@ -4,11 +4,15 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <h2>Moje projekty:</h2>
+                <h2>
+                    Moje projekty
+                    @(Model.Commercial ? Html.Raw("komercyjne") : Html.Raw("niekomercyjne"))
+
+                </h2>
             </div>
         </div>
-    
-        <div style="text-align: center; margin-bottom: 1em" >
+
+        <div style="text-align: center; margin-bottom: 1em">
             <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Projects", "Home", new{ page = 0, commercial = true })';return false;">Komercyjne</button>
             <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Projects", "Home", new{ page = 0, commercial = false })';return false;">Niekomercyjne</button>
         </div>
@@ -19,5 +23,5 @@
             @Html.Partial("_ProjectCardPartialView", project)
         }
 
-   </div>
+    </div>
 </section>
