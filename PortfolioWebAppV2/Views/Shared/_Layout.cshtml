@@ -30,7 +30,7 @@
                         <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")';return false;">Strona główna</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Projekty</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="">CV</button>
+                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Cv", "Home")';return false;">CV</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Contact", "Home")';return false;">Kontakt</button>
                         @if (User.IsInRole("Admin"))
                         {
@@ -62,7 +62,7 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="@Url.Action("Projects", "Home")">Projekty</a>
                                 <a class="dropdown-item" href="@Url.Action("AboutMe", "Home")">O mnie</a>
-                                <a class="dropdown-item" href="">CV</a>
+                                <a class="dropdown-item" href="@Url.Action("Cv", "Home")">CV</a>
                                 <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Kontakt</a>
 
 
