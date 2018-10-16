@@ -47,7 +47,7 @@ namespace PortfolioWebAppV2.Controllers
             bool isCommercial = commercial.GetValueOrDefault();
             
             ApplicationDbContext db = new ApplicationDbContext();
-            var projects = db.Projects.Where(a => a.Commercial == isCommercial).OrderBy(a => a.ProjectId).Skip(pageNumber * 10).Take(10).ToList();
+            var projects = db.Projects.Where(a => a.Commercial == isCommercial).OrderByDescending(a => a.ProjectId).Skip(pageNumber * 10).Take(10).ToList();
 
             ProjectsViewModel projectsViewModel = new ProjectsViewModel()
             {
@@ -67,5 +67,6 @@ namespace PortfolioWebAppV2.Controllers
 
             return View(project);
         }
+
     }
 }

@@ -102,9 +102,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             var project1 =
                 new Project()
                 {
-                    FullDescription = "Pelen opis pierwszego projektu",
-                    ShordDescription = "krotki opis pierwszego projektu",
-                    Title = "Tytul pierwszego projektu",
+                    FullDescription = "Pelen opis 1 projektu",
+                    ShordDescription = "krotki opis 1 projektu",
+                    Title = "Tytul 1 projektu",
                     Commercial = true,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
@@ -122,9 +122,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             var project2 =
                 new Project()
                 {
-                    FullDescription = "Pelen opis DRUGIEGO projektu",
-                    ShordDescription = "krotki opis DRUGIEGO projektu",
-                    Title = "Tytul DRUGIEGO projektu",
+                    FullDescription = "Pelen opis 2 projektu",
+                    ShordDescription = "krotki opis 2 projektu",
+                    Title = "Tytul 2 projektu",
                     Commercial = true,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
@@ -142,9 +142,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             var project3 =
                 new Project()
                 {
-                    FullDescription = "Pelen opis TRZECIEGO projektu",
-                    ShordDescription = "krotki opis TRZECIEGO projektu",
-                    Title = "Tytul TRZECIEGO projektu",
+                    FullDescription = "Pelen opis 3 projektu",
+                    ShordDescription = "krotki opis 3 projektu",
+                    Title = "Tytul 3 projektu",
                     Commercial = false,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
@@ -164,7 +164,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Project()
                 {
                     FullDescription = "Pelen opis 4 projektu",
-                    ShordDescription = "krotki opis 4 projektu",
+                    ShordDescription = "Krotki opis 4 projektu",
                     Title = "Tytul 4 projektu",
                     Commercial = false,
                     ShowInCv = true,
