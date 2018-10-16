@@ -14,7 +14,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public bool IsIcon { get; set; }
         public DateTime DateTimeCreated { get; set; }
         public string AuthorId { get; set; }
-        public ICollection<Technology> Technologies { get; set; }
+        public virtual ICollection<Technology> Technologies { get; set; }
         public bool TempProject { get; set; }
     }
 }

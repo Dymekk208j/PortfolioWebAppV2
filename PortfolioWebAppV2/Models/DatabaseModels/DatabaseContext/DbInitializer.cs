@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -80,31 +82,103 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             //employmentHistorie.ForEach(g => context.EmploymentHistories.Add(g));
             //context.SaveChanges();
 
-            //var projects = new List<Project>
-            //{
-            //    new Project() { ProjectId = 1, FullDescription = "Pelen opis pierwszego projektu", ShordDescription = "krotki opis pierwszego projektu",  Title="Tytul pierwszego projektu", Commercial = true, ShowInCv = true, DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01), IsIcon = false },
-            //    new Project() { ProjectId = 2, FullDescription = "Pelen opis drugiego projektu", ShordDescription = "krotki opis drugiego projektu",  Title="Tytul drugiego projektu", Commercial = false, ShowInCv = true,  DateTimeCreated = new DateTime(2017, 1, 1, 01, 01, 01), IsIcon = false },
-            //    new Project() { ProjectId = 3, FullDescription = "Pelen opis trzeciego projektu", ShordDescription = "krotki opis trzeciego projektu",  Title="Tytul trzeciego projektu", Commercial = true, ShowInCv = false,  DateTimeCreated = new DateTime(2018, 1, 1, 01, 01, 01), IsIcon = false },
-            //    new Project() { ProjectId = 4, FullDescription = "Pelen opis czwartego projektu", ShordDescription = "krotki opis czwartego projektu",  Title="Tytul czwartego projektu", Commercial = false, ShowInCv = false,  DateTimeCreated = new DateTime(2019, 1, 1, 01, 01, 01), IsIcon = false }
+          
 
-            //};
-            //projects.ForEach(g => context.Projects.Add(g));
-            //context.SaveChanges();
+            var technologies = new List<Technology>
+            {
+                new Technology() { Name="JAVA", KnowledgeLevel = Technology.LevelOfKnowledge.Ok, ShowInCv = true },
+                new Technology() { Name="C#", KnowledgeLevel= Technology.LevelOfKnowledge.Ok, ShowInCv = true },
+                new Technology() { Name="JavaScript", KnowledgeLevel=Technology.LevelOfKnowledge.Well, ShowInCv = false },
+                new Technology() { Name="ASP.net", KnowledgeLevel=Technology.LevelOfKnowledge.Well, ShowInCv = true },
+                new Technology() { Name="UML", KnowledgeLevel=Technology.LevelOfKnowledge.VeryWell, ShowInCv = false },
+                new Technology() { Name="CSS", KnowledgeLevel=Technology.LevelOfKnowledge.VeryWell, ShowInCv = false },
+                new Technology() { Name="Android", KnowledgeLevel=Technology.LevelOfKnowledge.VeryWell, ShowInCv = true },
+                new Technology() { Name="SQLite", KnowledgeLevel=Technology.LevelOfKnowledge.VeryWell, ShowInCv = false }
 
-            //var technologies = new List<Technology>
-            //{
-            //    new Technology() { TechnologyId = 1, Name="JAVA", LevelOfKnowledge=0, ShowInCv = true },
-            //    new Technology() { TechnologyId = 2, Name="C#", LevelOfKnowledge=0, ShowInCv = true },
-            //    new Technology() { TechnologyId = 3, Name="JavaScript", LevelOfKnowledge=1, ShowInCv = false },
-            //    new Technology() { TechnologyId = 4, Name="ASP.net", LevelOfKnowledge=1, ShowInCv = true },
-            //    new Technology() { TechnologyId = 5, Name="UML", LevelOfKnowledge=2, ShowInCv = false },
-            //    new Technology() { TechnologyId = 6, Name="CSS", LevelOfKnowledge=2, ShowInCv = false },
-            //    new Technology() { TechnologyId = 7, Name="Android", LevelOfKnowledge=2, ShowInCv = true },
-            //    new Technology() { TechnologyId = 8, Name="SQLite", LevelOfKnowledge=2, ShowInCv = false }
+              };
+            technologies.ForEach(g => context.Technologies.Add(g));
+            context.SaveChanges();
 
-            //  };
-            //technologies.ForEach(g => context.Technologies.Add(g));
-            //context.SaveChanges();
+            var project1 =
+                new Project()
+                {
+                    FullDescription = "Pelen opis pierwszego projektu",
+                    ShordDescription = "krotki opis pierwszego projektu",
+                    Title = "Tytul pierwszego projektu",
+                    Commercial = true,
+                    ShowInCv = true,
+                    DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
+                    IsIcon = false,
+                    Technologies = new List<Technology>()
+                };
+
+            project1.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
+            project1.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
+            project1.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
+
+            context.Projects.Add(project1);
+            context.SaveChanges();
+
+            var project2 =
+                new Project()
+                {
+                    FullDescription = "Pelen opis DRUGIEGO projektu",
+                    ShordDescription = "krotki opis DRUGIEGO projektu",
+                    Title = "Tytul DRUGIEGO projektu",
+                    Commercial = true,
+                    ShowInCv = true,
+                    DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
+                    IsIcon = false,
+                    Technologies = new List<Technology>()
+                };
+
+            project2.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
+            project2.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
+            project2.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
+
+            context.Projects.Add(project2);
+            context.SaveChanges();
+
+            var project3 =
+                new Project()
+                {
+                    FullDescription = "Pelen opis TRZECIEGO projektu",
+                    ShordDescription = "krotki opis TRZECIEGO projektu",
+                    Title = "Tytul TRZECIEGO projektu",
+                    Commercial = false,
+                    ShowInCv = true,
+                    DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
+                    IsIcon = false,
+                    Technologies = new List<Technology>()
+                };
+
+            project3.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
+            project3.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
+            project3.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
+
+            context.Projects.Add(project3);
+            context.SaveChanges();
+
+
+            var project4 =
+                new Project()
+                {
+                    FullDescription = "Pelen opis 4 projektu",
+                    ShordDescription = "krotki opis 4 projektu",
+                    Title = "Tytul 4 projektu",
+                    Commercial = false,
+                    ShowInCv = true,
+                    DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
+                    IsIcon = false,
+                    Technologies = new List<Technology>()
+                };
+
+            project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
+            project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
+            project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
+
+            context.Projects.Add(project4);
+            context.SaveChanges();
 
             //var privateInformation = new List<PrivateInformation>
             //{
