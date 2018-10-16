@@ -10,7 +10,10 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            ApplicationDbContext db = new ApplicationDbContext();
+            var project = db.Projects.OrderByDescending(a => a.ProjectId).FirstOrDefault();
+
+            return View(project);
         }
 
         [HttpGet]

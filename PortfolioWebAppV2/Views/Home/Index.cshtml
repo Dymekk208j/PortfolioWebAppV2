@@ -1,4 +1,6 @@
-﻿<section class="skills">
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+
+<section class="skills">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 title">
@@ -6,6 +8,7 @@
                 <span class="byline">Znajmość technologii:</span>
             </div>
         </div>
+
         <div class="row">
             <div class="col my-card">
                 <div class="card ">
@@ -14,7 +17,6 @@
                         <p class="card-text text-center">Język C#.</p>
                     </div>
                 </div>
-
             </div>
 
             <div class="col my-card">
@@ -84,7 +86,7 @@
         <br />
         <div class="row">
             <div class="col text-center">
-                <button type="button" class="btn-lg btn-success" onclick="">Więcej o mnie</button>
+                <button type="button" class="btn-lg btn-success" onclick="location.href='@Url.Action("AboutMe", "Home")';return false;">Więcej o mnie</button>
             </div>
         </div>
     </div>
@@ -95,21 +97,21 @@
         <div class="row">
             <div class="col-sm-12 title">
                 <h2>Mój ostatni projekt:</h2>
-                @*<span class="byline">@Html.DisplayFor(m => m.Title)</span>*@
+                <span class="byline">@Html.DisplayFor(m => m.Title)</span>
             </div>
         </div>
 
         <div class="row">
             <div class="col text-center">
                 <div style="text-align: center;">
-                    @*@if (!Model.IsIcon)
-                    {*@
+                    @if (!Model.IsIcon)
+                    {
                         <img class="rounded" src="~/Lib/images/PlaceHolder150x150.png" style="margin-bottom: 2em;" alt="" />
-                    @*}
+                    }
                     else
                     {
-                        <img class="rounded" src="@Html.Raw(Project.GetIconLink(Model.ProjectId))" style="margin-bottom: 2em;" alt="" />
-                    }*@
+                        @*<img class="rounded" src="@Html.Raw(Project.GetIconLink(Model.ProjectId))" style="margin-bottom: 2em;" alt="" />*@
+                    }
                 </div>
             </div>
         </div>
@@ -117,8 +119,7 @@
         <div class="row">
             <div class="col text-center">
                 <p style="text-indent: 2%;">
-                    @*@Html.DisplayFor(m => m.ShordDescription);*@
-                    Krótki opis
+                    @Html.DisplayFor(m => m.ShordDescription);
                 </p>
             </div>
         </div>
@@ -126,7 +127,7 @@
 
         <div class="row">
             <div class="col text-center">
-                <button type="button" class="btn-lg btn-secondary" onclick="">Więcej projektów</button>
+                <button type="button" class="btn-lg btn-secondary" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Więcej projektów</button>
             </div>
         </div>
     </div>
