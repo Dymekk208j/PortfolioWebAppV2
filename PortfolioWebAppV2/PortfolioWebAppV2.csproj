@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201810161837171_LazyLoadingOnTechnologies.Designer.cs">
       <DependentUpon>201810161837171_LazyLoadingOnTechnologies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810171615399_AddedRequaierdFieldToTheTechnologyModel.cs" />
+    <Compile Include="Migrations\201810171615399_AddedRequaierdFieldToTheTechnologyModel.Designer.cs">
+      <DependentUpon>201810171615399_AddedRequaierdFieldToTheTechnologyModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achivment.cs" />
@@ -359,6 +363,8 @@
     <Content Include="Views\Home\Project.cshtml" />
     <Content Include="Views\Home\Cv.cshtml" />
     <Content Include="Views\Home\PrintCv.cshtml" />
+    <Content Include="Views\AdminPanel\EditTechnologies.cshtml" />
+    <Content Include="Views\AdminPanel\_AddTechnologyPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -386,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810161837171_LazyLoadingOnTechnologies.resx">
       <DependentUpon>201810161837171_LazyLoadingOnTechnologies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810171615399_AddedRequaierdFieldToTheTechnologyModel.resx">
+      <DependentUpon>201810171615399_AddedRequaierdFieldToTheTechnologyModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
