@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201810171615399_AddedRequaierdFieldToTheTechnologyModel.Designer.cs">
       <DependentUpon>201810171615399_AddedRequaierdFieldToTheTechnologyModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810172047063_Test.cs" />
+    <Compile Include="Migrations\201810172047063_Test.Designer.cs">
+      <DependentUpon>201810172047063_Test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achivment.cs" />
@@ -244,7 +248,6 @@
     <Compile Include="Models\ViewModels\AboutMeViewModel.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DatabaseModels\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\ContactViewModel.cs" />
     <Compile Include="Models\ViewModels\CvViewModel.cs" />
     <Compile Include="Models\ViewModels\ProjectsViewModel.cs" />
@@ -367,6 +370,11 @@
     <Content Include="Views\AdminPanel\_AddTechnologyPartialView.cshtml" />
     <Content Include="Views\AdminPanel\EditAchivments.cshtml" />
     <Content Include="Views\AdminPanel\_CreateAchivmentPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\EditEducation.cshtml" />
+    <Content Include="Views\AdminPanel\_CreateEducationPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_EditEducationPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\EditAdditionalInfo.cshtml" />
+    <Content Include="Views\AdminPanel\_CreateAditionalInformationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810171615399_AddedRequaierdFieldToTheTechnologyModel.resx">
       <DependentUpon>201810171615399_AddedRequaierdFieldToTheTechnologyModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810172047063_Test.resx">
+      <DependentUpon>201810172047063_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

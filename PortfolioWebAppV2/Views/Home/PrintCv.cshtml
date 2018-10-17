@@ -200,10 +200,11 @@
                             <span style="font-weight: bold;">Języki obce: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 0))
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
                                 {
                                     <span> @Html.Name(a.Title)</span>
-                                    if (Model.AdditionalInfos.Count(x => x.Type == 0) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 0) - 1)
+                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) > 1 
+                                        && i < Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) - 1)
                                     {
                                         @Html.Raw(", ")
                                     }
@@ -217,10 +218,11 @@
                             <span style="font-weight: bold;">Dodatkowe umiejętności: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 1))
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
                                 {
                                     <span> @Html.Name(a.Title)</span>
-                                    if (Model.AdditionalInfos.Count(x => x.Type == 1) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 1) - 1)
+                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills) > 1
+                                        && i < Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills) - 1)
                                     {
                                         @Html.Raw(", ")
                                     }
@@ -234,10 +236,11 @@
                             <span style="font-weight: bold;">Zainteresowania: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == 2))
+                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
                                 {
                                     <span> @Html.Name(a.Title)</span>
-                                    if (Model.AdditionalInfos.Count(x => x.Type == 2) > 1 && i < Model.AdditionalInfos.Count(x => x.Type == 2) - 1)
+                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) > 1 
+                                        && i < Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) - 1)
                                     {
                                         @Html.Raw(", ")
                                     }

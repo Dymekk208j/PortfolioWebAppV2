@@ -59,9 +59,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 
             var additionalInfos = new List<AdditionalInfo>
             {
-                new AdditionalInfo() { AdditionalInfoId = 1, Type = 0, Title = "Język angielski - Poziom podstawowy", ShowInCv = true},
-                new AdditionalInfo() { AdditionalInfoId = 2, Type = 1, Title = "Prawo jazdy B. (Dodatkowa um)", ShowInCv = true },
-                new AdditionalInfo() { AdditionalInfoId = 3, Type = 2, Title = "Gry komputerowe (Zainteresowania)", ShowInCv = true }
+                new AdditionalInfo() { AdditionalInfoId = 1, Type = AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages, Title = "Język angielski - Poziom podstawowy", ShowInCv = true},
+                new AdditionalInfo() { AdditionalInfoId = 2, Type = AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills, Title = "Prawo jazdy B. (Dodatkowa um)", ShowInCv = true },
+                new AdditionalInfo() { AdditionalInfoId = 3, Type = AdditionalInfo.TypeOfAddtionalInfo.Interests, Title = "Gry komputerowe (Zainteresowania)", ShowInCv = true }
 
               };
             additionalInfos.ForEach(g => context.AdditionalInfos.Add(g));

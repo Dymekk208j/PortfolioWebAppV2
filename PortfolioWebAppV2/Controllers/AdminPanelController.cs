@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity.Migrations;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using PortfolioWebAppV2.Models.DatabaseModels;
@@ -68,7 +69,7 @@ namespace PortfolioWebAppV2.Controllers
                 db.Entry(aboutMe).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
-            
+
 
             return RedirectToAction("EditAboutMe");
         }
@@ -99,8 +100,8 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult RemoveTechnology(int id)
         {
             var db = new ApplicationDbContext();
-            
-            var technology = new Technology(){TechnologyId = id};
+
+            var technology = new Technology() { TechnologyId = id };
             db.Technologies.Attach(technology);
             db.Technologies.Remove(technology);
             db.SaveChanges();
@@ -141,6 +142,76 @@ namespace PortfolioWebAppV2.Controllers
             }
 
             return RedirectToAction("EditAchivments");
+        }
+
+        [HttpGet]
+        public ActionResult EditEducation()
+        {
+            var db = new ApplicationDbContext();
+            var educations = db.Educations.ToList();
+
+            return View(educations);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveEducation(int id)
+        {
+            var db = new ApplicationDbContext();
+
+            var education = new Education() { EducationId = id };
+            db.Educations.Attach(education);
+            db.Educations.Remove(education);
+            db.SaveChanges();
+
+            return RedirectToAction("EditEducation");
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrUpdateEducation(Education education)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new ApplicationDbContext();
+                db.Educations.AddOrUpdate(education);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditEducation");
+        }
+
+        [HttpGet]
+        public ActionResult EditAdditionalInfo()
+        {
+            var db = new ApplicationDbContext();
+            var additionalInfos = db.AdditionalInfos.ToList();
+
+            return View(additionalInfos);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAdditionalInfo(int id)
+        {
+            var db = new ApplicationDbContext();
+
+            var additionalInfo = new AdditionalInfo() { AdditionalInfoId = id };
+            db.AdditionalInfos.Attach(additionalInfo);
+            db.AdditionalInfos.Remove(additionalInfo);
+            db.SaveChanges();
+
+            return RedirectToAction("EditAdditionalInfo");
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrUpdateAdditionalInfo(AdditionalInfo additionalInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new ApplicationDbContext();
+                db.AdditionalInfos.AddOrUpdate(additionalInfo);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditAdditionalInfo");
         }
     }
 }
