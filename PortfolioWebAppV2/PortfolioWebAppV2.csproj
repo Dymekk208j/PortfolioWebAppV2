@@ -365,6 +365,8 @@
     <Content Include="Views\Home\PrintCv.cshtml" />
     <Content Include="Views\AdminPanel\EditTechnologies.cshtml" />
     <Content Include="Views\AdminPanel\_AddTechnologyPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\EditAchivments.cshtml" />
+    <Content Include="Views\AdminPanel\_CreateAchivmentPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

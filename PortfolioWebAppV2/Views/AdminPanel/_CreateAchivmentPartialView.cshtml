@@ -1,0 +1,43 @@
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Achivment
+
+@{ using (Html.BeginForm("CreateAchivment", "AdminPanel"))
+    {
+        <div class="modal fade" id="AddAchivment" tabindex="-1" role="dialog" aria-labelledby="AddAchivmentLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AddAchivmentLabel">Dodaj osiągnięcie</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @Html.ValidationMessageFor(m => m.Title, "*", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.Title, new { style = "font-weight: bold; Margin-top: 10px;" })
+                        @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" }, })
+
+                        @Html.ValidationMessageFor(m => m.Description, "*", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.Description, new { style = "font-weight: bold; Margin-top: 10px;" })
+                        @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" }, })
+
+                        @Html.ValidationMessageFor(m => m.Date, "*", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.Date, new { style = "font-weight: bold; Margin-top: 10px;", type = "date" })
+                        <input class="form-control" type="date" value="@Model.Date" id="Date" name="Date">
+                        <br />
+                        <label class="form-check-label">
+                            <input class="form-check-inline" type="checkbox" name="ShowInCv" id="ShowInCv" />
+                            Dodaj co CV
+                        </label>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -108,5 +108,39 @@ namespace PortfolioWebAppV2.Controllers
             return RedirectToAction("EditTechnologies");
         }
 
+        [HttpGet]
+        public ActionResult EditAchivments()
+        {
+            var db = new ApplicationDbContext();
+            var achivments = db.Achivments.ToList();
+
+            return View(achivments);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAchivment(int id)
+        {
+            var db = new ApplicationDbContext();
+
+            var achivment = new Achivment() { AchivmentId = id };
+            db.Achivments.Attach(achivment);
+            db.Achivments.Remove(achivment);
+            db.SaveChanges();
+
+            return RedirectToAction("EditAchivments");
+        }
+
+        [HttpPost]
+        public ActionResult CreateAchivment(Achivment achivment)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new ApplicationDbContext();
+                db.Achivments.Add(achivment);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditAchivments");
+        }
     }
 }
