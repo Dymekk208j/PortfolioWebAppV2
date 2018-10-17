@@ -213,5 +213,41 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditAdditionalInfo");
         }
+
+        [HttpGet]
+        public ActionResult EditEmploymentHistory()
+        {
+            var db = new ApplicationDbContext();
+            var employmentHistory = db.EmploymentHistories.ToList();
+
+            return View(employmentHistory);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveEmploymentHistory(int id)
+        {
+            var db = new ApplicationDbContext();
+
+            var employmentHistory = new EmploymentHistory() { EmploymentHistoryId = id };
+            db.EmploymentHistories.Attach(employmentHistory);
+            db.EmploymentHistories.Remove(employmentHistory);
+            db.SaveChanges();
+
+            return RedirectToAction("EditEmploymentHistory");
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrUpdateEmploymentHistory(EmploymentHistory employmentHistory)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new ApplicationDbContext();
+                db.EmploymentHistories.AddOrUpdate(employmentHistory);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditEmploymentHistory");
+        }
+
     }
 }

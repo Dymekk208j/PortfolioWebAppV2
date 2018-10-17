@@ -234,6 +234,10 @@
     <Compile Include="Migrations\201810172047063_Test.Designer.cs">
       <DependentUpon>201810172047063_Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810172223156_UpdatedEmploymentHistory.cs" />
+    <Compile Include="Migrations\201810172223156_UpdatedEmploymentHistory.Designer.cs">
+      <DependentUpon>201810172223156_UpdatedEmploymentHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achivment.cs" />
@@ -375,6 +379,9 @@
     <Content Include="Views\AdminPanel\_EditEducationPartialView.cshtml" />
     <Content Include="Views\AdminPanel\EditAdditionalInfo.cshtml" />
     <Content Include="Views\AdminPanel\_CreateAditionalInformationView.cshtml" />
+    <Content Include="Views\AdminPanel\EditEmploymentHistory.cshtml" />
+    <Content Include="Views\AdminPanel\_CreateEmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_EditEmploymentHistoryPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -408,6 +415,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810172047063_Test.resx">
       <DependentUpon>201810172047063_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810172223156_UpdatedEmploymentHistory.resx">
+      <DependentUpon>201810172223156_UpdatedEmploymentHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
