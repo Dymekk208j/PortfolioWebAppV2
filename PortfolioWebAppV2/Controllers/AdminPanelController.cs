@@ -1,4 +1,7 @@
-﻿using System.Data.Entity.Migrations;
+﻿using System;
+using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -249,5 +252,272 @@ namespace PortfolioWebAppV2.Controllers
             return RedirectToAction("EditEmploymentHistory");
         }
 
+        [HttpGet]
+        public ActionResult EditCv()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            CvViewModel cvViewModel = new CvViewModel()
+            {
+                Contact = db.Contacts.FirstOrDefault(),
+                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
+                Achivments = db.Achivments.ToList(),
+                AdditionalInfos = db.AdditionalInfos.ToList(),
+                Educations = db.Educations.ToList(),
+                EmploymentHistories = db.EmploymentHistories.ToList(),
+                Projects = db.Projects.ToList(),
+                Technologies = db.Technologies.ToList()
+            };
+
+            return View(cvViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateOrUpdatePrivateInformation(PrivateInformation privateInformation)
+        {
+            if (ModelState.IsValid)
+            {
+                var db = new ApplicationDbContext();
+                db.PrivateInformations.AddOrUpdate(privateInformation);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddProjectToCv(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Project project = new Project() { ProjectId = cvModel.SelectedProject, ShowInCv = true };
+
+            db.Projects.Attach(project);
+            db.Entry(project).Property(x => x.ShowInCv).IsModified = true;
+            db.SaveChanges();
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveProjectFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Project project = new Project() { ProjectId = id, ShowInCv = false };
+
+            db.Projects.Attach(project);
+            db.Entry(project).Property(x => x.ShowInCv).IsModified = true;
+            db.SaveChanges();
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddToCvVeryWellKnowTechnology(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
+            if (technology != null)
+            {
+                technology.ShowInCv = true;
+                technology.KnowledgeLevel = Technology.LevelOfKnowledge.VeryWell;
+
+                db.Technologies.Attach(technology);
+
+                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
+                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddToCvWellKnowTechnology(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
+            if (technology != null)
+            {
+                technology.ShowInCv = true;
+                technology.KnowledgeLevel = Technology.LevelOfKnowledge.Well;
+
+                db.Technologies.Attach(technology);
+
+                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
+                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddToCvKnowTechnology(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
+            if (technology != null)
+            {
+                technology.ShowInCv = true;
+                technology.KnowledgeLevel = Technology.LevelOfKnowledge.Ok;
+
+                db.Technologies.Attach(technology);
+
+                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
+                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveTechnologyFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == id);
+            if (technology != null)
+            {
+                technology.ShowInCv = false;
+                db.Technologies.Attach(technology);
+                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+
+        }
+
+        [HttpPost]
+        public ActionResult AddAchivmentToCv(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Achivment achivment = db.Achivments.SingleOrDefault(x => x.AchivmentId == cvModel.SelectedAchivment);
+            if (achivment != null)
+            {
+                achivment.ShowInCv = true;
+                db.Achivments.Attach(achivment);
+                db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAchivmentFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Achivment achivment = db.Achivments.SingleOrDefault(x => x.AchivmentId == id);
+            if (achivment != null)
+            {
+                achivment.ShowInCv = false;
+                db.Achivments.Attach(achivment);
+                db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveAdditionalInformationFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            AdditionalInfo additionalInfo = db.AdditionalInfos.SingleOrDefault(x => x.AdditionalInfoId == id);
+            if (additionalInfo != null)
+            {
+                additionalInfo.ShowInCv = false;
+                db.AdditionalInfos.Attach(additionalInfo);
+                db.Entry(additionalInfo).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddAdditionalInfoToCv(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            AdditionalInfo additionalInfo = db.AdditionalInfos.SingleOrDefault(x => x.AdditionalInfoId == cvModel.SelectedAddtinionaInformation);
+            if (additionalInfo != null)
+            {
+                additionalInfo.ShowInCv = true;
+                db.AdditionalInfos.Attach(additionalInfo);
+                db.Entry(additionalInfo).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddEmploymentHistroyToCv(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            EmploymentHistory employmentHistory = db.EmploymentHistories.SingleOrDefault(x => x.EmploymentHistoryId == cvModel.SelectedEmploymentHistory);
+            if (employmentHistory != null)
+            {
+                employmentHistory.ShowInCv = true;
+                db.EmploymentHistories.Attach(employmentHistory);
+                db.Entry(employmentHistory).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveEmploymentHistroyFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            EmploymentHistory employmentHistory = db.EmploymentHistories.SingleOrDefault(x => x.EmploymentHistoryId == id);
+            if (employmentHistory != null)
+            {
+                employmentHistory.ShowInCv = false;
+                db.EmploymentHistories.Attach(employmentHistory);
+                db.Entry(employmentHistory).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpPost]
+        public ActionResult AddEducationToCv(CvViewModel cvModel)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Education education = db.Educations.SingleOrDefault(x => x.EducationId == cvModel.SelectedEducation);
+            if (education != null)
+            {
+                education.ShowInCv = true;
+                db.Educations.Attach(education);
+                db.Entry(education).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveEducationFromCv(int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            Education education = db.Educations.SingleOrDefault(x => x.EducationId == id);
+            if (education != null)
+            {
+                education.ShowInCv = false;
+                db.Educations.Attach(education);
+                db.Entry(education).Property(x => x.ShowInCv).IsModified = true;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("EditCv");
+        }
     }
+
 }

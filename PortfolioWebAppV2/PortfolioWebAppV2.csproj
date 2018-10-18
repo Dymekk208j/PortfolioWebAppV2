@@ -382,6 +382,11 @@
     <Content Include="Views\AdminPanel\EditEmploymentHistory.cshtml" />
     <Content Include="Views\AdminPanel\_CreateEmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\AdminPanel\_EditEmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\EditCv.cshtml" />
+    <Content Include="Views\AdminPanel\_ProjectPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_AchivmentPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_EmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_EducationPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
