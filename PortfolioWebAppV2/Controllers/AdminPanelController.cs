@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Validation;
-using System.Diagnostics;
+﻿using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -517,6 +514,36 @@ namespace PortfolioWebAppV2.Controllers
             }
 
             return RedirectToAction("EditCv");
+        }
+
+        [HttpGet]
+        public ActionResult UserMgt(UsersManagementViewModel usersManagementViewModel)
+        {
+            var db = new ApplicationDbContext();
+            usersManagementViewModel.Page = usersManagementViewModel.Page.GetValueOrDefault();
+
+            if (usersManagementViewModel.Page < 0)
+            {
+                usersManagementViewModel.Page = 0;
+            }
+
+            var usersList = db.Users.OrderBy(a => a.UserName).ToList();
+            
+            if (!string.IsNullOrEmpty(usersManagementViewModel.UserNameFilters)) usersList = usersList.Where(d => d.UserName == usersManagementViewModel.UserNameFilters).ToList();
+            if (!string.IsNullOrEmpty(usersManagementViewModel.FirstNameFilters)) usersList = usersList.Where(d => d.FirstName == usersManagementViewModel.FirstNameFilters).ToList();
+            if (!string.IsNullOrEmpty(usersManagementViewModel.LastNameFilters)) usersList = usersList.Where(d => d.LastName == usersManagementViewModel.LastNameFilters).ToList();
+            if (!string.IsNullOrEmpty(usersManagementViewModel.EmailFilters)) usersList = usersList.Where(d => d.Email == usersManagementViewModel.FirstNameFilters).ToList();
+            if (usersManagementViewModel.BlockedFilter != null) usersList = usersList.Where(d => d.Blocked == usersManagementViewModel.BlockedFilter).ToList();
+
+            usersList = usersList.Skip(usersManagementViewModel.Page.GetValueOrDefault() * 10).Take(10).ToList();
+
+            usersManagementViewModel.Users = usersList;
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UserListPartialView", usersList);
+            }
+            return View(usersManagementViewModel);
         }
     }
 
