@@ -22,6 +22,7 @@ namespace PortfolioWebAppV2
             {
                 config.CreateMap<AboutMeViewModel, AboutMe>().ReverseMap();
                 config.CreateMap<ContactViewModel, Contact>().ReverseMap();
+                config.CreateMap<UpdateViewModel, ApplicationUser>().ReverseMap();
 
             });
 

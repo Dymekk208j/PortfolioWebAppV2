@@ -4,51 +4,77 @@
 }
 
 @section Header{ Lista użytkowników }
-<script>
-    function NextPage() {
 
-        $.ajax({
-            url: '@Url.Action("UserMgt", "AdminPanel")' ,
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            data: { 'Page': document.getElementById('Page').value + 1 },
-            success: function(result) {
-                $('#UserList').html(result);
-                document.getElementById('Page').value = parseInt(document.getElementById('Page').value) + 1;
-            }
 
-            });
-        return false;
-    }
-
-    function PreviousPage() {
-        $.ajax({
-            url: '@Url.Action("UserMgt", "AdminPanel")' ,
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            data: { 'Page': document.getElementById('Page').value - 1 },
-            success: function(result) {
-                $('#UserList').html(result);
-                document.getElementById('Page').value = parseInt(document.getElementById('Page').value) - 1;
-            }
-        });
-        return false;
-    }
-</script>
-
-@Html.HiddenFor( a => a.Page)
+@Html.HiddenFor(a => a.Page)
+<body onload="CheckButtonsVisibility()">
+</body>
 
 <div id="UserList">
     @Html.Partial("_UserListPartialView", Model.Users)
 </div>
 
+<div class="row">
+    <div class="col">
+        <button href="#" onclick="PreviousPage()" class="btn btn-primary btn-sm mb-1" id="btn_prev">Poprzednia strona</button>
+    </div>
 
-<div class="col">
-
-    <button href="#" onclick="PreviousPage()" class="btn btn-primary btn-sm mb-1" id="btn_prev" style="margin-left: 0.5em;">Poprzednia strona</button>
-    <button href="#" onclick="NextPage()" class="btn btn-primary btn-sm mb-1" id="btn_mext" style="margin-left: 0.5em;">Następna strona</button>
-
-
+    <div class="col">
+        <button href="#" onclick="NextPage()" class="btn btn-primary btn-sm mb-1 float-right" id="btn_next" style="margin-right:1em;">Następna strona</button>
+    </div>
 </div>
 
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script>
+    function NextPage() {
+        var page = parseInt(document.getElementById('Page').value);
+        var maxPage = @Html.Raw(Model.MaxPage());
+
+        if (page + 1 <= maxPage) {
+            $.ajax({
+                url: '@Url.Action("UserMgt", "AdminPanel")',
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                data: { 'Page': page + 1 },
+                success: function(result) {
+                    $('#UserList').html(result);
+                    document.getElementById('Page').value = page + 1;
+                    if (maxPage === page + 1) $('#btn_next').hide();
+                    if (page + 1 >= 0) $('#btn_prev').show();
+                }
+            });
+
+        }
+        return false;
+    }
+
+    function PreviousPage() {
+        var page = parseInt(document.getElementById('Page').value);
+        var maxPage = @Html.Raw(Model.MaxPage());
+
+        if (page > 0 && maxPage > 0) {
+            $.ajax({
+                url: '@Url.Action("UserMgt", "AdminPanel")' ,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                data: { 'Page': page - 1 },
+                success: function(result) {
+                    $('#UserList').html(result);
+                    document.getElementById('Page').value = page - 1;
+                    if (page - 1 < maxPage) $('#btn_next').show();
+                    if (page - 1 <= 0) $('#btn_prev').hide();
+                }
+            });
+        }
+        return false;
+    }
+
+    function CheckButtonsVisibility() {
+        var maxPage = @Html.Raw(Model.MaxPage());
+
+        $('#btn_prev').hide();
+        if (maxPage === 0) $('#btn_next').hide();
+
+        return false;
+    }
+</script>
+

@@ -23,7 +23,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 
             userManager.Create(user, "Damian13");
             userManager.Create(new ApplicationUser() { UserName = "Dymekk", FirstName = "Damian2" }, "Damian13");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 32; i++)
             {
                 userManager.Create(new ApplicationUser() { UserName = "User" + i.ToString(), FirstName = "User" + i.ToString() }, "Damian13");
             }

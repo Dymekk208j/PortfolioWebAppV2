@@ -1,12 +1,16 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
 {
     public class ApplicationUser : IdentityUser
     {
+        [Display(Name = "Imię")]
         public string FirstName { get; set; }
+        [Display(Name = "Nazwisko")]
         public string LastName { get; set; }
+        [Display(Name = "Zablokowany")]
         public bool Blocked { get; set; }
     }
 

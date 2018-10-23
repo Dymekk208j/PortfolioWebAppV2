@@ -392,6 +392,7 @@
     <Content Include="Views\AdminPanel\_EducationPartialView.cshtml" />
     <Content Include="Views\AdminPanel\UserMgt.cshtml" />
     <Content Include="Views\AdminPanel\_UserListPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\_UserEditPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

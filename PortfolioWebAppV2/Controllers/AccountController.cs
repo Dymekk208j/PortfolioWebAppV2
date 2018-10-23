@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -23,40 +24,38 @@ namespace PortfolioWebAppV2.Controllers
             UserManager = userManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        private UserManager<ApplicationUser> UserManager { get; set; }
 
-        //TODO: Dodać usuwanie użytkownika
-        //public ActionResult DeleteUser(string userId)
-        //{
-        //    ApplicationDbContext db = new ApplicationDbContext();
-        //    var usr = (from u in db.Users
-        //               where u.Id == userId
-        //               select u).FirstOrDefault();
-        //    if (usr == null) return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+        public ActionResult DeleteUser(string userId)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var usr = (from u in db.Users
+                       where u.Id == userId
+                       select u).FirstOrDefault();
+            if (usr == null) return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
 
-        //    db.Entry(usr).State = System.Data.Entity.EntityState.Deleted;
-        //    db.SaveChanges();
-        //    return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+            db.Entry(usr).State = System.Data.Entity.EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
 
-        //}
+        }
 
-        //TODO: Dodać możliwość podmiany danych użytkownika
-        //public ActionResult UpdateUser(UpdateViewModel updateViewModel)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
-        //    }
+        public ActionResult UpdateUser(UpdateViewModel updateViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+            }
 
-        //    ApplicationDbContext db = new ApplicationDbContext();
-        //    ApplicationUser user = Mapper.Map<UpdateViewModel, ApplicationUser>(updateViewModel);
+            ApplicationDbContext db = new ApplicationDbContext();
+            ApplicationUser user = Mapper.Map<UpdateViewModel, ApplicationUser>(updateViewModel);
 
-        //    db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-        //    db.SaveChanges();
+            db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
 
 
-        //    return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
-        //}
+            return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+        }
 
         [AllowAnonymous]
         public static string GetAuthorName(string authorId)
