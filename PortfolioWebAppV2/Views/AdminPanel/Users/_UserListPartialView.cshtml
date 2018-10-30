@@ -1,0 +1,45 @@
+﻿@using AutoMapper
+@using PortfolioWebAppV2.Models.DatabaseModels
+@using PortfolioWebAppV2.Models.ViewModels
+@model List<ApplicationUser>
+
+@foreach (var u in Model)
+{
+    <tr>
+        <td class="align-middle">
+            @Html.Name(u.UserName)
+        </td>
+        <td class="align-middle">
+            @Html.Name(u.Email)
+        </td>
+        <td class="align-middle">
+            @Html.Name(u.FirstName)
+        </td>
+        <td class="align-middle">
+            @Html.Name(u.LastName)
+        </td>
+        <td class="align-middle">
+            @(u.Blocked ? Html.Name("Tak") : Html.Name("Nie"))
+        </td>
+        <td class="text-center" style="max-width: 60px !important; border-left: dotted; border-left-width: 1px;">
+
+            <button type="button" class="btn btn-secondary btn-sm mb-1" id="@Html.Raw("ModalBtn" + u.UserName)" style="margin-left: 0.1em;" data-toggle="modal" data-target="@Html.Raw("#ModalWindow" + u.UserName)">
+                Edytuj
+            </button>
+
+            <button href="#" data-toggle="modal" data-target="@Html.Raw("#Delete" + u.UserName)" class="btn btn-danger btn-sm mb-1" id="btn_mext" style="margin-left: 0.1em;">Usuń</button>
+
+        </td>
+    </tr>
+}
+
+
+
+@foreach (var u in Model)
+{
+    var z = Mapper.Map<ApplicationUser, UpdateViewModel>(u);
+
+    @Html.Partial("_UserEditPartial", z)
+}
+
+

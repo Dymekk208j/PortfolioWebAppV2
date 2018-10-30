@@ -7,7 +7,7 @@ namespace PortfolioWebAppV2.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Achivments",
+                "dbo.Achievements",
                 c => new
                     {
                         AchivmentId = c.Int(nullable: false, identity: true),
@@ -149,7 +149,7 @@ namespace PortfolioWebAppV2.Migrations
             DropTable("dbo.Educations");
             DropTable("dbo.Contacts");
             DropTable("dbo.AdditionalInfoes");
-            DropTable("dbo.Achivments");
+            DropTable("dbo.Achievements");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace PortfolioWebAppV2.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             ContactViewModel contactViewModel = Mapper.Map<Contact, ContactViewModel>(db.Contacts.FirstOrDefault());
 
-            return View(contactViewModel);
+            return View("Contact/EditContact", contactViewModel);
         }
 
         [HttpPost]
@@ -53,7 +53,7 @@ namespace PortfolioWebAppV2.Controllers
             AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(db.AboutMe.FirstOrDefault());
 
 
-            return View(aboutMeViewModel);
+            return View("AboutMe/EditAboutMe", aboutMeViewModel);
         }
 
         [HttpPost]
@@ -80,7 +80,7 @@ namespace PortfolioWebAppV2.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
             var technologies = db.Technologies.ToList();
 
-            return View(technologies);
+            return View("Technologies/EditTechnologies", technologies);
         }
 
         [HttpPost]
@@ -113,9 +113,9 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult EditAchivments()
         {
             var db = new ApplicationDbContext();
-            var achivments = db.Achivments.ToList();
+            var achievements = db.Achievements.ToList();
 
-            return View(achivments);
+            return View("Achivments/EditAchivments", achievements);
         }
 
         [HttpGet]
@@ -124,8 +124,8 @@ namespace PortfolioWebAppV2.Controllers
             var db = new ApplicationDbContext();
 
             var achivment = new Achivment() { AchivmentId = id };
-            db.Achivments.Attach(achivment);
-            db.Achivments.Remove(achivment);
+            db.Achievements.Attach(achivment);
+            db.Achievements.Remove(achivment);
             db.SaveChanges();
 
             return RedirectToAction("EditAchivments");
@@ -137,7 +137,7 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
                 var db = new ApplicationDbContext();
-                db.Achivments.Add(achivment);
+                db.Achievements.Add(achivment);
                 db.SaveChanges();
             }
 
@@ -150,7 +150,7 @@ namespace PortfolioWebAppV2.Controllers
             var db = new ApplicationDbContext();
             var educations = db.Educations.ToList();
 
-            return View(educations);
+            return View("Educations/EditEducation", educations);
         }
 
         [HttpGet]
@@ -185,7 +185,7 @@ namespace PortfolioWebAppV2.Controllers
             var db = new ApplicationDbContext();
             var additionalInfos = db.AdditionalInfos.ToList();
 
-            return View(additionalInfos);
+            return View("AdditionalInfos/EditAdditionalInfo", additionalInfos);
         }
 
         [HttpGet]
@@ -220,7 +220,7 @@ namespace PortfolioWebAppV2.Controllers
             var db = new ApplicationDbContext();
             var employmentHistory = db.EmploymentHistories.ToList();
 
-            return View(employmentHistory);
+            return View("EmploymentHistories/EditEmploymentHistory", employmentHistory);
         }
 
         [HttpGet]
@@ -258,7 +258,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 Contact = db.Contacts.FirstOrDefault(),
                 PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achivments = db.Achivments.ToList(),
+                Achivments = db.Achievements.ToList(),
                 AdditionalInfos = db.AdditionalInfos.ToList(),
                 Educations = db.Educations.ToList(),
                 EmploymentHistories = db.EmploymentHistories.ToList(),
@@ -266,7 +266,7 @@ namespace PortfolioWebAppV2.Controllers
                 Technologies = db.Technologies.ToList()
             };
 
-            return View(cvViewModel);
+            return View("Cv/EditCv", cvViewModel);
         }
 
         [HttpPost]
@@ -392,11 +392,11 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult AddAchivmentToCv(CvViewModel cvModel)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            Achivment achivment = db.Achivments.SingleOrDefault(x => x.AchivmentId == cvModel.SelectedAchivment);
+            Achivment achivment = db.Achievements.SingleOrDefault(x => x.AchivmentId == cvModel.SelectedAchivment);
             if (achivment != null)
             {
                 achivment.ShowInCv = true;
-                db.Achivments.Attach(achivment);
+                db.Achievements.Attach(achivment);
                 db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
                 db.SaveChanges();
             }
@@ -408,11 +408,11 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult RemoveAchivmentFromCv(int id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            Achivment achivment = db.Achivments.SingleOrDefault(x => x.AchivmentId == id);
+            Achivment achivment = db.Achievements.SingleOrDefault(x => x.AchivmentId == id);
             if (achivment != null)
             {
                 achivment.ShowInCv = false;
-                db.Achivments.Attach(achivment);
+                db.Achievements.Attach(achivment);
                 db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
                 db.SaveChanges();
             }
@@ -541,10 +541,16 @@ namespace PortfolioWebAppV2.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_UserListPartialView", usersList);
+                return PartialView("Users/_UserListPartialView", usersList);
             }
-            return View(usersManagementViewModel);
+            return View("Users/UserMgt", usersManagementViewModel);
         }
+
+        //[HttpGet]
+        //public ActionResult ProjectsList()
+        //{
+        //    return View();
+        //}
     }
 
 }

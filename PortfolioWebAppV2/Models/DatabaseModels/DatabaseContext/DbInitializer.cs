@@ -59,7 +59,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Achivment() { AchivmentId = 2, Description = "Drugie osiagniecie, opis", Title = "Drugie osiagniecie", Date=DateTime.Now, ShowInCv = false }
 
               };
-            achivments.ForEach(g => context.Achivments.Add(g));
+            achivments.ForEach(g => context.Achievements.Add(g));
             context.SaveChanges();
 
             var additionalInfos = new List<AdditionalInfo>

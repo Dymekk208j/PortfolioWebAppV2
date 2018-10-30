@@ -689,7 +689,7 @@
 .fa-tasks:before {
   content: "\f0ae";
 }
-.fa-filter:before {
+.fa-filter:after {
   content: "\f0b0";
 }
 .fa-briefcase:before {

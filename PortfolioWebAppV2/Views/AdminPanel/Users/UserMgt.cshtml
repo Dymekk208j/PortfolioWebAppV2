@@ -1,0 +1,135 @@
+﻿@model PortfolioWebAppV2.Models.ViewModels.UsersManagementViewModel
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Header{ Lista użytkowników }
+
+@Html.HiddenFor(a => a.Page)
+<style>
+    .FilterButton {
+        color: gray;
+        display: none;
+        background: none;
+        border: none;
+    }
+
+        .FilterButton:focus {
+            outline: none;
+        }
+
+        .FilterButton:hover {
+            cursor: pointer;
+        }
+</style>
+
+<div id="userlist-section" style="margin-right:1em;">
+    <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
+        <thead class="thead-dark">
+            <tr>
+                <th id="UsernameTitle">Nazwa użytkownika <button class="fas fa-filter FilterButton" id="UsernameFilterIcon"></button></th>
+                <th id="EmailTitle">E-mail <button class="fas fa-filter FilterButton" id="EmailFilterIcon"></button></th>
+                <th id="FirstNameTitle">Imię <button class="fas fa-filter FilterButton" id="FirstNameFilterIcon"></button></th>
+                <th id="LastNameTitle">Nazwisko <button class="fas fa-filter FilterButton" id="LastNameFilterIcon"></button></th>
+                <th id="BlockedTitle">Zablokowany <button class="fas fa-filter FilterButton" id="BlockedFilterIcon"></button></th>
+                <th class="text-center" style="max-width: 40px !important; border-left: dotted; border-left-width: 1px;">Akcje</th>
+            </tr>
+        </thead>
+        <tbody id="UserList">
+            @Html.Partial("_UserListPartialView", Model.Users)
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col">
+        <button href="#" onclick="PreviousPage()" class="btn btn-primary btn-sm mb-1" id="btn_prev">Poprzednia strona</button>
+    </div>
+
+    <div class="col">
+        <button href="#" onclick="NextPage()" class="btn btn-primary btn-sm mb-1 float-right" id="btn_next" style="margin-right:1em;">Następna strona</button>
+    </div>
+</div>
+
+<script>
+    function NextPage() {
+
+    var page = parseInt(document.getElementById('Page').value);
+    var maxPage = @Html.Raw(Model.MaxPage());
+
+    if (page + 1 <= maxPage) {
+        $.ajax({
+            url: '@Url.Action("UserMgt", "AdminPanel")',
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            data: { 'Page': page + 1 },
+            success: function (result) {
+                $('#UserList').html(result);
+                document.getElementById('Page').value = page + 1;
+            }
+        });
+
+    }
+    return false;
+}
+
+function PreviousPage() {
+    var page = parseInt(document.getElementById('Page').value);
+    var maxPage = @Html.Raw(Model.MaxPage());
+
+    if (page > 0 && maxPage > 0) {
+        $.ajax({
+            url: '@Url.Action("UserMgt", "AdminPanel")',
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            data: { 'Page': page - 1 },
+            success: function (result) {
+                $('#UserList').html(result);
+                document.getElementById('Page').value = page - 1;
+            }
+        });
+    }
+    return false;
+}
+
+$('#UsernameTitle').mouseenter(function () {
+    $('#UsernameFilterIcon').show();
+});
+
+$('#UsernameTitle').mouseleave(function () {
+    $('#UsernameFilterIcon').hide();
+});
+
+$('#EmailTitle').mouseenter(function () {
+    $('#EmailFilterIcon').show();
+});
+
+$('#EmailTitle').mouseleave(function () {
+    $('#EmailFilterIcon').hide();
+});
+
+$('#FirstNameTitle').mouseenter(function () {
+    $('#FirstNameFilterIcon').show();
+});
+
+$('#FirstNameTitle').mouseleave(function () {
+    $('#FirstNameFilterIcon').hide();
+});
+
+$('#LastNameTitle').mouseenter(function () {
+    $('#LastNameFilterIcon').show();
+});
+
+$('#LastNameTitle').mouseleave(function () {
+    $('#LastNameFilterIcon').hide();
+});
+
+$('#BlockedTitle').mouseenter(function () {
+    $('#BlockedFilterIcon').show();
+});
+
+$('#BlockedTitle').mouseleave(function () {
+    $('#BlockedFilterIcon').hide();
+});
+</script>
+
