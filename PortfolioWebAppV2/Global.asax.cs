@@ -27,6 +27,7 @@ namespace PortfolioWebAppV2
             });
 
             Database.SetInitializer(new DbInitializer());
+            UnityConfig.RegisterComponents();
         }
     }
 }

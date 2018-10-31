@@ -162,17 +162,17 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchivmentsRow">
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchievementsRow">
                     <div class="col-4">
                         <h6 style="color: cornflowerblue;">Osiągnięcia</h6>
                     </div>
                     <div class="col text-left">
                         @{
-                            foreach (var a in Model.Achivments)
+                            foreach (var a in Model.Achievements)
                             {
                                 <p>
                                     <b>@Html.Name(a.Title)</b><br />
-                                    <i>@Html.Name(a.Date.ToString("dd/MM/yyyy"))</i><br />
+                                    <i>@Html.Name(a.Date.GetValueOrDefault().ToString("dd/MM/yyyy"))</i><br />
                                     @Html.Name(a.Description)<br />
                                 </p>
                             }

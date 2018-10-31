@@ -30,7 +30,7 @@
                     <div class="btn-group float-right">
                         <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")';return false;">Strona główna</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Projekty</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("AboutMe", "Home")';return false;">O mnie</button>
+                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("AboutMe", "AboutMe")';return false;">O mnie</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Cv", "Home")';return false;">CV</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Contact", "Home")';return false;">Kontakt</button>
                         @if (User.IsInRole("Admin"))
@@ -57,7 +57,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="@Url.Action("Projects", "Home")">Projekty</a>
-                                <a class="dropdown-item" href="@Url.Action("AboutMe", "Home")">O mnie</a>
+                                <a class="dropdown-item" href="@Url.Action("AboutMe", "AboutMe")">O mnie</a>
                                 <a class="dropdown-item" href="@Url.Action("Cv", "Home")">CV</a>
                                 <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Kontakt</a>
 
@@ -100,7 +100,7 @@
                     Zarządzanie stronami
                 </button>
                 <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditAboutMe", "AdminPanel")';return false;">O mnie</button>
+                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditContact", "AdminPanel")';return false;">Kontakt</button>
                     <button type="button" class="btn btn-info button_secondary">Główna</button>
                 </div>
@@ -129,7 +129,7 @@
                 </button>
                 <div id="rozwijana-lista4" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditCv", "AdminPanel")';return false;">Edytuj CV</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditAchivments", "AdminPanel")';return false;">Osiągnięcia</button>
+                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AchievementsManagement", "Achievement")';return false;">Osiągnięcia</button>
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditAdditionalInfo", "AdminPanel")';return false;">Dodatkowe informacje</button>
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditEmploymentHistory", "AdminPanel")';return false;">Historia zatrudnienia</button>
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditEducation", "AdminPanel")';return false;">Wykształcenie</button>

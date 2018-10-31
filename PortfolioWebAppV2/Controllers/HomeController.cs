@@ -17,15 +17,6 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
-        public ActionResult AboutMe()
-        {
-            ApplicationDbContext dbContext = new ApplicationDbContext();
-            var arg = AutoMapper.Mapper.Map<AboutMe, AboutMeViewModel>(dbContext.AboutMe.FirstOrDefault());
-
-            return View(arg);
-        }
-
-        [HttpGet]
         public ActionResult Contact()
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
@@ -80,7 +71,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 Contact = db.Contacts.FirstOrDefault(),
                 PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achivments = db.Achievements.Where(a => a.ShowInCv).ToList(),
+                Achievements = db.Achievements.Where(a => a.ShowInCv).ToList(),
                 AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
                 Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
                 EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),
@@ -100,7 +91,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 Contact = db.Contacts.FirstOrDefault(),
                 PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achivments = db.Achievements.Where(a => a.ShowInCv).ToList(),
+                Achievements = db.Achievements.Where(a => a.ShowInCv).ToList(),
                 AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
                 Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
                 EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),

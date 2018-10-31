@@ -480,39 +480,39 @@
                 });
             </script>
 
-            <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchivmentsRow">
+            <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchievementsRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Osiągnięcia</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddAchivmentToCV"> Dodaj osiągnięcie do CV</button>
+                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddAchievementToCV"> Dodaj osiągnięcie do CV</button>
 
                 </div>
                 <div class="col text-left">
                     @{
-                        foreach (var a in Model.Achivments.Where(x => x.ShowInCv))
+                        foreach (var a in Model.Achievements.Where(x => x.ShowInCv))
                         {
-                            @Html.Partial("Achivments/_AchivmentPartialView", a)
+                            @Html.Partial("_AchievementPartialView", a)
                         }
                     }
                 </div>
             </div>
 
-            @{ using (Html.BeginForm("AddAchivmentToCv", "AdminPanel"))
+            @{ using (Html.BeginForm("AddAchievementToCv", "AdminPanel"))
                 {
-                    <div class="modal fade" id="AddAchivmentToCV" tabindex="-1" role="dialog" aria-labelledby="AddAchivmentToCVLabel" aria-hidden="true">
+                    <div class="modal fade" id="AddAchievementToCV" tabindex="-1" role="dialog" aria-labelledby="AddAchievementToCVLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="AddAchivmentToCVLabel">Dodaj osiągnięcie</h5>
+                                    <h5 class="modal-title" id="AddAchievementToCVLabel">Dodaj osiągnięcie</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
 
-                                @if (Model.Achivments.Any(m => m.ShowInCv == false))
+                                @if (Model.Achievements.Any(m => m.ShowInCv == false))
                                 {
                                     <div class="modal-body">
                                         <p>Wybierz osiągnięcie do dodania:</p>
-                                        @Html.DropDownListFor(model => model.SelectedAchivment, new SelectList(Model.Achivments.Where(m => m.ShowInCv == false), "AchivmentId", "Title"))
+                                        @Html.DropDownListFor(model => model.SelectedAchievement, new SelectList(Model.Achievements.Where(m => m.ShowInCv == false), "AchievementId", "Title"))
 
                                     </div>
                                     <div class="modal-footer">

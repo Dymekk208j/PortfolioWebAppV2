@@ -53,13 +53,14 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             contact.ForEach(g => context.Contacts.Add(g));
             context.SaveChanges();
 
-            var achivments = new List<Achivment>
+            var achi = new List<Achievement>
             {
-                new Achivment() { AchivmentId = 1, Description = "Pierwsze osiagniecie, opis", Title = "Pierwsze osiagniecie", Date=DateTime.Now, ShowInCv = true },
-                new Achivment() { AchivmentId = 2, Description = "Drugie osiagniecie, opis", Title = "Drugie osiagniecie", Date=DateTime.Now, ShowInCv = false }
+                new Achievement() { AchievementId = 1, Description = "Pierwsze osiagniecie, opis", Title = "Pierwsze osiagniecie", Date=DateTime.Now, ShowInCv = true },
+                new Achievement() { AchievementId = 2, Description = "Drugie osiagniecie, opis", Title = "Drugie osiagniecie", Date=DateTime.Now, ShowInCv = false }
 
               };
-            achivments.ForEach(g => context.Achievements.Add(g));
+            // achievements.ForEach(g => context.Achievements.Add(g));
+            achi.ForEach(g => context.Achievements.Add(g));
             context.SaveChanges();
 
             var additionalInfos = new List<AdditionalInfo>

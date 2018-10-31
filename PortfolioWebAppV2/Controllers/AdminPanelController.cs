@@ -9,6 +9,7 @@ namespace PortfolioWebAppV2.Controllers
 {
     public class AdminPanelController : Controller
     {
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -46,33 +47,8 @@ namespace PortfolioWebAppV2.Controllers
             return RedirectToAction("EditContact");
         }
 
-        [HttpGet]
-        public ActionResult EditAboutMe()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(db.AboutMe.FirstOrDefault());
 
-
-            return View("AboutMe/EditAboutMe", aboutMeViewModel);
-        }
-
-        [HttpPost]
-        public ActionResult UpdateAboutMe(AboutMeViewModel aboutMeViewModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var abm = db.AboutMe.FirstOrDefault();
-
-            if (abm != null)
-            {
-                AboutMe aboutMe = Mapper.Map<AboutMeViewModel, AboutMe>(aboutMeViewModel);
-                aboutMe.AboutMeId = abm.AboutMeId;
-                db.Entry(aboutMe).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-            }
-
-
-            return RedirectToAction("EditAboutMe");
-        }
+        
 
         [HttpGet]
         public ActionResult EditTechnologies()
@@ -109,40 +85,7 @@ namespace PortfolioWebAppV2.Controllers
             return RedirectToAction("EditTechnologies");
         }
 
-        [HttpGet]
-        public ActionResult EditAchivments()
-        {
-            var db = new ApplicationDbContext();
-            var achievements = db.Achievements.ToList();
-
-            return View("Achivments/EditAchivments", achievements);
-        }
-
-        [HttpGet]
-        public ActionResult RemoveAchivment(int id)
-        {
-            var db = new ApplicationDbContext();
-
-            var achivment = new Achivment() { AchivmentId = id };
-            db.Achievements.Attach(achivment);
-            db.Achievements.Remove(achivment);
-            db.SaveChanges();
-
-            return RedirectToAction("EditAchivments");
-        }
-
-        [HttpPost]
-        public ActionResult CreateAchivment(Achivment achivment)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.Achievements.Add(achivment);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditAchivments");
-        }
+        
 
         [HttpGet]
         public ActionResult EditEducation()
@@ -258,7 +201,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 Contact = db.Contacts.FirstOrDefault(),
                 PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achivments = db.Achievements.ToList(),
+                Achievements = db.Achievements.ToList(),
                 AdditionalInfos = db.AdditionalInfos.ToList(),
                 Educations = db.Educations.ToList(),
                 EmploymentHistories = db.EmploymentHistories.ToList(),
@@ -389,15 +332,15 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAchivmentToCv(CvViewModel cvModel)
+        public ActionResult AddAchievementToCv(CvViewModel cvModel)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            Achivment achivment = db.Achievements.SingleOrDefault(x => x.AchivmentId == cvModel.SelectedAchivment);
-            if (achivment != null)
+            Achievement achievement = db.Achievements.SingleOrDefault(x => x.AchievementId == cvModel.SelectedAchievement);
+            if (achievement != null)
             {
-                achivment.ShowInCv = true;
-                db.Achievements.Attach(achivment);
-                db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
+                achievement.ShowInCv = true;
+                db.Achievements.Attach(achievement);
+                db.Entry(achievement).Property(x => x.ShowInCv).IsModified = true;
                 db.SaveChanges();
             }
 
@@ -405,15 +348,15 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
-        public ActionResult RemoveAchivmentFromCv(int id)
+        public ActionResult RemoveAchievementFromCv(int id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            Achivment achivment = db.Achievements.SingleOrDefault(x => x.AchivmentId == id);
-            if (achivment != null)
+            Achievement achievement = db.Achievements.SingleOrDefault(x => x.AchievementId == id);
+            if (achievement != null)
             {
-                achivment.ShowInCv = false;
-                db.Achievements.Attach(achivment);
-                db.Entry(achivment).Property(x => x.ShowInCv).IsModified = true;
+                achievement.ShowInCv = false;
+                db.Achievements.Attach(achievement);
+                db.Entry(achievement).Property(x => x.ShowInCv).IsModified = true;
                 db.SaveChanges();
             }
 

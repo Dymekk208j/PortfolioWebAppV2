@@ -1,12 +1,12 @@
-﻿@model PortfolioWebAppV2.Models.DatabaseModels.Achivment
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Achievement
 
-@{ using (Html.BeginForm("CreateAchivment", "AdminPanel"))
+@{ using (Html.BeginForm("AddAchievement", "Achievement"))
     {
-        <div class="modal fade" id="AddAchivment" tabindex="-1" role="dialog" aria-labelledby="AddAchivmentLabel" aria-hidden="true">
+        <div class="modal fade" id="AddAchievement" tabindex="-1" role="dialog" aria-labelledby="AddAchievementLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="AddAchivmentLabel">Dodaj osiągnięcie</h5>
+                        <h5 class="modal-title" id="AddAchievementLabel">Dodaj osiągnięcie</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -26,7 +26,8 @@
                         <input class="form-control" type="date" value="@Model.Date" id="Date" name="Date">
                         <br />
                         <label class="form-check-label">
-                            <input class="form-check-inline" type="checkbox" name="ShowInCv" id="ShowInCv" />
+                            @Html.CheckBoxFor(m => m.ShowInCv)
+                            @*<input class="form-check-inline" type="checkbox" name="ShowInCv" id="ShowInCv"/>*@
                             Dodaj co CV
                         </label>
                         
