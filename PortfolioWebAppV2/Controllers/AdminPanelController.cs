@@ -60,43 +60,6 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditCv");
         }
-      
-
-
-
-
-
-        [HttpPost]
-        public ActionResult AddEducationToCv(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Education education = db.Educations.SingleOrDefault(x => x.EducationId == cvModel.SelectedEducation);
-            if (education != null)
-            {
-                education.ShowInCv = true;
-                db.Educations.Attach(education);
-                db.Entry(education).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpGet]
-        public ActionResult RemoveEducationFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Education education = db.Educations.SingleOrDefault(x => x.EducationId == id);
-            if (education != null)
-            {
-                education.ShowInCv = false;
-                db.Educations.Attach(education);
-                db.Entry(education).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
 
         [HttpGet]
         public ActionResult UserMgt(UsersManagementViewModel usersManagementViewModel)

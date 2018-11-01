@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
@@ -51,5 +52,33 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EducationManagement");
         }
+
+        [HttpPost]
+        public bool AddEducationToCv(CvViewModel cvModel)
+        {
+            Education education = _repository.Get(cvModel.SelectedEducation);
+            if (education != null)
+            {
+                education.ShowInCv = true;
+                _repository.Update(education);
+            }else return false;
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool RemoveEducationFromCv(int id)
+        {
+            Education education = _repository.Get(id);
+            if (education != null)
+            {
+                education.ShowInCv = false;
+                _repository.Update(education);
+            }
+            else return false;
+
+            return true;
+        }
+
     }
 }
