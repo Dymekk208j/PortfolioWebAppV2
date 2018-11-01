@@ -20,7 +20,7 @@
                     <img src="@Html.Raw(Model.PrivateInformation.ImageLink)" />
                 </div>
                 <div class="col text-right">
-                    <div id="AboutMeBtn" style="display: none;"><button type="button" class="btn btn-outline-secondary button-xs far fa-edit" data-toggle="modal" data-target="#EditPrivatInformation"></button><br /></div>
+                    <div id="AboutMeBtn" style="display: none;"><button type="button" class="btn btn-outline-secondary button-xs far fa-edit" data-toggle="modal" data-target="#EditPrivateInformation"></button><br /></div>
                     @Html.Raw(Model.PrivateInformation.Street + " " + Model.PrivateInformation.HouseNumber + "/" + Model.PrivateInformation.FlatNumber)<br />
                     @Html.Raw(Model.PrivateInformation.PostCode + " " + Model.PrivateInformation.City)<br />
                     @Html.Raw(Model.PrivateInformation.PhoneNumber + " | " + Model.PrivateInformation.HomePage)<br />
@@ -29,13 +29,13 @@
             </div>
 
 
-            @{ using (Html.BeginForm("CreateOrUpdatePrivateInformation", "AdminPanel"))
+            @{ using (Html.BeginForm("Update", "PrivateInformation"))
                 {
-                    <div class="modal fade" id="EditPrivatInformation" tabindex="-1" role="dialog" aria-labelledby="EditPrivatInformationLabel" aria-hidden="true">
+                    <div class="modal fade" id="EditPrivateInformation" tabindex="-1" role="dialog" aria-labelledby="EditPrivateInformationLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="EditPrivatInformationLabel">Edytuj dane osobowe</h5>
+                                    <h5 class="modal-title" id="EditPrivateInformationLabel">Edytuj dane osobowe</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

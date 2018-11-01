@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Migrations;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
@@ -14,7 +13,6 @@ namespace PortfolioWebAppV2.Controllers
         {
             return View();
         }
-        
 
         [HttpGet]
         public ActionResult EditCv()
@@ -35,20 +33,7 @@ namespace PortfolioWebAppV2.Controllers
 
             return View("Cv/EditCv", cvViewModel);
         }
-
-        [HttpPost]
-        public ActionResult CreateOrUpdatePrivateInformation(PrivateInformation privateInformation)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.PrivateInformations.AddOrUpdate(privateInformation);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
+        
         [HttpPost]
         public ActionResult AddProjectToCv(CvViewModel cvModel)
         {

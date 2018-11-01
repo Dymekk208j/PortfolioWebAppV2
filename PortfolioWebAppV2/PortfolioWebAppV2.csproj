@@ -250,6 +250,7 @@
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmploymentHistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PrivateInformationController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -284,6 +285,7 @@
     <Compile Include="Repository\EducationRepository.cs" />
     <Compile Include="Repository\EmploymentHistoryRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PrivateInformationRepository.cs" />
     <Compile Include="Repository\TechnologyRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -428,6 +430,7 @@
     <Folder Include="Views\AdminPanel\Educations\" />
     <Folder Include="Views\AdminPanel\EmploymentHistories\" />
     <Folder Include="Views\AdminPanel\Projects\" />
+    <Folder Include="Views\PrivateInformation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
