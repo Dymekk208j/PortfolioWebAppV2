@@ -11,13 +11,15 @@ namespace PortfolioWebAppV2
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
-            
-            // register all your components with the container here
-            // it is NOT necessary to register your controllers
-            
-            // e.g. container.RegisterType<ITestService, TestService>();
-            container.RegisterType<IRepository<Achievement, int>, AchievementRepository>();
+
             container.RegisterType<IRepository<AboutMe, int>, AboutMeRepository>();
+            container.RegisterType<IRepository<Achievement, int>, AchievementRepository>();
+            container.RegisterType<IRepository<AdditionalInfo, int>, AdditionalInformationRepository>();
+            container.RegisterType<IRepository<Contact, int>, ContactRepository>();
+            container.RegisterType<IRepository<Education, int>, EducationRepository>();
+            container.RegisterType<IRepository<EmploymentHistory, int>, EmploymentHistoryRepository>();
+            container.RegisterType<IRepository<PrivateInformation, int>, PrivateInformationRepository>();
+            container.RegisterType<IRepository<Technology, int>, TechnologyRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

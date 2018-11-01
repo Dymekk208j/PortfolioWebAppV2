@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
@@ -40,5 +41,38 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("TechnologyManagement");
         }
+
+        [HttpPost]
+        public bool AddToCv(CvViewModel cvModel, Technology.LevelOfKnowledge levelOfKnowledge)
+        {
+            Technology technology = _repository.Get(cvModel.SelectedTechnology);
+
+            if (technology != null)
+            {
+                technology.ShowInCv = true;
+                technology.KnowledgeLevel = levelOfKnowledge;
+
+                _repository.Update(technology);
+            }
+            else return false;
+
+            return true;
+        }
+
+        [HttpGet]
+        public bool RemoveFromCv(int id)
+        {
+            Technology technology = _repository.Get(id);
+            if (technology != null)
+            {
+                technology.ShowInCv = false;
+                _repository.Update(technology);
+            }
+            else return false;
+
+            return true;
+
+        }
+
     }
 }

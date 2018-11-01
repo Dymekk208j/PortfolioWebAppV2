@@ -8,6 +8,7 @@ namespace PortfolioWebAppV2.Controllers
     public class AdminPanelController : Controller
     {
 
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -59,86 +60,7 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditCv");
         }
-
-        [HttpPost]
-        public ActionResult AddToCvVeryWellKnowTechnology(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
-            if (technology != null)
-            {
-                technology.ShowInCv = true;
-                technology.KnowledgeLevel = Technology.LevelOfKnowledge.VeryWell;
-
-                db.Technologies.Attach(technology);
-
-                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
-                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
-
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpPost]
-        public ActionResult AddToCvWellKnowTechnology(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
-            if (technology != null)
-            {
-                technology.ShowInCv = true;
-                technology.KnowledgeLevel = Technology.LevelOfKnowledge.Well;
-
-                db.Technologies.Attach(technology);
-
-                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
-                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
-
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpPost]
-        public ActionResult AddToCvKnowTechnology(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == cvModel.SelectedTechnology);
-            if (technology != null)
-            {
-                technology.ShowInCv = true;
-                technology.KnowledgeLevel = Technology.LevelOfKnowledge.Ok;
-
-                db.Technologies.Attach(technology);
-
-                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
-                db.Entry(technology).Property(x => x.KnowledgeLevel).IsModified = true;
-
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpGet]
-        public ActionResult RemoveTechnologyFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Technology technology = db.Technologies.SingleOrDefault(x => x.TechnologyId == id);
-            if (technology != null)
-            {
-                technology.ShowInCv = false;
-                db.Technologies.Attach(technology);
-                db.Entry(technology).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-
-        }
+        
 
         [HttpPost]
         public ActionResult AddAchievementToCv(CvViewModel cvModel)

@@ -245,7 +245,7 @@
                             foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveTechnologyFromCv", "AdminPanel", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -277,7 +277,7 @@
                             foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveTechnologyFromCv", "AdminPanel", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -309,7 +309,7 @@
                             foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveTechnologyFromCv", "AdminPanel", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -330,7 +330,7 @@
                 </div>
             </div>
 
-            @{ using (Html.BeginForm("AddToCvVeryWellKnowTechnology", "AdminPanel"))
+            @{ using (Html.BeginForm("AddToCv", "Technology", new { levelOfKnowledge = Technology.LevelOfKnowledge.VeryWell }))
                 {
                     <div class="modal fade" id="AddVeryWellKnowTechnology" tabindex="-1" role="dialog" aria-labelledby="AddVeryWellKnowTechnologyLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
@@ -380,7 +380,7 @@
                 });
             </script>
 
-            @{ using (Html.BeginForm("AddToCvWellKnowTechnology", "AdminPanel"))
+            @{ using (Html.BeginForm("AddToCv", "Technology", new { levelOfKnowledge = Technology.LevelOfKnowledge.Well }))
                 {
                     <div class="modal fade" id="AddWellKnowTechnology" tabindex="-1" role="dialog" aria-labelledby="AddWellKnowTechnologyLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
@@ -430,7 +430,7 @@
                 });
             </script>
 
-            @{ using (Html.BeginForm("AddToCvKnowTechnology", "AdminPanel"))
+            @{ using (Html.BeginForm("AddToCv", "Technology", new { levelOfKnowledge = Technology.LevelOfKnowledge.Ok }))
                 {
                     <div class="modal fade" id="AddKnowTechnology" tabindex="-1" role="dialog" aria-labelledby="AddKnowTechnologyLabel" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
