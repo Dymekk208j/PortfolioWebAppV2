@@ -32,7 +32,7 @@
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Projekty</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("AboutMe", "AboutMe")';return false;">O mnie</button>
                         <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Cv", "Home")';return false;">CV</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Contact", "Home")';return false;">Kontakt</button>
+                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("Contact", "Contact")';return false;">Kontakt</button>
                         @if (User.IsInRole("Admin"))
                         {
                             <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Index", "AdminPanel")';return false;">Panel administratora</button>
@@ -59,7 +59,7 @@
                                 <a class="dropdown-item" href="@Url.Action("Projects", "Home")">Projekty</a>
                                 <a class="dropdown-item" href="@Url.Action("AboutMe", "AboutMe")">O mnie</a>
                                 <a class="dropdown-item" href="@Url.Action("Cv", "Home")">CV</a>
-                                <a class="dropdown-item" href="@Url.Action("Contact", "Home")">Kontakt</a>
+                                <a class="dropdown-item" href="@Url.Action("Contact", "Contact")">Kontakt</a>
 
 
                                 @if (User.IsInRole("Admin"))
@@ -101,7 +101,7 @@
                 </button>
                 <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
                     <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditContact", "AdminPanel")';return false;">Kontakt</button>
+                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("ContactManagement", "Contact")';return false;">Kontakt</button>
                     <button type="button" class="btn btn-info button_secondary">Główna</button>
                 </div>
                    

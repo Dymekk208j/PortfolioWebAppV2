@@ -7,8 +7,7 @@
 @section Header{ Edycja strony <i>Dane kontaktowe</i> }
 
 @{
-    using (Html.BeginForm("UpdateContact", "AdminPanel", FormMethod.Post, new { onsubmit = "return confirm('Czy na pewno chcesz podmienić dane w sekcji \"Kontakt\"?');" }))
-
+    using (Html.BeginForm("Update", "Contact", FormMethod.Post, new { onsubmit = "return confirm('Czy na pewno chcesz podmienić dane w sekcji \"Kontakt\"?');" }))
     {
 
         @Html.LabelFor(m => m.PhoneNumber, new { style = "font-weight: bold; Margin-top: 10px;" })

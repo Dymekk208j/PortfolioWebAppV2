@@ -16,14 +16,7 @@ namespace PortfolioWebAppV2.Controllers
             return View(project);
         }
 
-        [HttpGet]
-        public ActionResult Contact()
-        {
-            ApplicationDbContext dbContext = new ApplicationDbContext();
-            var arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
-
-            return View(arg);
-        }
+        
 
         [HttpGet]
         public ActionResult GetSocialMediaBarPartial()
