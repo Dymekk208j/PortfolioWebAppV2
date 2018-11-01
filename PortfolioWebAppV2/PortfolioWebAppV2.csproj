@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -277,6 +278,7 @@
     <Compile Include="Repository\AchivmentRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\TechnologyRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -385,14 +387,12 @@
     <Content Include="Views\Home\AboutMe.cshtml" />
     <Content Include="Views\Shared\_AdminPanelLayout.cshtml" />
     <Content Include="Views\AdminPanel\Index.cshtml" />
-    <Content Include="Views\AdminPanel\AboutMe\EditAboutMe.cshtml" />
     <Content Include="Views\Home\Projects.cshtml" />
     <Content Include="Views\Home\_ProjectCardPartialView.cshtml" />
     <Content Include="Views\Home\Project.cshtml" />
     <Content Include="Views\Home\Cv.cshtml" />
     <Content Include="Views\Home\PrintCv.cshtml" />
-    <Content Include="Views\AdminPanel\Technologies\EditTechnologies.cshtml" />
-    <Content Include="Views\AdminPanel\Technologies\_AddTechnologyPartialView.cshtml" />
+    <Content Include="Views\Technology\_AddTechnologyPartialView.cshtml" />
     <Content Include="Views\Achievement\_CreateAchievementPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Educations\EditEducation.cshtml" />
     <Content Include="Views\AdminPanel\Educations\_CreateEducationPartialView.cshtml" />
@@ -415,6 +415,7 @@
     <Content Include="Views\AboutMe\AboutMe.cshtml" />
     <Content Include="Views\Contact\ContactManagement.cshtml" />
     <Content Include="Views\Contact\Contact.cshtml" />
+    <Content Include="Views\Technology\TechnologyManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

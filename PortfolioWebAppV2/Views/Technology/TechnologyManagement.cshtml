@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
+
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+@section Header{ Technologie }
+
+<div id="userlist-section" style="margin-right:1em;">
+    <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Nazwa</th>
+                <th class="text-right">Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td class="align-middle font-weight-bold">@Html.Name(u.TechnologyId.ToString()). </td>
+                    <td class="align-middle">
+                        @Html.Name(u.Name)
+                    </td>
+                    <td class="text-right">
+                        <button type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Technology", new { id = u.TechnologyId })';return false;"> Usun</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddTechnology"> Dodaj technologie</button>
+
+@Html.Partial("_AddTechnologyPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Technology())

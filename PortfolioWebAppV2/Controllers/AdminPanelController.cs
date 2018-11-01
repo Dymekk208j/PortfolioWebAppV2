@@ -15,42 +15,6 @@ namespace PortfolioWebAppV2.Controllers
             return View();
         }
         
-        [HttpGet]
-        public ActionResult EditTechnologies()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var technologies = db.Technologies.ToList();
-
-            return View("Technologies/EditTechnologies", technologies);
-        }
-
-        [HttpPost]
-        public ActionResult CreateTechnology(Technology technology)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.Technologies.Add(technology);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditTechnologies");
-        }
-
-        [HttpGet]
-        public ActionResult RemoveTechnology(int id)
-        {
-            var db = new ApplicationDbContext();
-
-            var technology = new Technology() { TechnologyId = id };
-            db.Technologies.Attach(technology);
-            db.Technologies.Remove(technology);
-            db.SaveChanges();
-
-            return RedirectToAction("EditTechnologies");
-        }
-
-        
 
         [HttpGet]
         public ActionResult EditEducation()
