@@ -1,4 +1,4 @@
-﻿@model List<PortfolioWebAppV2.Models.DatabaseModels.Education>
+﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Education>
 
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
@@ -56,7 +56,7 @@
 
                     <td class="text-right">
                         <button type="button" class="btn btn-primary btn-sm far fa-edit text-right" data-toggle="modal" data-target="@Html.Raw("#EditEducation" + u.EducationId)"> Edytuj</button>
-                        <button type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href='@Url.Action("RemoveEducation", "AdminPanel", new { id = u.EducationId })';return false;"> Usun</button>
+                        <button type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Education", new { id = u.EducationId })';return false;"> Usun</button>
                     </td>
                 </tr>
             }

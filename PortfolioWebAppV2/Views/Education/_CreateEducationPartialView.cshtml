@@ -1,20 +1,19 @@
 ﻿@model  PortfolioWebAppV2.Models.DatabaseModels.Education
 
-@{ using (Html.BeginForm("CreateOrUpdateEducation", "AdminPanel"))
+@{ using (Html.BeginForm("Add", "Education"))
     {
-        <div class="modal fade" id="@Html.Raw("EditEducation" + Model.EducationId)" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("AddNewEducationLabel" + Model.EducationId)" aria-hidden="true">
+        <div class="modal fade" id="AddNewEducation" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("AddNewEducationLabel" + Model.EducationId)" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="@Html.Raw("AddNewEducationLabel" + Model.EducationId)">Edytuj wykształcenie</h5>
+                        <h5 class="modal-title" id="@Html.Raw("AddNewEducationLabel" + Model.EducationId)">Dodaj wykształcenie</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <div class="modal-body">
-                        @Html.HiddenFor(m => m.EducationId, new { id = @Html.Raw("EducationId" + Model.EducationId) })
-
+                        @Html.HiddenFor(m => m.EducationId, new { id = @Html.Raw("addEducationId" + Model.EducationId) })
                         <p>
                             @Html.ValidationMessageFor(model => model.SchooleName, "*", new { @class = "text-danger" })
                             @Html.LabelFor(m => m.SchooleName, new { htmlAttributes = new { @class = "control-label" } })
@@ -33,24 +32,25 @@
                         <p>
                             @Html.ValidationMessageFor(m => m.StartDate, "*", new { @class = "text-danger" })
                             @Html.LabelFor(m => m.StartDate, new { type = "date" })
-                            <input class="form-control" type="date" value="@Model.StartDate.ToString("yyyy-MM-dd")" id="StartDate" name="StartDate">
+                            <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="StartDate" name="StartDate">
+                           
                         </p>
                         <p>
                             @Html.LabelFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { @class = "control-label" } })
-                            @Html.EditorFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { @class = "form-control", id = @Html.Raw("CurrentPlaceOfEducation" + Model.EducationId) } })
+                            @Html.EditorFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { @class = "form-control", id = @Html.Raw("CurrentPlaceOfEducation") } })
                         </p>
-                        <p id="@Html.Raw("addEndDateParagraf" + Model.EducationId)" @if (Model.CurrentPlaceOfEducation) { @Html.Raw("style=\"display: none;\"") }>
+                        <p id="@Html.Raw("addEndDateParagraf")" @if (Model.CurrentPlaceOfEducation) { @Html.Raw("style=\"display: none;\"") }>
 
                             @Html.ValidationMessageFor(m => m.EndDate, "*", new { @class = "text-danger" })
                             @Html.LabelFor(m => m.EndDate, new { type = "date" })
-                            <input class="form-control" type="date" value="@Model.EndDate.ToString("yyyy-MM-dd")" id="EndDate" name="EndDate">
-
+                            <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="EndDate" name="EndDate">
                         </p>
                         <p>
-                            @Html.ValidationMessageFor(model => model.ShowInCv, "*", new { @class = "text-danger" })
-                            @Html.LabelFor(m => m.ShowInCv, new { htmlAttributes = new { @class = "control-label" }, })
-                            @Html.EditorFor(m => m.ShowInCv, new { htmlAttributes = new { id = @Html.Raw("addShowInCv" + Model.EducationId) } })
-
+                            <span>
+                                @Html.ValidationMessageFor(model => model.ShowInCv, "*", new { @class = "text-danger" })
+                                @Html.LabelFor(m => m.ShowInCv, new { htmlAttributes = new { @class = "control-label" }, })
+                                @Html.EditorFor(m => m.ShowInCv, new { htmlAttributes = new { id = @Html.Raw("addShowInCv" + Model.EducationId) } })
+                            </span>
                         </p>
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
@@ -66,18 +66,18 @@
             </div>
         </div>
     }
+
 }
 
 <script language="Javascript">
-            $("@Html.Raw("#addCurrentPlaceOfEducation" + Model.EducationId)").change(
+            $("@Html.Raw("#CurrentPlaceOfEducation")").change(
                 function () {
                     if ($(this).is(':checked')) {
-                        $("@Html.Raw("#EndDateParagraf" + Model.EducationId)").hide();
+                        $("@Html.Raw("#addEndDateParagraf")").hide();
 
                     } else {
-                        $("@Html.Raw("#EndDateParagraf" + Model.EducationId)").show();
+                        $("@Html.Raw("#addEndDateParagraf")").show();
                     }
                 }
-            );
+    );
 </script>
-

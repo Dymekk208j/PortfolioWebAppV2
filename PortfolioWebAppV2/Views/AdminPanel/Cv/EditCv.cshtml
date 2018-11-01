@@ -863,7 +863,7 @@
                         @{
                             foreach (var a in Model.Educations.Where(x => x.ShowInCv).OrderByDescending(x => x.StartDate))
                             {
-                                @Html.Partial("Educations/_EducationPartialView", a)
+                                @Html.Partial("_EducationPartialView", a)
                             }
                         }
                     </div>

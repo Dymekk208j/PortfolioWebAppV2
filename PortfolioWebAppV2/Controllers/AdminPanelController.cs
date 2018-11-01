@@ -15,43 +15,6 @@ namespace PortfolioWebAppV2.Controllers
             return View();
         }
         
-
-        [HttpGet]
-        public ActionResult EditEducation()
-        {
-            var db = new ApplicationDbContext();
-            var educations = db.Educations.ToList();
-
-            return View("Educations/EditEducation", educations);
-        }
-
-        [HttpGet]
-        public ActionResult RemoveEducation(int id)
-        {
-            var db = new ApplicationDbContext();
-
-            var education = new Education() { EducationId = id };
-            db.Educations.Attach(education);
-            db.Educations.Remove(education);
-            db.SaveChanges();
-
-            return RedirectToAction("EditEducation");
-        }
-
-        [HttpPost]
-        public ActionResult CreateOrUpdateEducation(Education education)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.Educations.AddOrUpdate(education);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditEducation");
-        }
-        
-
         [HttpGet]
         public ActionResult EditEmploymentHistory()
         {
