@@ -61,39 +61,6 @@ namespace PortfolioWebAppV2.Controllers
             return RedirectToAction("EditCv");
         }
         
-
-        [HttpGet]
-        public ActionResult RemoveAdditionalInformationFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            AdditionalInfo additionalInfo = db.AdditionalInfos.SingleOrDefault(x => x.AdditionalInfoId == id);
-            if (additionalInfo != null)
-            {
-                additionalInfo.ShowInCv = false;
-                db.AdditionalInfos.Attach(additionalInfo);
-                db.Entry(additionalInfo).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpPost]
-        public ActionResult AddAdditionalInfoToCv(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            AdditionalInfo additionalInfo = db.AdditionalInfos.SingleOrDefault(x => x.AdditionalInfoId == cvModel.SelectedAddtinionaInformation);
-            if (additionalInfo != null)
-            {
-                additionalInfo.ShowInCv = true;
-                db.AdditionalInfos.Attach(additionalInfo);
-                db.Entry(additionalInfo).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
         [HttpPost]
         public ActionResult AddEmploymentHistroyToCv(CvViewModel cvModel)
         {

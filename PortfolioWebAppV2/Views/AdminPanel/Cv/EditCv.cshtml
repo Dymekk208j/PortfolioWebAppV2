@@ -556,7 +556,7 @@
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
                                     <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;">
-                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveAdditionalInformationFromCv", "AdminPanel", new { id = a.AdditionalInfoId })';return false;"></button>
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button>
                                     </div>
 
                                 </div>
@@ -590,7 +590,7 @@
                             {
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
-                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveAdditionalInformationFromCv", "AdminPanel", new { id = a.AdditionalInfoId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button></div>
 
                                 </div>
 
@@ -623,7 +623,7 @@
                             {
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
-                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href='@Url.Action("RemoveAdditionalInformationFromCv", "AdminPanel", new { id = a.AdditionalInfoId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button></div>
 
                                 </div>
 
@@ -645,7 +645,7 @@
                 </div>
             </div>
 
-            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdminPanel"))
+            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdditionalInformation"))
                 {
                     <div class="modal fade" id="AddLangs" tabindex="-1" role="dialog" aria-labelledby="AddLangsLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -695,7 +695,7 @@
                 });
             </script>
 
-            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdminPanel"))
+            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdditionalInformation"))
                 {
                     <div class="modal fade" id="AddAddiSkill" tabindex="-1" role="dialog" aria-labelledby="AddAddiLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -745,7 +745,7 @@
                 });
             </script>
 
-            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdminPanel"))
+            @{ using (Html.BeginForm("AddAdditionalInfoToCv", "AdditionalInformation"))
                 {
                     <div class="modal fade" id="AddIntr" tabindex="-1" role="dialog" aria-labelledby="AddIntrLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
@@ -51,6 +52,33 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("AdditionalInformationManagement");
         }
-        
+
+        [HttpPost]
+        public bool AddAdditionalInfoToCv(CvViewModel cvModel)
+        {
+            AdditionalInfo additionalInfo = _repository.Get(cvModel.SelectedAddtinionaInformation);
+            if (additionalInfo != null)
+            {
+                additionalInfo.ShowInCv = true;
+                _repository.Update(additionalInfo);
+            }
+            else return false;
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool RemoveAdditionalInformationFromCv(int id)
+        {
+            AdditionalInfo additionalInfo = _repository.Get(id);
+            if (additionalInfo != null)
+            {
+                additionalInfo.ShowInCv = false;
+                _repository.Update(additionalInfo);
+            }
+            else return false;
+
+            return true;
+        }
     }
 }
