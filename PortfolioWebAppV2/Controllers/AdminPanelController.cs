@@ -62,38 +62,6 @@ namespace PortfolioWebAppV2.Controllers
         }
         
 
-        [HttpPost]
-        public ActionResult AddAchievementToCv(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Achievement achievement = db.Achievements.SingleOrDefault(x => x.AchievementId == cvModel.SelectedAchievement);
-            if (achievement != null)
-            {
-                achievement.ShowInCv = true;
-                db.Achievements.Attach(achievement);
-                db.Entry(achievement).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpGet]
-        public ActionResult RemoveAchievementFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Achievement achievement = db.Achievements.SingleOrDefault(x => x.AchievementId == id);
-            if (achievement != null)
-            {
-                achievement.ShowInCv = false;
-                db.Achievements.Attach(achievement);
-                db.Entry(achievement).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditCv");
-        }
-
         [HttpGet]
         public ActionResult RemoveAdditionalInformationFromCv(int id)
         {

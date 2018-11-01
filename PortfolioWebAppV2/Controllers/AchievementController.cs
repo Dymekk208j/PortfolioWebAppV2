@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
@@ -19,7 +20,7 @@ namespace PortfolioWebAppV2.Controllers
             var achievements = _repository.Get();
             return View(achievements);
         }
-        
+
 
         [HttpGet]
         public ActionResult RemoveAchievement(int id)
@@ -35,10 +36,41 @@ namespace PortfolioWebAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-              _repository.Add(achievement);
+                _repository.Add(achievement);
             }
 
             return RedirectToAction("AchievementsManagement");
         }
+
+        [HttpPost]
+        public bool AddAchievementToCv(CvViewModel cvModel)
+        {
+            Achievement achievement = _repository.Get(cvModel.SelectedAchievement);
+
+            if (achievement != null)
+            {
+                achievement.ShowInCv = true;
+                _repository.Update(achievement);
+            }
+            else return false;
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool RemoveAchievementFromCv(int id)
+        {
+            Achievement achievement = _repository.Get(id);
+
+            if (achievement != null)
+            {
+                achievement.ShowInCv = false;
+                _repository.Update(achievement);
+            }
+            else return false;
+
+            return true;
+        }
+
     }
 }
