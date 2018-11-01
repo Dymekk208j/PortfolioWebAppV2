@@ -15,40 +15,6 @@ namespace PortfolioWebAppV2.Controllers
             return View();
         }
         
-        [HttpGet]
-        public ActionResult EditEmploymentHistory()
-        {
-            var db = new ApplicationDbContext();
-            var employmentHistory = db.EmploymentHistories.ToList();
-
-            return View("EmploymentHistories/EditEmploymentHistory", employmentHistory);
-        }
-
-        [HttpGet]
-        public ActionResult RemoveEmploymentHistory(int id)
-        {
-            var db = new ApplicationDbContext();
-
-            var employmentHistory = new EmploymentHistory() { EmploymentHistoryId = id };
-            db.EmploymentHistories.Attach(employmentHistory);
-            db.EmploymentHistories.Remove(employmentHistory);
-            db.SaveChanges();
-
-            return RedirectToAction("EditEmploymentHistory");
-        }
-
-        [HttpPost]
-        public ActionResult CreateOrUpdateEmploymentHistory(EmploymentHistory employmentHistory)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.EmploymentHistories.AddOrUpdate(employmentHistory);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditEmploymentHistory");
-        }
 
         [HttpGet]
         public ActionResult EditCv()
@@ -347,11 +313,6 @@ namespace PortfolioWebAppV2.Controllers
             return View("Users/UserMgt", usersManagementViewModel);
         }
 
-        //[HttpGet]
-        //public ActionResult ProjectsList()
-        //{
-        //    return View();
-        //}
     }
 
 }

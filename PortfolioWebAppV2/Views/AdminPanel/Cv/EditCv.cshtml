@@ -806,7 +806,7 @@
                         @{
                             foreach (var a in Model.EmploymentHistories.Where(m => m.ShowInCv).OrderByDescending(x => x.StartDate))
                             {
-                                @Html.Partial("EmploymentHistories/_EmploymentHistoryPartialView", a)
+                                @Html.Partial("_EmploymentHistoryPartialView", a)
                             }
                         }
                     </div>

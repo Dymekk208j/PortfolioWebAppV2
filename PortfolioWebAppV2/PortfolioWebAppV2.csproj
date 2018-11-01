@@ -248,6 +248,7 @@
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
+    <Compile Include="Controllers\EmploymentHistoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Global.asax.cs">
@@ -281,6 +282,7 @@
     <Compile Include="Repository\AdditionalInformationRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\EducationRepository.cs" />
+    <Compile Include="Repository\EmploymentHistoryRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\TechnologyRepository.cs" />
     <Compile Include="Startup.cs" />
@@ -401,13 +403,12 @@
     <Content Include="Views\Education\_CreateEducationPartialView.cshtml" />
     <Content Include="Views\Education\_EditEducationPartialView.cshtml" />
     <Content Include="Views\AdditionalInformation\_CreateAditionalInformationView.cshtml" />
-    <Content Include="Views\AdminPanel\EmploymentHistories\EditEmploymentHistory.cshtml" />
-    <Content Include="Views\AdminPanel\EmploymentHistories\_CreateEmploymentHistoryPartialView.cshtml" />
-    <Content Include="Views\AdminPanel\EmploymentHistories\_EditEmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\EmploymentHistory\_CreateEmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\EmploymentHistory\_EditEmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Cv\EditCv.cshtml" />
     <Content Include="Views\AdminPanel\Cv\_ProjectPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Cv\_AchievementPartialView.cshtml" />
-    <Content Include="Views\AdminPanel\EmploymentHistories\_EmploymentHistoryPartialView.cshtml" />
+    <Content Include="Views\AdminPanel\Cv\_EmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Cv\_EducationPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Users\UserMgt.cshtml" />
     <Content Include="Views\AdminPanel\Users\_UserListPartialView.cshtml" />
@@ -420,10 +421,12 @@
     <Content Include="Views\Technology\TechnologyManagement.cshtml" />
     <Content Include="Views\AdditionalInformation\AdditionalInformationManagement.cshtml" />
     <Content Include="Views\Education\EducationManagement.cshtml" />
+    <Content Include="Views\EmploymentHistory\EmploymentHistoryManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AdminPanel\Educations\" />
+    <Folder Include="Views\AdminPanel\EmploymentHistories\" />
     <Folder Include="Views\AdminPanel\Projects\" />
   </ItemGroup>
   <ItemGroup>
