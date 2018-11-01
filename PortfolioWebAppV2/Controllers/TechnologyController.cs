@@ -43,7 +43,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public bool AddToCv(CvViewModel cvModel, Technology.LevelOfKnowledge levelOfKnowledge)
+        public ActionResult AddToCv(CvViewModel cvModel, Technology.LevelOfKnowledge levelOfKnowledge)
         {
             Technology technology = _repository.Get(cvModel.SelectedTechnology);
 
@@ -54,13 +54,12 @@ namespace PortfolioWebAppV2.Controllers
 
                 _repository.Update(technology);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
         [HttpGet]
-        public bool RemoveFromCv(int id)
+        public ActionResult RemoveFromCv(int id)
         {
             Technology technology = _repository.Get(id);
             if (technology != null)
@@ -68,10 +67,8 @@ namespace PortfolioWebAppV2.Controllers
                 technology.ShowInCv = false;
                 _repository.Update(technology);
             }
-            else return false;
 
-            return true;
-
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
     }

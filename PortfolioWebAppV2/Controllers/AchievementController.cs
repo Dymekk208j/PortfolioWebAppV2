@@ -43,7 +43,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public bool AddAchievementToCv(CvViewModel cvModel)
+        public ActionResult AddAchievementToCv(CvViewModel cvModel)
         {
             Achievement achievement = _repository.Get(cvModel.SelectedAchievement);
 
@@ -52,13 +52,12 @@ namespace PortfolioWebAppV2.Controllers
                 achievement.ShowInCv = true;
                 _repository.Update(achievement);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
-        [HttpPost]
-        public bool RemoveAchievementFromCv(int id)
+        [HttpGet]
+        public ActionResult RemoveAchievementFromCv(int id)
         {
             Achievement achievement = _repository.Get(id);
 
@@ -67,9 +66,8 @@ namespace PortfolioWebAppV2.Controllers
                 achievement.ShowInCv = false;
                 _repository.Update(achievement);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
     }

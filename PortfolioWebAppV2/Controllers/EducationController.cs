@@ -54,20 +54,21 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public bool AddEducationToCv(CvViewModel cvModel)
+        public ActionResult AddEducationToCv(CvViewModel cvModel)
         {
             Education education = _repository.Get(cvModel.SelectedEducation);
             if (education != null)
             {
                 education.ShowInCv = true;
                 _repository.Update(education);
-            }else return false;
+            }
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
+
         }
 
-        [HttpPost]
-        public bool RemoveEducationFromCv(int id)
+        [HttpGet]
+        public ActionResult RemoveEducationFromCv(int id)
         {
             Education education = _repository.Get(id);
             if (education != null)
@@ -75,9 +76,8 @@ namespace PortfolioWebAppV2.Controllers
                 education.ShowInCv = false;
                 _repository.Update(education);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
     }

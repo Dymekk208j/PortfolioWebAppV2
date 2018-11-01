@@ -7,8 +7,6 @@ namespace PortfolioWebAppV2.Controllers
 {
     public class AdminPanelController : Controller
     {
-
-
         [HttpGet]
         public ActionResult Index()
         {

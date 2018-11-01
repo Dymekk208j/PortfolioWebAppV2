@@ -54,7 +54,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public bool AddEmploymentHistoryToCv(CvViewModel cvModel)
+        public ActionResult AddEmploymentHistoryToCv(CvViewModel cvModel)
         {
             EmploymentHistory employmentHistory = _repository.Get(cvModel.SelectedEmploymentHistory);
             if (employmentHistory != null)
@@ -62,13 +62,12 @@ namespace PortfolioWebAppV2.Controllers
                 employmentHistory.ShowInCv = true;
                 _repository.Update(employmentHistory);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
-        [HttpPost]
-        public bool RemoveEmploymentHistoryFromCv(int id)
+        [HttpGet]
+        public ActionResult RemoveEmploymentHistoryFromCv(int id)
         {
             EmploymentHistory employmentHistory = _repository.Get(id);
             if (employmentHistory != null)
@@ -76,9 +75,8 @@ namespace PortfolioWebAppV2.Controllers
                 employmentHistory.ShowInCv = false;
                 _repository.Update(employmentHistory);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
     }
 }

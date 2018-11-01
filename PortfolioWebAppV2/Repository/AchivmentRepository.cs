@@ -36,7 +36,13 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Update(Achievement entity)
         {
-            throw new NotImplementedException();
+            Achievement achievement = Context.Achievements.Find(entity.AchievementId);
+            if (achievement == null) return false;
+
+            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+            Context.SaveChanges();
+
+            return true;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public bool AddAdditionalInfoToCv(CvViewModel cvModel)
+        public ActionResult AddAdditionalInfoToCv(CvViewModel cvModel)
         {
             AdditionalInfo additionalInfo = _repository.Get(cvModel.SelectedAddtinionaInformation);
             if (additionalInfo != null)
@@ -62,13 +62,12 @@ namespace PortfolioWebAppV2.Controllers
                 additionalInfo.ShowInCv = true;
                 _repository.Update(additionalInfo);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
 
-        [HttpPost]
-        public bool RemoveAdditionalInformationFromCv(int id)
+        [HttpGet]
+        public ActionResult RemoveAdditionalInformationFromCv(int id)
         {
             AdditionalInfo additionalInfo = _repository.Get(id);
             if (additionalInfo != null)
@@ -76,9 +75,8 @@ namespace PortfolioWebAppV2.Controllers
                 additionalInfo.ShowInCv = false;
                 _repository.Update(additionalInfo);
             }
-            else return false;
 
-            return true;
+            return RedirectToAction("EditCv", "AdminPanel");
         }
     }
 }
