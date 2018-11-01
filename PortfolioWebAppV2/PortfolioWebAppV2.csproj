@@ -244,6 +244,7 @@
     <Compile Include="Controllers\AboutMeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AchievementController.cs" />
+    <Compile Include="Controllers\AdditionalInformationController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AboutMeRepository.cs" />
     <Compile Include="Repository\AchivmentRepository.cs" />
+    <Compile Include="Repository\AdditionalInformationRepository.cs" />
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\TechnologyRepository.cs" />
@@ -397,8 +399,7 @@
     <Content Include="Views\AdminPanel\Educations\EditEducation.cshtml" />
     <Content Include="Views\AdminPanel\Educations\_CreateEducationPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Educations\_EditEducationPartialView.cshtml" />
-    <Content Include="Views\AdminPanel\AdditionalInfos\EditAdditionalInfo.cshtml" />
-    <Content Include="Views\AdminPanel\AdditionalInfos\_CreateAditionalInformationView.cshtml" />
+    <Content Include="Views\AdditionalInformation\_CreateAditionalInformationView.cshtml" />
     <Content Include="Views\AdminPanel\EmploymentHistories\EditEmploymentHistory.cshtml" />
     <Content Include="Views\AdminPanel\EmploymentHistories\_CreateEmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\AdminPanel\EmploymentHistories\_EditEmploymentHistoryPartialView.cshtml" />
@@ -416,6 +417,7 @@
     <Content Include="Views\Contact\ContactManagement.cshtml" />
     <Content Include="Views\Contact\Contact.cshtml" />
     <Content Include="Views\Technology\TechnologyManagement.cshtml" />
+    <Content Include="Views\AdditionalInformation\AdditionalInformationManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

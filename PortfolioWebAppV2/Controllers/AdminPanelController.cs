@@ -50,41 +50,7 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditEducation");
         }
-
-        [HttpGet]
-        public ActionResult EditAdditionalInfo()
-        {
-            var db = new ApplicationDbContext();
-            var additionalInfos = db.AdditionalInfos.ToList();
-
-            return View("AdditionalInfos/EditAdditionalInfo", additionalInfos);
-        }
-
-        [HttpGet]
-        public ActionResult RemoveAdditionalInfo(int id)
-        {
-            var db = new ApplicationDbContext();
-
-            var additionalInfo = new AdditionalInfo() { AdditionalInfoId = id };
-            db.AdditionalInfos.Attach(additionalInfo);
-            db.AdditionalInfos.Remove(additionalInfo);
-            db.SaveChanges();
-
-            return RedirectToAction("EditAdditionalInfo");
-        }
-
-        [HttpPost]
-        public ActionResult CreateOrUpdateAdditionalInfo(AdditionalInfo additionalInfo)
-        {
-            if (ModelState.IsValid)
-            {
-                var db = new ApplicationDbContext();
-                db.AdditionalInfos.AddOrUpdate(additionalInfo);
-                db.SaveChanges();
-            }
-
-            return RedirectToAction("EditAdditionalInfo");
-        }
+        
 
         [HttpGet]
         public ActionResult EditEmploymentHistory()

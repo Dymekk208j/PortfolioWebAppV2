@@ -1,5 +1,5 @@
 ﻿@using PortfolioWebAppV2.Models.DatabaseModels
-@model List<AdditionalInfo>
+@model IEnumerable<AdditionalInfo>
 @{
     ViewBag.Title = "AdditionalInformationMgtView";
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
@@ -53,7 +53,7 @@
                                         </td>
                                         <td class="text-center" style="max-width: 20px !important; border-left: dotted; border-left-width: 1px;">
 
-                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm far fa-minus-square" onclick="location.href='@Url.Action("RemoveAdditionalInfo", "AdminPanel", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
+                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm far fa-minus-square" onclick="location.href = '@Url.Action("Remove", "AdditionalInformation", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
 
 
                                         </td>
@@ -90,7 +90,7 @@
                                         </td>
                                         <td class="text-center" style="max-width: 20px !important; border-left: dotted; border-left-width: 1px;">
 
-                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm  far fa-minus-square" onclick="location.href = '@Url.Action("RemoveAdditionalInfo", "AdminPanel", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
+                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm  far fa-minus-square" onclick="location.href = '@Url.Action("Remove", "AdditionalInformation", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
 
 
                                         </td>
@@ -127,7 +127,7 @@
                                         </td>
                                         <td class="text-center" style="max-width: 20px !important; border-left: dotted; border-left-width: 1px;">
 
-                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm far fa-minus-square" onclick="location.href = '@Url.Action("RemoveAdditionalInfo", "AdminPanel", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
+                                            <button type="button" id="@Html.Raw("RemoveBtn" + u.AdditionalInfoId)" class="btn btn-danger btn-sm far fa-minus-square" onclick="location.href = '@Url.Action("Remove", "AdditionalInformation", new { id = u.AdditionalInfoId })';return false;"> Usuń</button>
 
 
                                         </td>
