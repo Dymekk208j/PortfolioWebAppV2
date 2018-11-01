@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
@@ -50,6 +51,34 @@ namespace PortfolioWebAppV2.Controllers
             }
 
             return RedirectToAction("EmploymentHistoryManagement");
+        }
+
+        [HttpPost]
+        public bool AddEmploymentHistoryToCv(CvViewModel cvModel)
+        {
+            EmploymentHistory employmentHistory = _repository.Get(cvModel.SelectedEmploymentHistory);
+            if (employmentHistory != null)
+            {
+                employmentHistory.ShowInCv = true;
+                _repository.Update(employmentHistory);
+            }
+            else return false;
+
+            return true;
+        }
+
+        [HttpPost]
+        public bool RemoveEmploymentHistoryFromCv(int id)
+        {
+            EmploymentHistory employmentHistory = _repository.Get(id);
+            if (employmentHistory != null)
+            {
+                employmentHistory.ShowInCv = false;
+                _repository.Update(employmentHistory);
+            }
+            else return false;
+
+            return true;
         }
     }
 }

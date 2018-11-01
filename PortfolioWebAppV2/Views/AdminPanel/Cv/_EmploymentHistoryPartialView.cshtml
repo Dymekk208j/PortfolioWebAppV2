@@ -3,7 +3,7 @@
 
 <div id="@Html.Raw("EmploymentHistoryDiv" + Model.EmploymentHistoryId.ToString())">
     <div id="@Html.Raw("EmploymentHistoryDivBtn" + Model.EmploymentHistoryId.ToString())" style="display: none;">
-        <button type="button" class="btn btn-outline-danger button-xs far fa-minus-square" onclick="location.href='@Url.Action("RemoveEmploymentHistroyFromCv", "AdminPanel", new { id = Model.EmploymentHistoryId })';return false;"></button>
+        <button type="button" class="btn btn-outline-danger button-xs far fa-minus-square" onclick="location.href = '@Url.Action("RemoveEmploymentHistoryFromCv", "EmploymentHistory", new { id = Model.EmploymentHistoryId })';return false;"></button>
 
     </div>
     <p>

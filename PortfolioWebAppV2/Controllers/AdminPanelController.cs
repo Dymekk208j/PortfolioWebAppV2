@@ -60,38 +60,11 @@ namespace PortfolioWebAppV2.Controllers
 
             return RedirectToAction("EditCv");
         }
-        
-        [HttpPost]
-        public ActionResult AddEmploymentHistroyToCv(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            EmploymentHistory employmentHistory = db.EmploymentHistories.SingleOrDefault(x => x.EmploymentHistoryId == cvModel.SelectedEmploymentHistory);
-            if (employmentHistory != null)
-            {
-                employmentHistory.ShowInCv = true;
-                db.EmploymentHistories.Attach(employmentHistory);
-                db.Entry(employmentHistory).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
+      
 
-            return RedirectToAction("EditCv");
-        }
 
-        [HttpGet]
-        public ActionResult RemoveEmploymentHistroyFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            EmploymentHistory employmentHistory = db.EmploymentHistories.SingleOrDefault(x => x.EmploymentHistoryId == id);
-            if (employmentHistory != null)
-            {
-                employmentHistory.ShowInCv = false;
-                db.EmploymentHistories.Attach(employmentHistory);
-                db.Entry(employmentHistory).Property(x => x.ShowInCv).IsModified = true;
-                db.SaveChanges();
-            }
 
-            return RedirectToAction("EditCv");
-        }
+
 
         [HttpPost]
         public ActionResult AddEducationToCv(CvViewModel cvModel)
