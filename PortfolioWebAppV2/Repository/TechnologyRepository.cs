@@ -11,6 +11,11 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public TechnologyRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public IEnumerable<Technology> GetAll()
         {
             return Context.Technologies.ToList();
@@ -18,7 +23,7 @@ namespace PortfolioWebAppV2.Repository
 
         public Technology Get(int id)
         {
-            return Context.Technologies.Find(id);
+            return Context.Technologies.First(a => a.TechnologyId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(Technology entity)
@@ -29,20 +34,29 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(Technology entity)
         {
-            var obj = Context.Technologies.Find(entity.TechnologyId);
-            Context.Technologies.Remove(obj ?? throw new InvalidOperationException());
+            var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId) ?? throw new InvalidOperationException();
+            Context.Technologies.Remove(obj);
             Context.SaveChanges();
         }
 
         public bool Update(Technology entity)
         {
-            Technology technology = Context.Technologies.Find(entity.TechnologyId);
-            if (technology == null) return false;
+            try
+            {
+                var achievement = Context.Technologies.Single(a => a.TechnologyId == entity.TechnologyId) ?? throw new Exception($"Not found id: {entity.TechnologyId}");
+                achievement.KnowledgeLevel = entity.KnowledgeLevel;
+                achievement.Name = entity.Name;
+                achievement.ShowInCv = entity.ShowInCv;
+                achievement.Projects = entity.Projects;
+                Context.SaveChanges();
+                return true;
 
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }
