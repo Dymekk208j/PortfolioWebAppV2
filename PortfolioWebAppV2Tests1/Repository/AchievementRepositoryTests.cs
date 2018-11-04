@@ -38,11 +38,6 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public AchievementRepositoryTests()
         {
-            //var dbContext = new ApplicationDbContext
-            //{
-            //    Achievements = new Mock<DbSet<Achievement>>().Object
-            //};
-
             var achievements = _achievements.AsQueryable();
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Provider).Returns(achievements.Provider);
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Expression).Returns(achievements.Expression);
@@ -145,6 +140,25 @@ namespace PortfolioWebAppV2Tests1.Repository
             //Assert
             Assert.Equal(actual: _achievements[0].Title, expected: title);
             _dbMock.Verify();
+        }
+
+        [Fact()]
+        public void UpdateTest_nonexistent_object()
+        {
+            //Arrange
+            var achievement = new Achievement()
+            {
+                AchievementId = -1,
+                Title = "imageLink",
+                Description = "text",
+                Date = null
+            };
+
+            //Act 
+            var result = _repository.Update(achievement);
+
+            //Assert
+            Assert.False(result);
         }
 
         [Fact()]

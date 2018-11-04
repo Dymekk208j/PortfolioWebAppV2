@@ -11,6 +11,11 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public AboutMeRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public IEnumerable<AboutMe> GetAll()
         {
             return Context.AboutMe.ToList();
@@ -18,7 +23,7 @@ namespace PortfolioWebAppV2.Repository
 
         public AboutMe Get(int id)
         {
-            return Context.AboutMe.Find(id);
+            return Context.AboutMe.First(a => a.AboutMeId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(AboutMe entity)
@@ -29,21 +34,27 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(AboutMe entity)
         {
-            var obj = Context.AboutMe.Find(entity.AboutMeId);
+            var obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
             Context.AboutMe.Remove(obj ?? throw new InvalidOperationException());
             Context.SaveChanges();
         }
 
         public bool Update(AboutMe entity)
         {
-            AboutMe aboutMe = Context.AboutMe.FirstOrDefault();
-            if (aboutMe == null) return false;
+            try
+            {
+                var aboutMe = Context.AboutMe.Single(a => a.AboutMeId == entity.AboutMeId) ?? throw new Exception("Not found");
+                aboutMe.Title = entity.Title;
+                aboutMe.ImageLink = entity.ImageLink;
+                aboutMe.Text = entity.Text;
+                Context.SaveChanges();
+                return true;
 
-            entity.AboutMeId = aboutMe.AboutMeId;
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
