@@ -11,6 +11,11 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public AdditionalInformationRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public IEnumerable<AdditionalInfo> GetAll()
         {
             return Context.AdditionalInfos.ToList();
@@ -18,7 +23,7 @@ namespace PortfolioWebAppV2.Repository
 
         public AdditionalInfo Get(int id)
         {
-            return Context.AdditionalInfos.Find(id);
+            return Context.AdditionalInfos.First(a => a.AdditionalInfoId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(AdditionalInfo entity)
@@ -29,20 +34,27 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(AdditionalInfo entity)
         {
-            var obj = Context.AdditionalInfos.Find(entity.AdditionalInfoId);
+            var obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
             Context.AdditionalInfos.Remove(obj ?? throw new InvalidOperationException());
             Context.SaveChanges();
         }
 
         public bool Update(AdditionalInfo entity)
         {
-            AdditionalInfo additionalInfo = Context.AdditionalInfos.Find(entity.AdditionalInfoId);
-            if (additionalInfo == null) return false;
+            try
+            {
+                var additionalInfo = Context.AdditionalInfos.Single(a => a.AdditionalInfoId == entity.AdditionalInfoId) ?? throw new Exception("Not found");
+                additionalInfo.Title = entity.Title;
+                additionalInfo.ShowInCv = entity.ShowInCv;
+                additionalInfo.Type = entity.Type;
 
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

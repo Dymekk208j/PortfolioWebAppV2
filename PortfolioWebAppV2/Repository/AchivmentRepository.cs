@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Web.ModelBinding;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using Unity.Attributes;
 
@@ -44,7 +42,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId);
+                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new Exception("Not found");
                 achievement.Date = entity.Date;
                 achievement.Description = entity.Description;
                 achievement.ShowInCv = entity.ShowInCv;

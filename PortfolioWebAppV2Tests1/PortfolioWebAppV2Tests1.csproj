@@ -92,6 +92,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AboutMeRepositoryTests.cs" />
     <Compile Include="Repository\AchievementRepositoryTests.cs" />
+    <Compile Include="Repository\AdditionalInformationRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
