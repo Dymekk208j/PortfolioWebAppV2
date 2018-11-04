@@ -96,6 +96,7 @@
     <Compile Include="Repository\ContactRepositoryTests.cs" />
     <Compile Include="Repository\EducationRepositoryTests.cs" />
     <Compile Include="Repository\EmploymentHistoryRepositoryTests.cs" />
+    <Compile Include="Repository\PrivateInformationRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

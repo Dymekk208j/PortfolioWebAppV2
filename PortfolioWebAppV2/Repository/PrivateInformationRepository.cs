@@ -34,21 +34,35 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(PrivateInformation entity)
         {
-            var obj = Context.PrivateInformations.Find(entity.PrivateInformationId);
+            var obj = Context.PrivateInformations.First(a => a.PrivateInformationId == entity.PrivateInformationId);
             Context.PrivateInformations.Remove(obj ?? throw new InvalidOperationException());
             Context.SaveChanges();
         }
 
         public bool Update(PrivateInformation entity)
         {
-            PrivateInformation privateInformation = Context.PrivateInformations.FirstOrDefault();
-            if (privateInformation == null) return false;
-
-            entity.PrivateInformationId = privateInformation.PrivateInformationId;
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+            try
+            {
+                var privateInformation = Context.PrivateInformations.Single(a => a.PrivateInformationId == entity.PrivateInformationId) ?? throw new Exception($"Not found id: {entity.PrivateInformationId}");
+                privateInformation.City = entity.City;
+                privateInformation.Email = entity.Email;
+                privateInformation.FirstName = entity.FirstName;
+                privateInformation.FlatNumber = entity.FlatNumber;
+                privateInformation.HomePage = entity.HomePage;
+                privateInformation.HouseNumber = entity.HouseNumber;
+                privateInformation.ImageLink = entity.ImageLink;
+                privateInformation.LastName = entity.LastName;
+                privateInformation.PhoneNumber = entity.PhoneNumber;
+                privateInformation.PostCode = entity.PostCode;
+                privateInformation.Street = entity.Street;
+                Context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }

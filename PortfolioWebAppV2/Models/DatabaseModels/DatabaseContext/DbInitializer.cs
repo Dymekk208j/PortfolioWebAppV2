@@ -189,7 +189,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             var privateInformation = new List<PrivateInformation>
             {
                 new PrivateInformation() { PrivateInformationId = 1, City = "Koszalin", Email = "Kontakt@DamianDziura.pl", FirstName = "Damian", LastName = "Dziura"
-                , Street = "1 maja", HouseNumber = "1", FlatNumber = "3", PostCode="75-800", HomePage = "www.DamianDziura.pl", PhoneNumber="510-075-067", ImageLink= "http://via.placeholder.com/150x180" },
+                , Street = "1 maja", HouseNumber = "1", FlatNumber = "3", PostCode="75-800", HomePage = "www.DamianDziura.pl", PhoneNumber="510-075-067", ImageLink= "http://via.placeholder.com/150x180" }
               };
             privateInformation.ForEach(g => context.PrivateInformations.Add(g));
             context.SaveChanges();
