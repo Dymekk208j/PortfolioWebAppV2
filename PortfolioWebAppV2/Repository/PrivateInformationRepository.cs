@@ -11,6 +11,11 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public PrivateInformationRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public IEnumerable<PrivateInformation> GetAll()
         {
             return Context.PrivateInformations.ToList();
@@ -18,7 +23,7 @@ namespace PortfolioWebAppV2.Repository
 
         public PrivateInformation Get(int id)
         {
-            return Context.PrivateInformations.Find(id);
+            return Context.PrivateInformations.First(a => a.PrivateInformationId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(PrivateInformation entity)

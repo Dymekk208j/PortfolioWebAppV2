@@ -11,6 +11,10 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public EmploymentHistoryRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
         public IEnumerable<EmploymentHistory> GetAll()
         {
             return Context.EmploymentHistories.ToList();
@@ -18,7 +22,7 @@ namespace PortfolioWebAppV2.Repository
 
         public EmploymentHistory Get(int id)
         {
-            return Context.EmploymentHistories.Find(id);
+            return Context.EmploymentHistories.First(a => a.EmploymentHistoryId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(EmploymentHistory entity)
@@ -29,20 +33,32 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(EmploymentHistory entity)
         {
-            var obj = Context.EmploymentHistories.Find(entity.EmploymentHistoryId);
+            var obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
             Context.EmploymentHistories.Remove(obj ?? throw new InvalidOperationException());
             Context.SaveChanges();
         }
 
         public bool Update(EmploymentHistory entity)
         {
-            EmploymentHistory employmentHistory = Context.EmploymentHistories.Find(entity.EmploymentHistoryId);
-            if (employmentHistory == null) return false;
+            try
+            {
+                var employmentHistory = Context.EmploymentHistories.Single(a => a.EmploymentHistoryId == entity.EmploymentHistoryId) ?? throw new Exception($"Not found id: {entity.EmploymentHistoryId}");
+                employmentHistory.CityOfEmployment = entity.CityOfEmployment;
+                employmentHistory.CompanyName = entity.CompanyName;
+                employmentHistory.CurrentPlaceOfEmployment = entity.CurrentPlaceOfEmployment;
+                employmentHistory.EndDate = entity.EndDate;
+                employmentHistory.Position = entity.Position;
+                employmentHistory.StartDate = entity.StartDate;
+                employmentHistory.ShowInCv = entity.ShowInCv;
+                Context.SaveChanges();
+                return true;
 
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }
