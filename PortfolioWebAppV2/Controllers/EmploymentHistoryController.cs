@@ -17,7 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EmploymentHistoryManagement()
         {
-            var employmentHistory = _repository.Get();
+            var employmentHistory = _repository.GetAll();
 
             return View(employmentHistory);
         }

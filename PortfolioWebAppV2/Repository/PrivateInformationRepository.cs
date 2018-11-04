@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
-        public IEnumerable<PrivateInformation> Get()
+        public IEnumerable<PrivateInformation> GetAll()
         {
             return Context.PrivateInformations.ToList();
         }

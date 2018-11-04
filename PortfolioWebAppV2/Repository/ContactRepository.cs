@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
-        public IEnumerable<Contact> Get()
+        public IEnumerable<Contact> GetAll()
         {
             return Context.Contacts.ToList();
         }

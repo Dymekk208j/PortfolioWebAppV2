@@ -17,7 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AdditionalInformationManagement()
         {
-            var additionalInfos = _repository.Get();
+            var additionalInfos = _repository.GetAll();
 
             return View(additionalInfos);
         }

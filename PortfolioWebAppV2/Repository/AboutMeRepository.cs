@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
-        public IEnumerable<AboutMe> Get()
+        public IEnumerable<AboutMe> GetAll()
         {
             return Context.AboutMe.ToList();
         }

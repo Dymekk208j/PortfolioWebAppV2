@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
-        public IEnumerable<EmploymentHistory> Get()
+        public IEnumerable<EmploymentHistory> GetAll()
         {
             return Context.EmploymentHistories.ToList();
         }

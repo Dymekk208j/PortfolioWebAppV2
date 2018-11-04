@@ -4,7 +4,7 @@ namespace PortfolioWebAppV2.Repository
 {
     public interface IRepository<TEnt, in TPk> where TEnt: class 
     {
-        IEnumerable<TEnt> Get();
+        IEnumerable<TEnt> GetAll();
         TEnt Get(TPk id);
         void Add(TEnt entity);
         void Remove(TEnt entity);

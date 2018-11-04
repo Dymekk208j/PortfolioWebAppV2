@@ -17,7 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AchievementsManagement()
         {
-            var achievements = _repository.Get();
+            var achievements = _repository.GetAll();
             return View(achievements);
         }
 

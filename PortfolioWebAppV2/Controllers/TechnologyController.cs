@@ -17,7 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult TechnologyManagement()
         {
-            var technologies = _repository.Get();
+            var technologies = _repository.GetAll();
 
             return View("TechnologyManagement", technologies);
         }

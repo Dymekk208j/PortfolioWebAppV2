@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
-        public IEnumerable<Technology> Get()
+        public IEnumerable<Technology> GetAll()
         {
             return Context.Technologies.ToList();
         }

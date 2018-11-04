@@ -17,7 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EducationManagement()
         {
-            var educations = _repository.Get();
+            var educations = _repository.GetAll();
 
             return View(educations);
         }

@@ -19,7 +19,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AboutMeManagement()
         {
-            AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(_repository.Get().FirstOrDefault());
+            AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(_repository.GetAll().FirstOrDefault());
 
             return View("AboutMeManagement", aboutMeViewModel);
         }
@@ -27,7 +27,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AboutMe()
         {
-            var c = _repository.Get().FirstOrDefault();
+            var c = _repository.GetAll().FirstOrDefault();
             AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(c);
 
             return View(aboutMeViewModel);
