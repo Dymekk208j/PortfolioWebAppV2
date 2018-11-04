@@ -53,6 +53,7 @@ namespace PortfolioWebAppV2.Repository
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return false;
             }
         }
