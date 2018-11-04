@@ -42,7 +42,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new Exception("Not found");
+                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new Exception($"Not found id: {entity.AchievementId}");
                 achievement.Date = entity.Date;
                 achievement.Description = entity.Description;
                 achievement.ShowInCv = entity.ShowInCv;

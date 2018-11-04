@@ -11,6 +11,11 @@ namespace PortfolioWebAppV2.Repository
         [Dependency]
         public ApplicationDbContext Context { get; set; }
 
+        public EducationRepository(ApplicationDbContext context)
+        {
+            Context = context;
+        }
+
         public IEnumerable<Education> GetAll()
         {
             return Context.Educations.ToList();
@@ -18,7 +23,7 @@ namespace PortfolioWebAppV2.Repository
 
         public Education Get(int id)
         {
-            return Context.Educations.Find(id);
+            return Context.Educations.First(a => a.EducationId == id) ?? throw new InvalidOperationException();
         }
 
         public void Add(Education entity)
@@ -29,20 +34,32 @@ namespace PortfolioWebAppV2.Repository
 
         public void Remove(Education entity)
         {
-            var obj = Context.Educations.Find(entity.EducationId);
+            var obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
             Context.Educations.Remove(obj ?? throw new InvalidOperationException());
             Context.SaveChanges();
         }
 
         public bool Update(Education entity)
         {
-            Education education = Context.Educations.Find(entity.EducationId);
-            if (education == null) return false;
+            try
+            {
+                var education = Context.Educations.Single(a => a.EducationId == entity.EducationId) ?? throw new Exception($"Not found id: {entity.EducationId}");
+                education.CurrentPlaceOfEducation = entity.CurrentPlaceOfEducation;
+                education.Department = entity.Department;
+                education.EndDate = entity.EndDate;
+                education.SchooleName = entity.SchooleName;
+                education.ShowInCv = entity.ShowInCv;
+                education.Specialization = entity.Specialization;
+                education.StartDate = education.StartDate;
+                Context.SaveChanges();
+                return true;
 
-            Context.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Context.SaveChanges();
-
-            return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }
