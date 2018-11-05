@@ -34,9 +34,16 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(AboutMe entity)
         {
-            var obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
-            if (obj == null) return false;
-            Context.AboutMe.Remove(obj);
+            try
+            {
+                var obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
+                Context.AboutMe.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

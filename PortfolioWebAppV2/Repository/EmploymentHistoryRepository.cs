@@ -33,9 +33,17 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(EmploymentHistory entity)
         {
-            var obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
-            if (obj == null) return false;
-            Context.EmploymentHistories.Remove(obj);
+            try
+            {
+                var obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
+                Context.EmploymentHistories.Remove(obj);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

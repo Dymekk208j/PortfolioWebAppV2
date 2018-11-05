@@ -162,7 +162,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         }
 
         [Fact()]
-        public void RemoveTest_nonExistent_achievement()
+        public void RemoveTest_nonExistent_aboutMe()
         {
             //Arrange
             var nonExistentAboutMe = new AboutMe()
@@ -174,10 +174,10 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act
-            Action act = () => _repository.Remove(nonExistentAboutMe);
+            bool result = _repository.Remove(nonExistentAboutMe);
 
             //Assert
-            Assert.Throws<InvalidOperationException>(act);
+            Assert.False(result);
         }
     }
 

@@ -181,18 +181,14 @@ namespace PortfolioWebAppV2Tests1.Repository
             //Arrange
             var nonExistentAchievement = new Achievement()
             {
-                AchievementId = -1,
-                Date = null,
-                Description = "",
-                ShowInCv = false,
-                Title = ""
+                AchievementId = -1
             };
 
             //Act
-            Action act = () => _repository.Remove(nonExistentAchievement);
+            bool result = _repository.Remove(nonExistentAchievement);
 
             //Assert
-            Assert.Throws<InvalidOperationException>(act);
+            Assert.False(result);
         }
     }
 }   

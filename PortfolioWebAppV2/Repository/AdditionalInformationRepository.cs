@@ -34,9 +34,16 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(AdditionalInfo entity)
         {
-            var obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
-            if (obj == null) return false;
-            Context.AdditionalInfos.Remove(obj);
+            try
+            {
+                var obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
+                Context.AdditionalInfos.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

@@ -34,9 +34,16 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(Contact entity)
         {
-            var obj = Context.Contacts.First(a => a.ContactId == entity.ContactId);
-            if (obj == null) return false;
-            Context.Contacts.Remove(obj);
+            try
+            {
+                var obj = Context.Contacts.First(a => a.ContactId == entity.ContactId);
+                Context.Contacts.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

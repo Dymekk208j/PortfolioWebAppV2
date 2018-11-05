@@ -167,10 +167,10 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act
-            Action act = () => _repository.Remove(nonExistentAdditionalInfo);
+            bool result = _repository.Remove(nonExistentAdditionalInfo);
 
             //Assert
-            Assert.Throws<InvalidOperationException>(act);
+            Assert.False(result);
         }
     }
 }

@@ -33,10 +33,15 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(Achievement entity)
         {
-            var obj = Context.Achievements.First(a => a.AchievementId == entity.AchievementId);
-            if (obj == null) return false;
-
-            Context.Achievements.Remove(obj);
+            try
+            {
+                var obj = Context.Achievements.First(a => a.AchievementId == entity.AchievementId);
+                Context.Achievements.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

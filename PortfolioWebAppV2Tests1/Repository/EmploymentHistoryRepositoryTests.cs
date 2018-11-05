@@ -172,10 +172,10 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act
-            Action act = () => _repository.Remove(nonExistentEmploymentHistory);
+            bool result = _repository.Remove(nonExistentEmploymentHistory);
 
             //Assert
-            Assert.Throws<InvalidOperationException>(act);
+            Assert.False(result);
         }
     }
 

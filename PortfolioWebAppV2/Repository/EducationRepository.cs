@@ -34,9 +34,16 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(Education entity)
         {
-            var obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
-            if (obj == null) return false;
-            Context.Educations.Remove(obj);
+            try
+            {
+                var obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
+                Context.Educations.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
 
             return Context.SaveChanges() > 0;
         }

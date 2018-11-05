@@ -34,9 +34,17 @@ namespace PortfolioWebAppV2.Repository
 
         public bool Remove(Technology entity)
         {
-            var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId);
-            if (obj == null) return false;
-            Context.Technologies.Remove(obj);
+            try
+            {
+                var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId);
+                Context.Technologies.Remove(obj);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
             return Context.SaveChanges() > 0;
         }
 

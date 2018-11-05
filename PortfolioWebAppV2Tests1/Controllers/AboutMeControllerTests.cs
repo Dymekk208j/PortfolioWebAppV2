@@ -60,9 +60,8 @@ namespace PortfolioWebAppV2Tests1.Controllers
             });
 
         }
-        #endregion
 
-        public static void ValidateModel(Controller controller, object viewModel)
+        private static void ValidateModel(Controller controller, object viewModel)
         {
             controller.ModelState.Clear();
 
@@ -78,9 +77,12 @@ namespace PortfolioWebAppV2Tests1.Controllers
                 }
             }
         }
+        #endregion
+
+
 
         [Fact()]
-        public void RedirectToAboutMeManagementPageIfViewModelIsValid() 
+        public void RedirectToAboutMeManagementPageIfViewModelIsValid()
         {
             //Arrange
             var updateAboutMe = new AboutMeViewModel()
@@ -123,13 +125,46 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Assert
             Assert.NotNull(viewResult);
             Assert.False(viewResult.ViewData.ModelState.IsValid);
-            
+
         }
+
 
         public void Dispose()
         {
             Mapper.Reset();
-            
+
+        }
+
+        [Fact()]
+        public void AboutMeTest()
+        {
+            //Arrange
+
+            //act
+            var result = _controller.AboutMe() as ViewResult;
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.Equal(string.Empty, result.ViewName);
+
+        }
+
+        [Fact()]
+        public void AboutMeManagementTest()
+        {
+            //Arrange
+
+            //act
+            var result = _controller.AboutMeManagement() as ViewResult;
+
+            //Assert
+            Assert.NotNull(result);
+
+            var model = result.Model;
+            Assert.NotNull(model);
+
+            Assert.Equal("AboutMeManagement", result.ViewName);
+
         }
     }
 }
