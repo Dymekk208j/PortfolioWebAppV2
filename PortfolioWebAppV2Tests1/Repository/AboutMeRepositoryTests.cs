@@ -38,8 +38,8 @@ namespace PortfolioWebAppV2Tests1.Repository
             _mockSet.Setup(d => d.Add(It.IsAny<AboutMe>())).Callback<AboutMe>((s) => _aboutMe.Add(s));
             _mockSet.Setup(d => d.Remove(It.IsAny<AboutMe>())).Callback<AboutMe>((s) => _aboutMe.Remove(s));
 
-            _dbMock.Setup(x => x.SaveChanges())
-                .Verifiable();
+            _dbMock.Setup(x => x.SaveChanges()).Returns(1).Verifiable();
+
             _dbMock.Setup(x => x.AboutMe).Returns(_mockSet.Object);
 
 
@@ -99,14 +99,10 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act
-            _repository.Add(aboutMe);
-
-
-            var result = _repository.GetAll().FirstOrDefault(a =>
-                a.Title == title && a.Text == text && a.ImageLink == imageLink);
+            bool result = _repository.Add(aboutMe);
 
             //assert
-            Assert.NotNull(result);
+            Assert.True(result);
 
         }
 

@@ -26,17 +26,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.AboutMe.First(a => a.AboutMeId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(AboutMe entity)
+        public bool Add(AboutMe entity)
         {
             Context.AboutMe.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(AboutMe entity)
+        public bool Remove(AboutMe entity)
         {
             var obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
-            Context.AboutMe.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.AboutMe.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(AboutMe entity)
@@ -47,9 +48,7 @@ namespace PortfolioWebAppV2.Repository
                 aboutMe.Title = entity.Title;
                 aboutMe.ImageLink = entity.ImageLink;
                 aboutMe.Text = entity.Text;
-                Context.SaveChanges();
-                return true;
-
+                return Context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

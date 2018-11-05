@@ -25,17 +25,19 @@ namespace PortfolioWebAppV2.Repository
             return Context.Achievements.First(a => a.AchievementId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(Achievement entity)
+        public bool Add(Achievement entity)
         {
             Context.Achievements.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(Achievement entity)
+        public bool Remove(Achievement entity)
         {
             var obj = Context.Achievements.First(a => a.AchievementId == entity.AchievementId);
-            Context.Achievements.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+
+            Context.Achievements.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(Achievement entity)
@@ -47,8 +49,7 @@ namespace PortfolioWebAppV2.Repository
                 achievement.Description = entity.Description;
                 achievement.ShowInCv = entity.ShowInCv;
                 achievement.Title = entity.Title;
-                Context.SaveChanges();
-                return true;
+                return Context.SaveChanges() > 0;
 
             }
             catch (Exception ex)

@@ -26,17 +26,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.AdditionalInfos.First(a => a.AdditionalInfoId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(AdditionalInfo entity)
+        public bool Add(AdditionalInfo entity)
         {
             Context.AdditionalInfos.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(AdditionalInfo entity)
+        public bool Remove(AdditionalInfo entity)
         {
             var obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
-            Context.AdditionalInfos.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.AdditionalInfos.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(AdditionalInfo entity)
@@ -48,8 +49,7 @@ namespace PortfolioWebAppV2.Repository
                 additionalInfo.ShowInCv = entity.ShowInCv;
                 additionalInfo.Type = entity.Type;
 
-                Context.SaveChanges();
-                return true;
+                return Context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

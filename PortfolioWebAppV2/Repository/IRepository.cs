@@ -6,8 +6,8 @@ namespace PortfolioWebAppV2.Repository
     {
         IEnumerable<TEnt> GetAll();
         TEnt Get(TPk id);
-        void Add(TEnt entity);
-        void Remove(TEnt entity);
+        bool Add(TEnt entity);
+        bool Remove(TEnt entity);
         bool Update(TEnt entity);
 
     }

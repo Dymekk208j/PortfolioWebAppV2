@@ -26,17 +26,19 @@ namespace PortfolioWebAppV2.Repository
             return Context.Educations.First(a => a.EducationId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(Education entity)
+        public bool Add(Education entity)
         {
             Context.Educations.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(Education entity)
+        public bool Remove(Education entity)
         {
             var obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
-            Context.Educations.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.Educations.Remove(obj);
+
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(Education entity)
@@ -51,9 +53,8 @@ namespace PortfolioWebAppV2.Repository
                 education.ShowInCv = entity.ShowInCv;
                 education.Specialization = entity.Specialization;
                 education.StartDate = education.StartDate;
-                Context.SaveChanges();
-                return true;
 
+                return Context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

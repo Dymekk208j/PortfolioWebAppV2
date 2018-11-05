@@ -3,12 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PortfolioWebAppV2.Models.ViewModels
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
-    }
 
     public class ManageUserViewModel
     {

@@ -26,17 +26,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.Contacts.First(a => a.ContactId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(Contact entity)
+        public bool Add(Contact entity)
         {
             Context.Contacts.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(Contact entity)
+        public bool Remove(Contact entity)
         {
             var obj = Context.Contacts.First(a => a.ContactId == entity.ContactId);
-            Context.Contacts.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.Contacts.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(Contact entity)
@@ -51,8 +52,8 @@ namespace PortfolioWebAppV2.Repository
                 contact.GitHubLink = entity.GitHubLink;
                 contact.LinkedInLink = entity.LinkedInLink;
                 contact.PhoneNumber = entity.PhoneNumber;
-                Context.SaveChanges();
-                return true;
+
+                return Context.SaveChanges() > 0;
 
             }
             catch (Exception ex)

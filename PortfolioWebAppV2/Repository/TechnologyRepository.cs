@@ -26,17 +26,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.Technologies.First(a => a.TechnologyId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(Technology entity)
+        public bool Add(Technology entity)
         {
             Context.Technologies.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(Technology entity)
+        public bool Remove(Technology entity)
         {
-            var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId) ?? throw new InvalidOperationException();
+            var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId);
+            if (obj == null) return false;
             Context.Technologies.Remove(obj);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(Technology entity)
@@ -48,9 +49,8 @@ namespace PortfolioWebAppV2.Repository
                 achievement.Name = entity.Name;
                 achievement.ShowInCv = entity.ShowInCv;
                 achievement.Projects = entity.Projects;
-                Context.SaveChanges();
-                return true;
 
+                return Context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

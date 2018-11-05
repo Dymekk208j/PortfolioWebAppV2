@@ -26,17 +26,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.PrivateInformations.First(a => a.PrivateInformationId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(PrivateInformation entity)
+        public bool Add(PrivateInformation entity)
         {
             Context.PrivateInformations.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(PrivateInformation entity)
+        public bool Remove(PrivateInformation entity)
         {
             var obj = Context.PrivateInformations.First(a => a.PrivateInformationId == entity.PrivateInformationId);
-            Context.PrivateInformations.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.PrivateInformations.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(PrivateInformation entity)
@@ -55,8 +56,8 @@ namespace PortfolioWebAppV2.Repository
                 privateInformation.PhoneNumber = entity.PhoneNumber;
                 privateInformation.PostCode = entity.PostCode;
                 privateInformation.Street = entity.Street;
-                Context.SaveChanges();
-                return true;
+
+                return Context.SaveChanges() > 0;
             }
             catch (Exception ex)
             {

@@ -25,17 +25,18 @@ namespace PortfolioWebAppV2.Repository
             return Context.EmploymentHistories.First(a => a.EmploymentHistoryId == id) ?? throw new InvalidOperationException();
         }
 
-        public void Add(EmploymentHistory entity)
+        public bool Add(EmploymentHistory entity)
         {
             Context.EmploymentHistories.Add(entity);
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public void Remove(EmploymentHistory entity)
+        public bool Remove(EmploymentHistory entity)
         {
             var obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
-            Context.EmploymentHistories.Remove(obj ?? throw new InvalidOperationException());
-            Context.SaveChanges();
+            if (obj == null) return false;
+            Context.EmploymentHistories.Remove(obj);
+            return Context.SaveChanges() > 0;
         }
 
         public bool Update(EmploymentHistory entity)
@@ -50,8 +51,8 @@ namespace PortfolioWebAppV2.Repository
                 employmentHistory.Position = entity.Position;
                 employmentHistory.StartDate = entity.StartDate;
                 employmentHistory.ShowInCv = entity.ShowInCv;
-                Context.SaveChanges();
-                return true;
+
+                return Context.SaveChanges() > 0;
 
             }
             catch (Exception ex)
