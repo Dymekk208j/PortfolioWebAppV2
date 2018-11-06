@@ -6,7 +6,6 @@ namespace PortfolioWebAppV2.Models.ViewModels
     {
         [Display(Name = "Tytuł")]
         [Required(ErrorMessage = "Musisz wprowadzić tytuł")]
-        //[StringLength(50, ErrorMessage = "Tytuł może mieć maksymalnie 50 znaków")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Tytuł musi się składać od 5 do 50 znaków")]
 
         public string Title { get; set; }

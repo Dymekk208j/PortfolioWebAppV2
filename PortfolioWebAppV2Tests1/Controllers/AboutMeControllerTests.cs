@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -11,7 +10,6 @@ using Xunit;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
-using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace PortfolioWebAppV2Tests1.Controllers
 {
@@ -61,22 +59,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
         }
 
-        private static void ValidateModel(Controller controller, object viewModel)
-        {
-            controller.ModelState.Clear();
-
-            var validationContext = new ValidationContext(viewModel, null, null);
-            var validationResult = new List<ValidationResult>();
-
-            Validator.TryValidateObject(viewModel, validationContext, validationResult, true);
-            foreach (var result in validationResult)
-            {
-                foreach (var name in result.MemberNames)
-                {
-                    controller.ModelState.AddModelError(name, result.ErrorMessage);
-                }
-            }
-        }
+       
         #endregion
 
 
@@ -91,7 +74,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
                 Text = "To jest minimalnie 10 znakow",
                 Title = "title"
             };
-            ValidateModel(_controller, updateAboutMe);
+            Validate.ValidateModel(_controller, updateAboutMe);
 
 
             //Act
@@ -101,6 +84,8 @@ namespace PortfolioWebAppV2Tests1.Controllers
             Assert.NotNull(result);
             Assert.Equal("AboutMeManagement", result.RouteValues["action"]);
         }
+
+
         [Theory()]
         [InlineData("", "To jest minimalnie 10 znakow", "title")]
         [InlineData("12345", "", "title")]
@@ -116,7 +101,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
                 Title = title
             };
 
-            ValidateModel(_controller, updateAboutMe);
+            Validate.ValidateModel(_controller, updateAboutMe);
 
 
             //Act

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
@@ -7,9 +8,9 @@ namespace PortfolioWebAppV2.Controllers
 {
     public class AchievementController : Controller
     {
-        private IRepository<Achievement, int> _repository;
+        private AchievementRepository _repository;
 
-        public AchievementController(IRepository<Achievement, int> repo)
+        public AchievementController(AchievementRepository repo)
         {
             _repository = repo;
         }
@@ -25,49 +26,48 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult RemoveAchievement(int id)
         {
-            var achievement = _repository.Get(id);
-            _repository.Remove(achievement);
+            try
+            {
+                var achievement = _repository.Get(id);
+                _repository.Remove(achievement);
+                return RedirectToAction("AchievementsManagement");
 
-            return RedirectToAction("AchievementsManagement");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return View("ErrorPage");
+            }
         }
 
         [HttpPost]
         public ActionResult AddAchievement(Achievement achievement)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _repository.Add(achievement))
             {
-                _repository.Add(achievement);
+                return RedirectToAction("AchievementsManagement");
             }
-
-            return RedirectToAction("AchievementsManagement");
+            return View("ErrorPage");
         }
 
         [HttpPost]
         public ActionResult AddAchievementToCv(CvViewModel cvModel)
         {
-            Achievement achievement = _repository.Get(cvModel.SelectedAchievement);
-
-            if (achievement != null)
+            if (_repository.ChangeStatusInCv(cvModel.SelectedAchievement))
             {
-                achievement.ShowInCv = true;
-                _repository.Update(achievement);
+                return RedirectToAction("EditCv", "AdminPanel");
             }
-
-            return RedirectToAction("EditCv", "AdminPanel");
+            return View("ErrorPage");
         }
 
         [HttpGet]
         public ActionResult RemoveAchievementFromCv(int id)
         {
-            Achievement achievement = _repository.Get(id);
-
-            if (achievement != null)
+            if (_repository.ChangeStatusInCv(id))
             {
-                achievement.ShowInCv = false;
-                _repository.Update(achievement);
+                return RedirectToAction("EditCv", "AdminPanel");
             }
-
-            return RedirectToAction("EditCv", "AdminPanel");
+            return View("ErrorPage");
         }
 
     }

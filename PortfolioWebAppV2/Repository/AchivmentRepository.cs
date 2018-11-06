@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using Unity.Attributes;
+using Exception = System.Exception;
 
 namespace PortfolioWebAppV2.Repository
 {
-    public class AchievementRepository : IRepository<Achievement, int>
+    public class AchievementRepository : IRepository<Achievement, int>, IElementOfCv
     {
         [Dependency]
         public ApplicationDbContext Context { get; set; }
@@ -40,6 +41,7 @@ namespace PortfolioWebAppV2.Repository
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 return false;
             }
             return Context.SaveChanges() > 0;
@@ -49,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new Exception($"Not found id: {entity.AchievementId}");
+                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new InvalidOperationException();
                 achievement.Date = entity.Date;
                 achievement.Description = entity.Description;
                 achievement.ShowInCv = entity.ShowInCv;
@@ -60,6 +62,21 @@ namespace PortfolioWebAppV2.Repository
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public bool ChangeStatusInCv(int id)
+        {
+            try
+            {
+                var achievement = Context.Achievements.Single(a => a.AchievementId == id);
+                achievement.ShowInCv = !achievement.ShowInCv;
+                return Update(achievement);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return false;
             }
         }

@@ -301,6 +301,7 @@
     <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\EducationRepository.cs" />
     <Compile Include="Repository\EmploymentHistoryRepository.cs" />
+    <Compile Include="Repository\IElementOfCv.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PrivateInformationRepository.cs" />
     <Compile Include="Repository\TechnologyRepository.cs" />
