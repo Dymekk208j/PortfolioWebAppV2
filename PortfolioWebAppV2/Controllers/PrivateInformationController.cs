@@ -14,12 +14,14 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public void Update(PrivateInformation privateInformation)
+        public ActionResult Update(PrivateInformation privateInformation)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _repository.Update(privateInformation))
             {
-                _repository.Update(privateInformation);
+                return RedirectToAction("EditCv", "AdminPanel");
             }
+
+            return View("ErrorPage");
         }
     }
 }

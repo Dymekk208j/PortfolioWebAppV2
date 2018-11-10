@@ -276,6 +276,10 @@
     <Compile Include="Migrations\201810312315485_InitialMigration.Designer.cs">
       <DependentUpon>201810312315485_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811061502300_NewMigration.cs" />
+    <Compile Include="Migrations\201811061502300_NewMigration.Designer.cs">
+      <DependentUpon>201811061502300_NewMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -462,6 +466,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201810312315485_InitialMigration.resx">
       <DependentUpon>201810312315485_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061502300_NewMigration.resx">
+      <DependentUpon>201811061502300_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -56,7 +56,6 @@ namespace PortfolioWebAppV2Tests1.Controllers
             AchievementRepository repository = new AchievementRepository(_dbMock.Object);
             _controller = new AchievementController(repository);
         }
-
         #endregion
 
         [Fact()]
@@ -151,6 +150,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Assert
             Assert.NotNull(viewResult);
             Assert.False(viewResult.ViewData.ModelState.IsValid);
+            Assert.Equal("ErrorPage", viewResult.ViewName);
         }
 
         [Fact()]
