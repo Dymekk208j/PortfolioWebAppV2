@@ -301,7 +301,6 @@
     <Compile Include="Models\ViewModels\ContactViewModel.cs" />
     <Compile Include="Models\ViewModels\CvViewModel.cs" />
     <Compile Include="Models\ViewModels\ProjectsViewModel.cs" />
-    <Compile Include="Models\ViewModels\UsersManagementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AboutMeRepository.cs" />
     <Compile Include="Repository\AchivmentRepository.cs" />
@@ -449,6 +448,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

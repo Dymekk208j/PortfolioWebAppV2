@@ -28,8 +28,6 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 userManager.Create(new ApplicationUser() { UserName = "User" + i.ToString(), FirstName = "User" + i.ToString() }, "Damian13");
             }
 
-
-
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!roleManager.RoleExists("Admin"))
             {
