@@ -1,162 +1,335 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿@using Microsoft.AspNet.Identity
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+@*<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Panel administratora</title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
+
+        <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Lib/Styles/default.css" rel="stylesheet" type="text/css" media="all" />
+
+        <script src="~/Scripts/jquery-3.3.1.js"></script>
+        <script src="~/Scripts/popper.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <section class="menu">
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col">
+                        @Html.Action("GetSocialMediaBarPartial", "Home")
+                    </div>
+
+                    <div class="col">
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")';return false;">Strona główna</button>
+                            <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Projekty</button>
+                            <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("AboutMe", "AboutMe")';return false;">O mnie</button>
+                            <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Cv", "Home")';return false;">CV</button>
+                            <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("Contact", "Contact")';return false;">Kontakt</button>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Index", "AdminPanel")';return false;">Panel administratora</button>
+                            }
+                            @if (Request.IsAuthenticated)
+                            {
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit" class="btn btn-danger">Wyloguj</button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#LoginPanel">Logowanie</button>
+                            }
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary d-lg-none dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa fa-bars"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="@Url.Action("Projects", "Home")">Projekty</a>
+                                    <a class="dropdown-item" href="@Url.Action("AboutMe", "AboutMe")">O mnie</a>
+                                    <a class="dropdown-item" href="@Url.Action("Cv", "Home")">CV</a>
+                                    <a class="dropdown-item" href="@Url.Action("Contact", "Contact")">Kontakt</a>
+
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Index", "AdminPanel")">Panel administratora</a>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    @(!Request.IsAuthenticated ? Html.Partial("_LoginPanelPartial", new PortfolioWebAppV2.Models.ViewModels.LoginViewModel()) : Html.Partial("_LogedPanelPartial"))
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 admin_panel_left_header">
+                    <div style="text-align: center;"><h5>Panel administratora</h5></div>
+                </div>
+                <div class="col admin_panel_left_header">
+                    <div style="text-align: center;"><h5>@RenderSection("Header", required: false)</h5></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-2 admin_panel_left">
+
+                    @RenderSection("LeftMenu", required: false)
+                    <div id="LeftMenu">
+                        <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("Index", "AdminPanel")';return false;">Statystyki</button>
+
+                        <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista3" aria-expanded="true" aria-controls="rozwijana-lista3">
+                            Zarządzanie stronami
+                        </button>
+                        <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("ContactManagement", "Contact")';return false;">Kontakt</button>
+                            <button type="button" class="btn btn-info button_secondary">Główna</button>
+                        </div>
+
+                        <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista2" aria-expanded="true" aria-controls="rozwijana-lista2">
+                            Zarządzanie projektami
+                        </button>
+                        <div id="rozwijana-lista2" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista2">
+                            @*<button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("ProjectsListView", "AdminPanel")';return false;">Lista projektów</button>
+                                <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("TempProjectsListView", "AdminPanel")';return false;">Lista tymczasowych projektów</button>
+                                <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("CreateTempProjectView", "AdminPanel")';return false;">Utwórz tymczasowy projekt</button>*@
+@* </div>
+
+
+                        <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista" aria-expanded="true" aria-controls="rozwijana-lista">
+                            Zarządzanie użytkownikami
+                        </button>
+                        <div id="rozwijana-lista" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista">
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("UserMgt", "AdminPanel")';return false;">Konta użytkowników</button>
+                        </div>
+
+                        <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("TechnologyManagement", "Technology")';return false;">Technologie</button>
+
+                        <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista4" aria-expanded="true" aria-controls="rozwijana-lista4">
+                            Zarządzanie CV
+                        </button>
+                        <div id="rozwijana-lista4" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EditCv", "AdminPanel")';return false;">Edytuj CV</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AchievementsManagement", "Achievement")';return false;">Osiągnięcia</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AdditionalInformationManagement", "AdditionalInformation")';return false;">Dodatkowe informacje</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EmploymentHistoryManagement", "EmploymentHistory")';return false;">Historia zatrudnienia</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EducationManagement", "Education")';return false;">Wykształcenie</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col admin_panel_main_body" style="background: white !important;">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+
+
+        <section class="myfooter">
+            <div class="container">
+                <div class="row">
+                    <div class="col text-center">
+                        <p>Damian Dziura 2018. All rights reserved.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </body>
+    </html>*@
+
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Panel administratora</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>srtdash - ICO Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Lib/Styles/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="~/Lib/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/themify-icons.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/metisMenu.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/slicknav.min.css" />
+    <!-- amchart css -->
+    @*<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />*@
+    <!-- others css -->
+    <link rel="stylesheet" href="~/Lib/assets/css/typography.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/default-css.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/styles.css" />
+    <link rel="stylesheet" href="~/Lib/assets/css/responsive.css" />
+
+
+    <!-- modernizr css -->
+    <script src="~/Lib/assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
 </head>
 <body>
-    <section class="menu">
-        <div class="container-fluid ">
-            <div class="row">
-                <div class="col">
-                    @Html.Action("GetSocialMediaBarPartial", "Home")
+
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- page container area start -->
+    <div class="page-container">
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="@Url.Action("Index", "AdminPanel")"><img src="~/Lib/assets/images/icon/logo.png" alt="logo" /></a>
                 </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    <nav>
+                        <ul class="metismenu" id="menu">
+                            <li class="active">
+                                <a href="@Url.Action("Index", "AdminPanel")"><i class="ti-dashboard"></i> <span>Dashboard</span></a>
+                            </li>
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-layers-alt"></i><span>Strony</span></a>
+                                <ul class="collapse">
+                                    <li><a href="@Url.Action("AboutMeManagement", "AboutMe")">O mnie</a></li>
+                                    <li><a href="@Url.Action("ContactManagement", "Contact")">Kontakt</a></li>
+                                    <li><a href="#">Główna strona</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-receipt"></i><span>Projekty</span></a>
+                                <ul class="collapse">
+                                    <li><a href="#">Lista projektów</a></li>
+                                    <li><a href="#">List tymczasowych projektów</a></li>
+                                    <li><a href="#">Utwórz projekt</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-user"></i><span>Użytkownicy</span></a>
+                                <ul class="collapse">
+                                    <li><a href="@Url.Action("UserMgt", "AdminPanel")">Lista użytkowników</a></li>
+                                    <li><a href="#">Lista zablokowanych użytkowników</a></li>
+                                    <li><a href="#">Dodaj użytkownika</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("TechnologyManagement", "Technology")"><i class="ti-hummer"></i> <span>Technologie</span></a>
+                            </li>
+                            <li>
+                                <a href="#" aria-expanded="true"><i class="ti-id-badge"></i><span>Zarządzanie Cv</span></a>
+                                <ul class="collapse">
+                                    <li><a href="@Url.Action("EditCv", "AdminPanel")">Edytuj Cv</a></li>
+                                    <li><a href="@Url.Action("AchievementsManagement", "Achievement")">Osiągnięcia</a></li>
+                                    <li><a href="@Url.Action("AdditionalInformationManagement", "AdditionalInformation")">Dodatkowe informacje</a></li>
+                                    <li><a href="@Url.Action("EmploymentHistoryManagement", "EmploymentHistory")">Historia zatrudnienia</a></li>
+                                    <li><a href="@Url.Action("EducationManagement", "Education")">Wykształcenie</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- page title area start -->
+            <div class="page-title-area mb-5">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">@RenderSection("Header", required: false)</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
 
-                <div class="col">
-                    <div class="btn-group float-right">
-                        <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Index", "Home")';return false;">Strona główna</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Projects", "Home")';return false;">Projekty</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("AboutMe", "AboutMe")';return false;">O mnie</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Cv", "Home")';return false;">CV</button>
-                        <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href = '@Url.Action("Contact", "Contact")';return false;">Kontakt</button>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <button type="button" class="btn btn-outline-secondary d-none d-lg-block" onclick="location.href='@Url.Action("Index", "AdminPanel")';return false;">Panel administratora</button>
-                        }
-                        @if (Request.IsAuthenticated)
-                        {
-                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                            {
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit" class="btn btn-danger">Wyloguj</button>
-                            }
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#LoginPanel">Logowanie</button>
-                        }
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary d-lg-none dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="fa fa-bars"></span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="@Url.Action("Projects", "Home")">Projekty</a>
-                                <a class="dropdown-item" href="@Url.Action("AboutMe", "AboutMe")">O mnie</a>
-                                <a class="dropdown-item" href="@Url.Action("Cv", "Home")">CV</a>
-                                <a class="dropdown-item" href="@Url.Action("Contact", "Contact")">Kontakt</a>
-
-
-                                @if (User.IsInRole("Admin"))
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">@Html.Name(User.Identity.GetUserName()) <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Ustawienia</a>
+                                @if (Request.IsAuthenticated)
                                 {
-                                    <a class="dropdown-item" href="@Url.Action("Index", "AdminPanel")">Panel administratora</a>
-
+                                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { name = "logoutForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <a class="dropdown-item" href="#" onclick="document.logoutForm.submit();">Wyloguj</a>
+                                    }
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                @(!Request.IsAuthenticated ? Html.Partial("_LoginPanelPartial", new PortfolioWebAppV2.Models.ViewModels.LoginViewModel()) : Html.Partial("_LogedPanelPartial"))
-            </div>
-
-
-        </div>
-    </section>
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-2 admin_panel_left_header">
-                <div style="text-align: center;"><h5>Panel administratora</h5></div>
-            </div>
-            <div class="col admin_panel_left_header">
-                <div style="text-align: center;"><h5>@RenderSection("Header", required: false)</h5></div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-2 admin_panel_left">
-
-                @RenderSection("LeftMenu", required: false)
-                <div id="LeftMenu">
-                    <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("Index", "AdminPanel")';return false;">Statystyki</button>
-
-                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista3" aria-expanded="true" aria-controls="rozwijana-lista3">
-                        Zarządzanie stronami
-                    </button>
-                    <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("ContactManagement", "Contact")';return false;">Kontakt</button>
-                        <button type="button" class="btn btn-info button_secondary">Główna</button>
-                    </div>
-
-                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista2" aria-expanded="true" aria-controls="rozwijana-lista2">
-                        Zarządzanie projektami
-                    </button>
-                    <div id="rozwijana-lista2" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista2">
-                        @*<button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("ProjectsListView", "AdminPanel")';return false;">Lista projektów</button>
-                            <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("TempProjectsListView", "AdminPanel")';return false;">Lista tymczasowych projektów</button>
-                            <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("CreateTempProjectView", "AdminPanel")';return false;">Utwórz tymczasowy projekt</button>*@
-                    </div>
-
-
-                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista" aria-expanded="true" aria-controls="rozwijana-lista">
-                        Zarządzanie użytkownikami
-                    </button>
-                    <div id="rozwijana-lista" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista">
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("UserMgt", "AdminPanel")';return false;">Konta użytkowników</button>
-                    </div>
-
-                    <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("TechnologyManagement", "Technology")';return false;">Technologie</button>
-
-                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista4" aria-expanded="true" aria-controls="rozwijana-lista4">
-                        Zarządzanie CV
-                    </button>
-                    <div id="rozwijana-lista4" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EditCv", "AdminPanel")';return false;">Edytuj CV</button>
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AchievementsManagement", "Achievement")';return false;">Osiągnięcia</button>
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AdditionalInformationManagement", "AdditionalInformation")';return false;">Dodatkowe informacje</button>
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EmploymentHistoryManagement", "EmploymentHistory")';return false;">Historia zatrudnienia</button>
-                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EducationManagement", "Education")';return false;">Wykształcenie</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col admin_panel_main_body" style="background: white !important;">
+            <!-- page title area end -->
+            <div class="main-content-inner">
                 @RenderBody()
             </div>
-
         </div>
-    </div>
-
-
-    <section class="myfooter">
-        <div class="container">
-            <div class="row">
-                <div class="col text-center">
-                    <p>Damian Dziura 2018. All rights reserved.</p>
-                </div>
+        <!-- main content area end -->
+        <!-- footer area start-->
+        <footer>
+            <div class="footer-area">
+                <p>Implemented and modified by <a href="https://DamianDziura.pl">Damian Dziura</a>.</p>
+                <p>© Copyright 2018. All right reserved. Template by <a href="https://colorlib.com/wp/">Colorlib</a>.</p>
             </div>
+        </footer>
+        <!-- footer area end-->
+    </div>
+    <!-- page container area end -->
+    <!-- jquery latest version -->
+    <!-- bootstrap 4 js -->
+    <script src="~/Lib/assets/js/owl.carousel.min.js"></script>
+    <script src="~/Lib/assets/js/metisMenu.min.js"></script>
+    <script src="~/Lib/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Lib/assets/js/jquery.slicknav.min.js"></script>
+    @*<!-- start chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <!-- start highcharts js -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- start zingchart js -->
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>*@
+    <!-- all line chart activation -->
+    <script src="~/Lib/assets/js/line-chart.js"></script>
 
-        </div>
-    </section>
+    <!-- all pie chart -->
+    <script src="~/Lib/assets/js/pie-chart.js"></script>
+
+    <!-- others plugins -->
+    <script src="~/Lib/assets/js/plugins.js"></script>
+    <script src="~/Lib/assets/js/scripts.js"></script>
+
 
 
 
