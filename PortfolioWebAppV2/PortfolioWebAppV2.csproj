@@ -486,7 +486,6 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_SocialMediaBarPartialView.cshtml" />
-    <Content Include="Views\Shared\_LogedPanelPartial.cshtml" />
     <Content Include="Views\Shared\_LoginPanelPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -524,6 +523,8 @@
     <Content Include="Views\EmploymentHistory\EmploymentHistoryManagement.cshtml" />
     <Content Include="Views\Shared\ErrorPage.cshtml" />
     <Content Include="Views\Shared\_AdminPanelLeftMenu.cshtml" />
+    <Content Include="Views\Shared\_LoginRegisterLayout.cshtml" />
+    <Content Include="Views\Shared\_LogedPanelPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

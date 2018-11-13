@@ -1,59 +1,64 @@
 ﻿@model PortfolioWebAppV2.Models.ViewModels.RegisterViewModel
-
-<section style="background: white">
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="card">
-            <div class="card-header">
-                <h4>Nowy użytkownik</h4>
+@section title{
+    Rejestracja - Portfolio Damian Dziura
+}
+@{
+    Layout = "~/Views/Shared/_LoginRegisterLayout.cshtml";
+}
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+{
+    <form>
+        <div class="login-form-head">
+            <h4>Rejestracja</h4>
+            <p>Witaj, zapraszam do rejestracji.</p>
+        </div>
+        <div class="login-form-body">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            <br />
+            <div class="form-gp">
+                <label for="UserName">Login</label>
+                <input type="text" id="UserName" name="UserName">
+                <i class="ti-user"></i>
+            </div>
+            <div class="form-gp">
+                <label for="UserName">Imię</label>
+                <input type="text" id="FirstName" name="FirstName">
+                <i class="ti-user"></i>
+            </div>
+            <div class="form-gp">
+                <label for="LastName">Nazwisko</label>
+                <input type="text" id="LastName" name="LastName">
+                <i class="ti-user"></i>
+            </div>
+            <div class="form-gp">
+                <label for="Email">Adres Email</label>
+                <input type="email" id="Email" name="Email">
+                <i class="ti-email"></i>
+            </div>
+            <div class="form-gp">
+                <label for="Password">Hasło</label>
+                <input type="password" id="Password" name="Password">
+                <i class="ti-lock"></i>
+            </div>
+            <div class="form-gp">
+                <label for="ConfirmPassword">Powtórz hasło</label>
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword">
+                <i class="ti-lock"></i>
             </div>
 
-            <div class="card-body">
-                @Html.ValidationSummary()
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 " })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                    </div>
-                </div>
 
-            </div>
-
-            <div class="card-footer">
-                <input type="submit" class="btn btn-primary float-sm-right" value="Utwórz konto">
+            <div class="submit-btn-area">
+                <button id="form_submit" type="submit">Wyślij <i class="ti-arrow-right"></i></button>
+                <div class="login-other row mt-4">
+                    <div class="col-6">
+                        <a class="fb-login" href="@Url.Action("Index", "Home")">Cofnij <i class="ti-arrow-right"></i></a>
+                    </div>
+                    <div class="col-6">
+                        <a class="google-login" href="@Url.Action("Login", "Account")">Posiadam konto <i class="ti-arrow-up"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
-    }
-
-</section>
+    </form>
+}
