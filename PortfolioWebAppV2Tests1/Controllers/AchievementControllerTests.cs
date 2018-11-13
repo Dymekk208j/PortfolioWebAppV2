@@ -102,7 +102,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         }
 
         [Fact()]
-        public void RedirectToActionToAchievementsManagementIfModelIsValid()
+        public void ReturnJavaScriptIfModelIsValid()
         {
             //Arrange
             var achievement = new Achievement()
@@ -114,18 +114,18 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var result = (RedirectToRouteResult)_controller.AddAchievement(achievement);
+            var result = _controller.AddAchievement(achievement) as JavaScriptResult;
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal("AchievementsManagement", result.RouteValues["action"]);
+            Assert.Equal("reload();", result.Script);
         }
 
         [Theory()]
         [InlineData("", "Tytuł", "To jest opis")]
         [InlineData("2017-01-01", "", "To jest opis")]
         [InlineData("2017-01-01", "Tytuł", "")]
-        public void RedirectToErrorPageWhenModelIsNotValid(string date, string title, string description)
+        public void ReturnPartialViewIfModelIsNotValid(string date, string title, string description)
         {
             //Arrange
             DateTime? d;
@@ -145,12 +145,12 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
             //Act
             Validate.ValidateModel(_controller, achievement);
-            var viewResult = _controller.AddAchievement(achievement) as ViewResult;
+            var viewResult = _controller.AddAchievement(achievement) as PartialViewResult;
 
             //Assert
             Assert.NotNull(viewResult);
             Assert.False(viewResult.ViewData.ModelState.IsValid);
-            Assert.Equal("ErrorPage", viewResult.ViewName);
+            Assert.Equal("_CreateAchievementPartialView", viewResult.ViewName);
         }
 
         [Fact()]

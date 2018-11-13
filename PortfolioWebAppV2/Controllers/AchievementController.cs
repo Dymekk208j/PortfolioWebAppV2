@@ -1,8 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using PortfolioWebAppV2.Models.DatabaseModels;
+﻿using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
+using System;
+using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -43,11 +43,14 @@ namespace PortfolioWebAppV2.Controllers
         [HttpPost]
         public ActionResult AddAchievement(Achievement achievement)
         {
-            if (ModelState.IsValid && _repository.Add(achievement))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("AchievementsManagement");
+                _repository.Add(achievement);
+                return JavaScript("reload();");
             }
-            return View("ErrorPage");
+
+            return PartialView("_CreateAchievementPartialView", achievement);
+
         }
 
         [HttpPost]

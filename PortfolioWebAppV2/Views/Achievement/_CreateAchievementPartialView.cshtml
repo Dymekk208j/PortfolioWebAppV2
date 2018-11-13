@@ -1,18 +1,13 @@
 ﻿@model PortfolioWebAppV2.Models.DatabaseModels.Achievement
 
-@{ using (Html.BeginForm("AddAchievement", "Achievement"))
+@{ using (Ajax.BeginForm("AddAchievement", "Achievement",
+        new AjaxOptions { HttpMethod = "post", UpdateTargetId = "CreatePartial", InsertionMode = InsertionMode.Replace},
+        new { id = "CreatePartial" }))
     {
-        <div class="modal fade" id="AddAchievement" tabindex="-1" role="dialog" aria-labelledby="AddAchievementLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="AddAchievementLabel">Dodaj osiągnięcie</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+      
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-                    <div class="modal-body">
+
                         @Html.ValidationMessageFor(m => m.Title, "*", new { @class = "text-danger" })
                         @Html.LabelFor(m => m.Title, new { style = "font-weight: bold; Margin-top: 10px;" })
                         @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" }, })
@@ -27,18 +22,13 @@
                         <br />
                         <label class="form-check-label">
                             @Html.CheckBoxFor(m => m.ShowInCv)
-                            @*<input class="form-check-inline" type="checkbox" name="ShowInCv" id="ShowInCv"/>*@
                             Dodaj co CV
                         </label>
-                        
-                    </div>
-                    <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Dodaj</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-                    </div>
 
-                </div>
-            </div>
-        </div>
+             
     }
 }
+
+

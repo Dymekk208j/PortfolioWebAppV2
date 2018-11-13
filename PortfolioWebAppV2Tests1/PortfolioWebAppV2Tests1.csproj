@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AboutMeControllerTests.cs" />
     <Compile Include="Controllers\AchievementControllerTests.cs" />
+    <Compile Include="Controllers\AdditionalInformationControllerTests.cs" />
     <Compile Include="Controllers\PrivateInformationControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AboutMeRepositoryTests.cs" />

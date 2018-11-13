@@ -1,7 +1,8 @@
-﻿using System.Web.Mvc;
-using PortfolioWebAppV2.Models.DatabaseModels;
+﻿using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
+using System;
+using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -25,58 +26,76 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Remove(int id)
         {
-            var additionalInfo = _repository.Get(id);
-            if(additionalInfo != null) _repository.Remove(additionalInfo);
+            try
+            {
+                var additionalInfo = _repository.Get(id);
+                _repository.Remove(additionalInfo);
+                return RedirectToAction("AdditionalInformationManagement");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
-            return RedirectToAction("AdditionalInformationManagement");
+            return View("ErrorPage");
         }
 
         [HttpPost]
         public ActionResult Add(AdditionalInfo additionalInfo)
         {
-            if (ModelState.IsValid)
-            {
-                _repository.Add(additionalInfo);
-            }
-
+            if (!ModelState.IsValid) return View("ErrorPage");
+            _repository.Add(additionalInfo);
             return RedirectToAction("AdditionalInformationManagement");
+
         }
 
         [HttpPost]
         public ActionResult Update(AdditionalInfo additionalInfo)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _repository.Update(additionalInfo))
             {
-                _repository.Update(additionalInfo);
+                return RedirectToAction("AdditionalInformationManagement");
+
             }
 
-            return RedirectToAction("AdditionalInformationManagement");
+            return View("ErrorPage");
         }
 
         [HttpPost]
         public ActionResult AddAdditionalInfoToCv(CvViewModel cvModel)
         {
-            AdditionalInfo additionalInfo = _repository.Get(cvModel.SelectedAddtinionaInformation);
-            if (additionalInfo != null)
+            try
             {
+                AdditionalInfo additionalInfo = _repository.Get(cvModel.SelectedAddtinionaInformation);
                 additionalInfo.ShowInCv = true;
-                _repository.Update(additionalInfo);
+                if (_repository.Update(additionalInfo)) return RedirectToAction("EditCv", "AdminPanel");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
 
-            return RedirectToAction("EditCv", "AdminPanel");
+            return View("ErrorPage");
         }
 
         [HttpGet]
         public ActionResult RemoveAdditionalInformationFromCv(int id)
         {
-            AdditionalInfo additionalInfo = _repository.Get(id);
-            if (additionalInfo != null)
+            try
             {
+                AdditionalInfo additionalInfo = _repository.Get(id);
+
                 additionalInfo.ShowInCv = false;
-                _repository.Update(additionalInfo);
+                if (_repository.Update(additionalInfo)) return RedirectToAction("EditCv", "AdminPanel");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
 
-            return RedirectToAction("EditCv", "AdminPanel");
+            return View("ErrorPage");
         }
     }
 }

@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201811061502300_NewMigration.Designer.cs">
       <DependentUpon>201811061502300_NewMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811102328334_Migration2.cs" />
+    <Compile Include="Migrations\201811102328334_Migration2.Designer.cs">
+      <DependentUpon>201811102328334_Migration2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -447,6 +451,7 @@
     <Content Include="Views\Education\EducationManagement.cshtml" />
     <Content Include="Views\EmploymentHistory\EmploymentHistoryManagement.cshtml" />
     <Content Include="Views\Shared\ErrorPage.cshtml" />
+    <Content Include="Views\Shared\_AdminPanelLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -469,6 +474,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811061502300_NewMigration.resx">
       <DependentUpon>201811061502300_NewMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811102328334_Migration2.resx">
+      <DependentUpon>201811102328334_Migration2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

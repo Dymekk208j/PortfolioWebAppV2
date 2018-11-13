@@ -94,45 +94,49 @@
 
         <div class="row">
             <div class="col-2 admin_panel_left">
-                <button type="button" class="btn btn-primary button_primary" onclick="location.href='@Url.Action("Index", "AdminPanel")';return false;">Statystyki</button>
 
-                <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista3" aria-expanded="true" aria-controls="rozwijana-lista3">
-                    Zarządzanie stronami
-                </button>
-                <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("ContactManagement", "Contact")';return false;">Kontakt</button>
-                    <button type="button" class="btn btn-info button_secondary">Główna</button>
-                </div>
-                   
-                <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista2" aria-expanded="true" aria-controls="rozwijana-lista2">
-                    Zarządzanie projektami
-                </button>
-                <div id="rozwijana-lista2" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista2">
-                    @*<button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("ProjectsListView", "AdminPanel")';return false;">Lista projektów</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("TempProjectsListView", "AdminPanel")';return false;">Lista tymczasowych projektów</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("CreateTempProjectView", "AdminPanel")';return false;">Utwórz tymczasowy projekt</button>*@
-                </div>
+                @RenderSection("LeftMenu", required: false)
+                <div id="LeftMenu">
+                    <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("Index", "AdminPanel")';return false;">Statystyki</button>
+
+                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista3" aria-expanded="true" aria-controls="rozwijana-lista3">
+                        Zarządzanie stronami
+                    </button>
+                    <div id="rozwijana-lista3" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AboutMeManagement", "AboutMe")';return false;">O mnie</button>
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("ContactManagement", "Contact")';return false;">Kontakt</button>
+                        <button type="button" class="btn btn-info button_secondary">Główna</button>
+                    </div>
+
+                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista2" aria-expanded="true" aria-controls="rozwijana-lista2">
+                        Zarządzanie projektami
+                    </button>
+                    <div id="rozwijana-lista2" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista2">
+                        @*<button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("ProjectsListView", "AdminPanel")';return false;">Lista projektów</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("TempProjectsListView", "AdminPanel")';return false;">Lista tymczasowych projektów</button>
+                            <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("CreateTempProjectView", "AdminPanel")';return false;">Utwórz tymczasowy projekt</button>*@
+                    </div>
 
 
-                <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista" aria-expanded="true" aria-controls="rozwijana-lista">
-                    Zarządzanie użytkownikami
-                </button>
-                <div id="rozwijana-lista" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista">
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("UserMgt", "AdminPanel")';return false;">Konta użytkowników</button>
-                </div>
+                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista" aria-expanded="true" aria-controls="rozwijana-lista">
+                        Zarządzanie użytkownikami
+                    </button>
+                    <div id="rozwijana-lista" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista">
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("UserMgt", "AdminPanel")';return false;">Konta użytkowników</button>
+                    </div>
 
-                <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("TechnologyManagement", "Technology")';return false;">Technologie</button>
+                    <button type="button" class="btn btn-primary button_primary" onclick="location.href = '@Url.Action("TechnologyManagement", "Technology")';return false;">Technologie</button>
 
-                <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista4" aria-expanded="true" aria-controls="rozwijana-lista4">
-                    Zarządzanie CV
-                </button>
-                <div id="rozwijana-lista4" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href='@Url.Action("EditCv", "AdminPanel")';return false;">Edytuj CV</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AchievementsManagement", "Achievement")';return false;">Osiągnięcia</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AdditionalInformationManagement", "AdditionalInformation")';return false;">Dodatkowe informacje</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EmploymentHistoryManagement", "EmploymentHistory")';return false;">Historia zatrudnienia</button>
-                    <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EducationManagement", "Education")';return false;">Wykształcenie</button>
+                    <button type="button" class="btn btn-primary button_primary" data-toggle="collapse" href="#rozwijana-lista4" aria-expanded="true" aria-controls="rozwijana-lista4">
+                        Zarządzanie CV
+                    </button>
+                    <div id="rozwijana-lista4" class="collapse in" role="tabpanel" aria-labelledby="rozwijana-lista3">
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EditCv", "AdminPanel")';return false;">Edytuj CV</button>
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AchievementsManagement", "Achievement")';return false;">Osiągnięcia</button>
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("AdditionalInformationManagement", "AdditionalInformation")';return false;">Dodatkowe informacje</button>
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EmploymentHistoryManagement", "EmploymentHistory")';return false;">Historia zatrudnienia</button>
+                        <button type="button" class="btn btn-info button_secondary" onclick="location.href = '@Url.Action("EducationManagement", "Education")';return false;">Wykształcenie</button>
+                    </div>
                 </div>
             </div>
             <div class="col admin_panel_main_body" style="background: white !important;">
