@@ -1,6 +1,9 @@
 ﻿@model PortfolioWebAppV2.Models.DatabaseModels.Technology
 
-@{ using (Html.BeginForm("Add", "Technology"))
+@{
+    using (Ajax.BeginForm("Add", "Technology",
+        new AjaxOptions { HttpMethod = "post", UpdateTargetId = "CreatePanel", InsertionMode = InsertionMode.Replace, OnSuccess = "OnFail()" },
+        new { id = "CreatePanel" }))
     {
         <div class="modal fade" id="AddTechnology" tabindex="-1" role="dialog" aria-labelledby="AddTechnologyLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
@@ -13,6 +16,8 @@
                     </div>
 
                     <div class="modal-body">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
                         @Html.ValidationMessageFor(model => model.Name, "*", new { @class = "text-danger" })
                         @Html.LabelFor(m => m.Name, new { style = "font-weight: bold; Margin-top: 10px;" })
                         @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" }, })

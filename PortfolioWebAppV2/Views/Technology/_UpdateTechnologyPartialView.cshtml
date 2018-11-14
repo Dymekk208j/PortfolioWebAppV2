@@ -1,0 +1,37 @@
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Technology
+
+@{
+    using (Ajax.BeginForm("Update", "Technology",
+        new AjaxOptions { HttpMethod = "post", UpdateTargetId = "UpdatePanel" + Model.TechnologyId.ToString(), InsertionMode = InsertionMode.Replace, OnSuccess = "OnFailUpdate('"+ Model.TechnologyId.ToString() + "')" },
+        new { id = "UpdatePanel" + Model.TechnologyId.ToString() }))
+    {
+        <div class="modal fade" id="@Html.Raw("UpdateTechnology" + Model.TechnologyId.ToString())" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("UpdateTechnology" + Model.TechnologyId.ToString()+"Label")" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@Html.Raw("UpdateTechnology" + Model.TechnologyId.ToString()+"Label")">Aktualizuj: @Html.Name(Model.Name)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                        @Html.HiddenFor(m => m.TechnologyId)
+
+                        @Html.ValidationMessageFor(model => model.Name, "*", new { @class = "text-danger" })
+                        @Html.LabelFor(m => m.Name, new { style = "font-weight: bold; Margin-top: 10px;" })
+                        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" }, })
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ti-close"></i>Zamknij</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove","Technology", new {id = Model.TechnologyId})';"><i class="ti-trash"></i> Usuń</button>
+                        <button type="submit" class="btn btn-success"><i class="ti-cloud-up"></i> Aktualizuj</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}

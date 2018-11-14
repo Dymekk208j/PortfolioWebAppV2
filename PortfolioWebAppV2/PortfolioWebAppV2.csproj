@@ -526,6 +526,7 @@
     <Content Include="Views\Shared\_LoginRegisterLayout.cshtml" />
     <Content Include="Views\Shared\_LogedPanelPartial.cshtml" />
     <Content Include="Views\AdminPanel\Users\BlockedUsers.cshtml" />
+    <Content Include="Views\Technology\_UpdateTechnologyPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,37 +1,87 @@
 ﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
-
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
-@section Header{ Technologie }
 
-<div id="userlist-section" style="margin-right:1em;">
-    <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
-        <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>Nazwa</th>
-                <th class="text-right">Akcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var u in Model)
-            {
-                <tr>
-                    <td class="align-middle font-weight-bold">@Html.Name(u.TechnologyId.ToString()). </td>
-                    <td class="align-middle">
-                        @Html.Name(u.Name)
-                    </td>
-                    <td class="text-right">
-                        <button type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Technology", new { id = u.TechnologyId })';return false;"> Usun</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+@section Header{ Technologie }
+@section AdditionalCss
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+}
+
+<!-- data table start -->
+<div class="col-12 mt-5">
+    <div class="card">
+
+        <div class="card-body">
+            <button type="button" class="btn btn-success btn-sm far float-right mb-3" data-toggle="modal" data-target="#AddTechnology"><i class="ti-file"></i> Utwórz technologie</button>
+
+            <div class="data-tables">
+                <table id="dataTable" class="text-left hover compact">
+                    <thead class="bg-light text-capitalize ">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nazwa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var t in Model)
+                        {
+                            <tr data-toggle="modal" data-target="@Html.Raw("#UpdateTechnology" + t.TechnologyId.ToString())">
+                                <td class="font-weight-bold">@Html.Name(t.TechnologyId.ToString()). </td>
+                                <td>
+                                    @Html.Name(t.Name)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 
+<div id="CreatePanel" name="CreatePanel">
+    @Html.Partial("_AddTechnologyPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Technology())
+</div>
 
-<button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddTechnology"> Dodaj technologie</button>
+@foreach (var t in Model)
+{
+    <div id="@Html.Raw("UpdatePanel" + t.TechnologyId.ToString())" name="@Html.Raw("UpdatePanel" + t.TechnologyId.ToString())">
+        @Html.Partial("_UpdateTechnologyPartialView", t)
+    </div>
 
-@Html.Partial("_AddTechnologyPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Technology())
+}
+
+@section AdditionalJs
+{
+    <script>
+        function reload() {
+           location.href = '@Url.Action("TechnologyManagement", "Technology")';
+        }
+
+        function OnFail() {
+            $('.modal-backdrop').remove();
+            $("#AddTechnology").modal('show');
+        }
+
+        function OnFailUpdate(id) {
+            var name = "@Html.Raw("#UpdateTechnology")" + id;
+            $('.modal-backdrop').remove();
+            $(name.toString()).modal('show');
+        }
+    </script>
+
+    <!-- Start datatable js -->
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+}

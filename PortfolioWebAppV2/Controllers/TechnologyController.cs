@@ -28,9 +28,22 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Add(technology);
+                return JavaScript("reload();");
             }
 
-            return RedirectToAction("TechnologyManagement");
+            return PartialView("_AddTechnologyPartialView", technology);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Technology technology)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.Update(technology);
+                return JavaScript("reload();");
+            }
+
+            return PartialView("_UpdateTechnologyPartialView", technology);
         }
 
         [HttpGet]
