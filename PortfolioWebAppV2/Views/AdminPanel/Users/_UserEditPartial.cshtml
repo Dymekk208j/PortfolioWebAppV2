@@ -39,14 +39,13 @@
 
                         <br />
                         @{
-                            //TODO: Dodać obsługę generowania nowego hasła i propozycji zmiany hasła.
+                            //TODO: Dodać obsługę generowania nowego hasła.
                         }
-                        <button href="#" onclick="" class="btn btn-primary btn-sm  mb-1" id="btn_prev" style="margin-left: 0.5em;">
-                            Zaproponuj zmiane hasła
-                        </button>
-                        <button href="#" onclick="" class="btn btn-danger btn-sm mb-1" id="btn_prev" style="margin-left: 0.5em;">
+                        <button href="#" onclick="" class="btn btn-primary btn-sm  mb-1" id="btn_gen_new_pass" style="margin-left: 0.5em;">
                             Wygeneruj nowe hasło
                         </button>
+                        <a href="@Url.Action("DeleteUser","Account", new{userId = Model.Id})" class="btn btn-danger btn-sm mb-1" id="btn_del" style="margin-left: 0.5em;">Usuń</a>
+
 
                     </div>
                     <div class="modal-footer">

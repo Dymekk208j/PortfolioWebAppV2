@@ -32,11 +32,11 @@ namespace PortfolioWebAppV2.Controllers
             var usr = (from u in db.Users
                        where u.Id == userId
                        select u).FirstOrDefault();
-            if (usr == null) return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+            if (usr == null) return RedirectToAction("UserMgt", "AdminPanel");
 
             db.Entry(usr).State = System.Data.Entity.EntityState.Deleted;
             db.SaveChanges();
-            return RedirectToAction("UserMgt", "AdminPanel", new { page = 0 });
+            return RedirectToAction("UserMgt", "AdminPanel");
 
         }
 
