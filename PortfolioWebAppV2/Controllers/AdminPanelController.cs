@@ -63,9 +63,18 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult UserMgt()
         {
             var db = new ApplicationDbContext();
-            var usersList = db.Users.OrderBy(a => a.UserName).ToList();
+            var usersList = db.Users.Where(u => u.Blocked == false).OrderBy(a => a.UserName).ToList();
             
             return View("Users/UserMgt", usersList);
+        }
+
+        [HttpGet]
+        public ActionResult BlockedUsers()
+        {
+            var db = new ApplicationDbContext();
+            var usersList = db.Users.Where(u => u.Blocked).OrderBy(a => a.UserName).ToList();
+
+            return View("Users/BlockedUsers", usersList);
         }
 
     }

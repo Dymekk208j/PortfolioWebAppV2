@@ -41,16 +41,17 @@
                         @{
                             //TODO: Dodać obsługę generowania nowego hasła.
                         }
-                        <button href="#" onclick="" class="btn btn-primary btn-sm  mb-1" id="btn_gen_new_pass" style="margin-left: 0.5em;">
+                        <button href="#" onclick="" class="btn btn-primary btn-sm mt-1" id="btn_gen_new_pass" style="margin-left: 0.5em;">
+                            <i class="ti-reload"></i>
                             Wygeneruj nowe hasło
                         </button>
-                        <a href="@Url.Action("DeleteUser","Account", new{userId = Model.Id})" class="btn btn-danger btn-sm mb-1" id="btn_del" style="margin-left: 0.5em;">Usuń</a>
 
 
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
-                        <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+                        <a href="@Url.Action("DeleteUser","Account", new{userId = Model.Id})" class="btn btn-danger" id="btn_del" style="margin-left: 0.5em;"><i class="ti-trash"></i> Usuń</a>
+                        <button type="submit" class="btn btn-primary"><i class="ti-save"></i> Zapisz zmiany</button>
                     </div>
                 </div>
             </div>
