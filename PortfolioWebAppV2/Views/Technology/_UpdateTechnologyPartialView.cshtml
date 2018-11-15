@@ -25,9 +25,9 @@
                         @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" }, })
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ti-close"></i>Zamknij</button>
-                        <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove","Technology", new {id = Model.TechnologyId})';"><i class="ti-trash"></i> Usuń</button>
-                        <button type="submit" class="btn btn-success"><i class="ti-cloud-up"></i> Aktualizuj</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="ti-close mr-1"></i>Zamknij</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Remove","Technology", new {id = Model.TechnologyId})';"><i class="ti-trash mr-1"></i> Usuń</button>
+                        <button type="submit" class="btn btn-success"><i class="ti-cloud-up mr-1"></i> Aktualizuj</button>
                     </div>
 
                 </div>

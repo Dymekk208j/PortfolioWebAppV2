@@ -8,15 +8,19 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
     {
         public int EducationId { get; set; }
 
+        [Required(ErrorMessage = "Nazwa szkoły/uczelni nie może być pusta.")]
         [Display(Name = "Nazwa szkoły/uczelni")]
         public string SchooleName { get; set; }
 
+        [Required(ErrorMessage = "Poziom szkoły/Wydział nie może być puste.")]
         [Display(Name = "Poziom szkoły/Wydział")]
         public string Department { get; set; }
 
+        [Required(ErrorMessage = "Specjalizacja nie może być pusta.")]
         [Display(Name = "Specjalizacja")]
         public string Specialization { get; set; }
 
+        [Required(ErrorMessage = "Data rozpoczęcia nie może być pusta.")]
         [Display(Name = "Data rozpoczęcia")]
         //[Column(TypeName = "datetime2")]
         public DateTime StartDate { get; set; }

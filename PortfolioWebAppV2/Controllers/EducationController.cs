@@ -37,9 +37,10 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
               _repository.Add(education);
+              return JavaScript("reload();");
             }
 
-            return RedirectToAction("EducationManagement");
+            return PartialView("_CreateEducationPartialView", education);
         }
 
         [HttpPost]
@@ -48,9 +49,11 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Update(education);
+
+                return JavaScript("reload();");
             }
 
-            return RedirectToAction("EducationManagement");
+            return PartialView("_EditEducationPartialView", education);
         }
 
         [HttpPost]
