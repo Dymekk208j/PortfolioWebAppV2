@@ -3,11 +3,11 @@
 @{ using (Ajax.BeginForm("Add", "Education",
         new AjaxOptions{ HttpMethod = "post", UpdateTargetId = "CreatePanel", InsertionMode = InsertionMode.Replace, OnSuccess = "OnFail"}))
     {
-        <div class="modal fade" id="AddNewEducation" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("AddNewEducationLabel" + Model.EducationId)" aria-hidden="true">
+        <div class="modal fade" id="AddNewEducation" tabindex="-1" role="dialog" aria-labelledby="AddNewEducationLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="@Html.Raw("AddNewEducationLabel" + Model.EducationId)">Dodaj wykształcenie</h5>
+                        <h5 class="modal-title" id="AddNewEducationLabel">Dodaj wykształcenie</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

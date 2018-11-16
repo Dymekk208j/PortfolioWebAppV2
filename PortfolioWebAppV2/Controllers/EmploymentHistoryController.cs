@@ -37,9 +37,11 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
              _repository.Add(employmentHistory);
+             return JavaScript("reload();");
+
             }
 
-            return RedirectToAction("EmploymentHistoryManagement");
+            return PartialView("_CreateEmploymentHistoryPartialView", employmentHistory);
         }
 
         [HttpPost]
@@ -48,9 +50,10 @@ namespace PortfolioWebAppV2.Controllers
             if (ModelState.IsValid)
             {
                 _repository.Update(employmentHistory);
+                return JavaScript("reload();");
             }
 
-            return RedirectToAction("EmploymentHistoryManagement");
+            return PartialView("_EditEmploymentHistoryPartialView", employmentHistory);
         }
 
         [HttpPost]
