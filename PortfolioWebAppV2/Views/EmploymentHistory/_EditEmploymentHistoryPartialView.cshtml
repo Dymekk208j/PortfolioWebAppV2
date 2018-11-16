@@ -3,8 +3,8 @@
 @{ using (Ajax.BeginForm("Update", "EmploymentHistory",
         new AjaxOptions { HttpMethod = "post", UpdateTargetId = "UpdatePanel" + Model.EmploymentHistoryId.ToString(), InsertionMode = InsertionMode.Replace, OnSuccess = "OnFailUpdate('" + Model.EmploymentHistoryId.ToString() + "')"  }))
     {
-        <div class="modal fade" id="@Html.Raw("UpdateEmploymentHistory" + Model.EmploymentHistoryId)" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("UpdateEmploymentHistory" + Model.EmploymentHistoryId + "Label")" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
+        <div class="modal fade" id="@Html.Raw("UpdateEmploymentHistory" + Model.EmploymentHistoryId)" tabindex="-1" role="dialog" aria-labelledby="@Html.Raw("UpdateEmploymentHistory" + Model.EmploymentHistoryId)" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="@Html.Raw("UpdateEmploymentHistory" + Model.EmploymentHistoryId + "Label")">@Html.Name("Edytuj historię: " + Model.CompanyName)</h5>
@@ -55,8 +55,9 @@
                         </p>
                         <p>
                             @Html.ValidationMessageFor(model => model.ShowInCv, "*", new { @class = "text-danger" })
-                            @Html.LabelFor(m => m.ShowInCv, new { htmlAttributes = new { @class = "control-label" }, })
                             @Html.EditorFor(m => m.ShowInCv)
+                            @Html.LabelFor(m => m.ShowInCv, new { htmlAttributes = new { @class = "control-label" }, })
+
                         </p>
 
 
@@ -79,10 +80,10 @@
             $("@Html.Raw("#CurrentPlaceOfEmployment" + Model.EmploymentHistoryId)").change(
                 function () {
                     if ($(this).is(':checked')) {
-                        $("@Html.Raw("EndDateParagraph" + Model.EmploymentHistoryId)").hide();
+                        $("@Html.Raw("#EndDateParagraph" + Model.EmploymentHistoryId)").hide();
 
                     } else {
-                        $("@Html.Raw("EndDateParagraph" + Model.EmploymentHistoryId)").show();
+                        $("@Html.Raw("#EndDateParagraph" + Model.EmploymentHistoryId)").show();
                     }
                 }
             );

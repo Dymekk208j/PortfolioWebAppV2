@@ -288,6 +288,10 @@
     <Compile Include="Migrations\201811150013361_Migration3.Designer.cs">
       <DependentUpon>201811150013361_Migration3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811162030520_Migration4.cs" />
+    <Compile Include="Migrations\201811162030520_Migration4.Designer.cs">
+      <DependentUpon>201811162030520_Migration4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -505,7 +509,7 @@
     <Content Include="Views\Achievement\_CreateAchievementPartialView.cshtml" />
     <Content Include="Views\Education\_CreateEducationPartialView.cshtml" />
     <Content Include="Views\Education\_EditEducationPartialView.cshtml" />
-    <Content Include="Views\AdditionalInformation\_CreateAditionalInformationView.cshtml" />
+    <Content Include="Views\AdditionalInformation\_CreateAdditionalInformationPartialView.cshtml" />
     <Content Include="Views\EmploymentHistory\_CreateEmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\EmploymentHistory\_EditEmploymentHistoryPartialView.cshtml" />
     <Content Include="Views\AdminPanel\Cv\EditCv.cshtml" />
@@ -532,6 +536,7 @@
     <Content Include="Views\AdminPanel\Users\BlockedUsers.cshtml" />
     <Content Include="Views\Technology\_UpdateTechnologyPartialView.cshtml" />
     <Content Include="Views\Achievement\_UpdateAchievementPartialView.cshtml" />
+    <Content Include="Views\AdditionalInformation\_UpdateAdditionalInformationPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -560,6 +565,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811150013361_Migration3.resx">
       <DependentUpon>201811150013361_Migration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811162030520_Migration4.resx">
+      <DependentUpon>201811162030520_Migration4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -43,22 +43,26 @@ namespace PortfolioWebAppV2.Controllers
         [HttpPost]
         public ActionResult Add(AdditionalInfo additionalInfo)
         {
-            if (!ModelState.IsValid) return View("ErrorPage");
-            _repository.Add(additionalInfo);
-            return RedirectToAction("AdditionalInformationManagement");
+            if (ModelState.IsValid)
+            {
+                _repository.Add(additionalInfo);
+                return JavaScript("reload();");
+            }
+
+            return PartialView("_CreateAdditionalInformationPartialView", additionalInfo);
 
         }
 
         [HttpPost]
         public ActionResult Update(AdditionalInfo additionalInfo)
         {
-            if (ModelState.IsValid && _repository.Update(additionalInfo))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("AdditionalInformationManagement");
-
+                _repository.Update(additionalInfo);
+                return JavaScript("reload();");
             }
 
-            return View("ErrorPage");
+            return PartialView("_UpdateAdditionalInformationPartialView", additionalInfo);
         }
 
         [HttpPost]

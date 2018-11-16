@@ -20,6 +20,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         [Display(Name = "Typ")]
         public TypeOfAddtionalInfo Type { get; set; }
 
+        [Required(ErrorMessage = "Tytuł nie może być pusty")]
         [Display(Name = "Tytuł")]
         public string Title { get; set; }
 
