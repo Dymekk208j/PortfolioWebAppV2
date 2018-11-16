@@ -24,7 +24,7 @@ namespace PortfolioWebAppV2.Controllers
 
 
         [HttpGet]
-        public ActionResult RemoveAchievement(int id)
+        public ActionResult Remove(int id)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAchievement(Achievement achievement)
+        public ActionResult Add(Achievement achievement)
         {
             if (ModelState.IsValid)
             {
@@ -50,7 +50,18 @@ namespace PortfolioWebAppV2.Controllers
             }
 
             return PartialView("_CreateAchievementPartialView", achievement);
+        }
 
+        [HttpPost]
+        public ActionResult Update(Achievement achievement)
+        {
+            if (ModelState.IsValid)
+            {
+                _repository.Update(achievement);
+                return JavaScript("reload();");
+            }
+
+            return PartialView("_UpdateAchievementPartialView", achievement);
         }
 
         [HttpPost]

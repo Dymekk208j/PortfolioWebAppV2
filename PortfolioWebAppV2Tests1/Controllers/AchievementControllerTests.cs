@@ -81,7 +81,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = (RedirectToRouteResult)_controller.RemoveAchievement(1);
+            var result = (RedirectToRouteResult)_controller.Remove(1);
 
             //Assert
             Assert.NotNull(result);
@@ -94,7 +94,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = _controller.RemoveAchievement(-1) as ViewResult;
+            var result = _controller.Remove(-1) as ViewResult;
 
             //Assert
             Assert.NotNull(result);
@@ -114,7 +114,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var result = _controller.AddAchievement(achievement) as JavaScriptResult;
+            var result = _controller.Add(achievement) as JavaScriptResult;
 
             //Assert
             Assert.NotNull(result);
@@ -122,22 +122,15 @@ namespace PortfolioWebAppV2Tests1.Controllers
         }
 
         [Theory()]
-        [InlineData("", "Tytuł", "To jest opis")]
         [InlineData("2017-01-01", "", "To jest opis")]
         [InlineData("2017-01-01", "Tytuł", "")]
-        public void ReturnPartialViewIfModelIsNotValid(string date, string title, string description)
+        public void ReturnPartialViewIfModelIsNotValid(DateTime date, string title, string description)
         {
             //Arrange
-            DateTime? d;
-            if (date == "")
-            {
-                d = null;
-            }
-            else d = DateTime.Parse(date);
 
             var achievement = new Achievement()
             {
-                Date = d,
+                Date = date,
                 Title = title,
                 Description = description,
                 ShowInCv = false
@@ -145,7 +138,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
             //Act
             Validate.ValidateModel(_controller, achievement);
-            var viewResult = _controller.AddAchievement(achievement) as PartialViewResult;
+            var viewResult = _controller.Add(achievement) as PartialViewResult;
 
             //Assert
             Assert.NotNull(viewResult);

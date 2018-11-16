@@ -1,61 +1,151 @@
-﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
+﻿@*@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
+
+    @{
+        Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+    }
+    @section Header{ Osiągnięcia }
+
+    <div id="userlist-section" style="margin-right:1em;">
+        <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Nazwa</th>
+                    <th class="text-right">Akcje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td class="align-middle font-weight-bold">@Html.Name(u.AchievementId.ToString()). </td>
+                        <td class="align-middle">
+                            @Html.Name(u.Title)
+                        </td>
+                        <td class="text-right">
+                            <button id="@Html.Raw("RemoveBtn" + u.AchievementId.ToString())" type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Achievement", new { id = u.AchievementId })';return false;"> Usuń</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#Add"> Dodaj osiągnięcie</button>
+    <button onclick="Toggle()">Toggle</button>
+
+
+    <script>
+        function reload() {
+            location.href = '@Url.Action("AchievementsManagement", "Achievement")';
+        }
+    </script>
+
+    <script language="Javascript">
+        function Toggle() {
+            $('#LeftMenu').toggle();
+            $('#LeftMenu2').toggle();
+        }
+    </script>
+
+
+        <div id="LeftMenu2" style="display: none" class="m-2">
+            <div id="CreatePartial">
+                @Html.Partial("_CreateAchievementPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Achievement())
+            </div>
+        </div>
+
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
+
+@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
 
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
+
+
 @section Header{ Osiągnięcia }
 
-<div id="userlist-section" style="margin-right:1em;">
-    <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
-        <thead class="thead-dark">
-            <tr>
-                <th>#</th>
-                <th>Nazwa</th>
-                <th class="text-right">Akcje</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var u in Model)
-            {
-                <tr>
-                    <td class="align-middle font-weight-bold">@Html.Name(u.AchievementId.ToString()). </td>
-                    <td class="align-middle">
-                        @Html.Name(u.Title)
-                    </td>
-                    <td class="text-right">
-                        <button id="@Html.Raw("RemoveBtn" + u.AchievementId.ToString())" type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("RemoveAchievement", "Achievement", new { id = u.AchievementId })';return false;"> Usuń</button>
-                    </td>
-                </tr>
-            }
+@section AdditionalCss
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+}
 
-        </tbody>
-    </table>
-</div>
+<!-- data table start -->
+<div class="col-12 mt-5">
+    <div class="card">
 
-<button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddAchievement"> Dodaj osiągnięcie</button>
-<button onclick="Toggle()">Toggle</button>
+        <div class="card-body">
+            <button type="button" class="btn btn-success btn-sm far float-right mb-3" data-toggle="modal" data-target="#AddAchievement"><i class="ti-file"></i> Dodaj osiągnięcie</button>
 
-
-<script>
-    function reload() {
-        location.href = '@Url.Action("AchievementsManagement", "Achievement")';
-    }
-</script>
-
-<script language="Javascript">
-    function Toggle() {
-        $('#LeftMenu').toggle();
-        $('#LeftMenu2').toggle();
-    }
-</script>
+            <div class="data-tables">
+                <table id="dataTable" class="text-left hover compact">
+                    <thead class="bg-light text-capitalize ">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nazwa</th>
+                            <th>Data osiągnięcia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr data-toggle="modal" data-target="@Html.Raw("#UpdateAchievement" + u.AchievementId.ToString())">
+                                <td class="align-middle font-weight-bold">@Html.Name(u.AchievementId.ToString()). </td>
+                                <td class="align-middle">
+                                    @Html.Name(u.Title)
+                                </td>                   
+                                <td>@Html.Name(u.Date.ToString("yyyy-MM-dd"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
 
 
-    <div id="LeftMenu2" style="display: none" class="m-2">
-        <div id="CreatePartial">
-            @Html.Partial("_CreateAchievementPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Achievement())
+            </div>
         </div>
     </div>
+</div>
 
+<div id="CreatePanel">
+    @Html.Partial("_CreateAchievementPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Achievement())
+</div>
 
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+@foreach (var e in Model)
+{
+    <div id="@Html.Raw("UpdatePanel" + e.AchievementId.ToString())">
+        @Html.Partial("_UpdateAchievementPartialView", e)
+    </div>
+}
+@section AdditionalJs
+{
+    <script>
+        function OnFail() {
+            $('.modal-backdrop').remove();
+            $("#AddAchievement").modal('show');
+        }
 
+        function reload() {
+            location.href = '@Url.Action("AchievementsManagement", "Achievement")';
+        }
+
+        function OnFailUpdate(id) {
+            var name = "@Html.Raw("#UpdateAchievement")" + id;
+            $('.modal-backdrop').remove();
+            $(name.toString()).modal('show');
+        }
+    </script>
+
+    <!-- Start datatable js -->
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+}

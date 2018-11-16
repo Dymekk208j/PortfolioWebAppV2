@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
 
-@section Header{ Technologie }
+@section Header{ Wykształcenie }
 @section AdditionalCss
 {
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
@@ -92,20 +92,6 @@
 }
 @section AdditionalJs
 {
-    @*<script>
-            function reload() {
-               location.href = '@Url.Action("TechnologyManagement", "Technology")';
-            }
-
-            
-
-            function OnFailUpdate(id) {
-                var name = "@Html.Raw("#UpdateTechnology")" + id;
-                $('.modal-backdrop').remove();
-                $(name.toString()).modal('show');
-            }
-        </script>*@
-
     <script>
         $("@Html.Raw("#CurrentPlaceOfEducation")").change(
             function () {
@@ -133,6 +119,7 @@
             $(name.toString()).modal('show');
         }
     </script>
+
     <!-- Start datatable js -->
     <script src="~/Scripts/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>

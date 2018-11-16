@@ -18,7 +18,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
 
         [Required(ErrorMessage = "Musisz wprowadzić date.")]
         [Display(Name = "Data osiągnięcia")]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         [Display(Name = "Dodaj do CV")]
         public bool ShowInCv { get; set; }

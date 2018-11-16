@@ -149,9 +149,6 @@ namespace PortfolioWebAppV2Tests1.Repository
             var achievement = new Achievement()
             {
                 AchievementId = -1,
-                Title = "imageLink",
-                Description = "text",
-                Date = null
             };
 
             //Act 
