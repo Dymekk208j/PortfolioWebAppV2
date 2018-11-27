@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="~/Lib/assets/css/slicknav.min.css" />
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    @RenderSection("AdditionalCss", false)
+
     <!-- others css -->
     <link rel="stylesheet" href="~/Lib/assets/css/typography.css" />
     <link rel="stylesheet" href="~/Lib/assets/css/default-css.css" />
@@ -27,6 +27,8 @@
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
+    @RenderSection("AdditionalCss", false)
 </head>
 <body>
 
@@ -158,12 +160,12 @@
 
     <!-- all pie chart -->
     <script src="~/Lib/assets/js/pie-chart.js"></script>
-    @RenderSection("AdditionalJs", false)
+    
 
     <!-- others plugins -->
     <script src="~/Lib/assets/js/plugins.js"></script>
     <script src="~/Lib/assets/js/scripts.js"></script>
-
+@RenderSection("AdditionalJs", false)
 
 
 

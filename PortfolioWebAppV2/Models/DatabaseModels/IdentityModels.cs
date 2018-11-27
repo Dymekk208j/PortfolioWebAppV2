@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
 {
@@ -34,6 +34,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public virtual DbSet<EmploymentHistory> EmploymentHistories { get; set; }
         public virtual DbSet<PrivateInformation> PrivateInformations { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Technology> Technologies { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
 

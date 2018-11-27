@@ -108,12 +108,11 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Project()
                 {
                     FullDescription = "Pelen opis 1 projektu",
-                    ShordDescription = "krotki opis 1 projektu",
+                    ShortDescription = "krotki opis 1 projektu",
                     Title = "Tytul 1 projektu",
                     Commercial = true,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
-                    IsIcon = false,
                     Technologies = new List<Technology>()
                 };
 
@@ -128,12 +127,11 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Project()
                 {
                     FullDescription = "Pelen opis 2 projektu",
-                    ShordDescription = "krotki opis 2 projektu",
+                    ShortDescription = "krotki opis 2 projektu",
                     Title = "Tytul 2 projektu",
                     Commercial = true,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
-                    IsIcon = false,
                     Technologies = new List<Technology>()
                 };
 
@@ -148,12 +146,11 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Project()
                 {
                     FullDescription = "Pelen opis 3 projektu",
-                    ShordDescription = "krotki opis 3 projektu",
+                    ShortDescription = "krotki opis 3 projektu",
                     Title = "Tytul 3 projektu",
                     Commercial = false,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
-                    IsIcon = false,
                     Technologies = new List<Technology>()
                 };
 
@@ -168,12 +165,11 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 new Project()
                 {
                     FullDescription = "Pelen opis 4 projektu",
-                    ShordDescription = "Krotki opis 4 projektu",
+                    ShortDescription = "Krotki opis 4 projektu",
                     Title = "Tytul 4 projektu",
                     Commercial = false,
                     ShowInCv = true,
                     DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
-                    IsIcon = false,
                     Technologies = new List<Technology>()
                 };
 
