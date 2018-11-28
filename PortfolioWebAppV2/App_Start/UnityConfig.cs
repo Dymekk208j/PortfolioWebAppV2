@@ -22,6 +22,8 @@ namespace PortfolioWebAppV2
             container.RegisterType<IRepository<EmploymentHistory, int>, EmploymentHistoryRepository>();
             container.RegisterType<IRepository<PrivateInformation, int>, PrivateInformationRepository>();
             container.RegisterType<IRepository<Technology, int>, TechnologyRepository>();
+            container.RegisterType<IRepository<Project, int>, ProjectsRepository>();
+
             container.RegisterType<AccountController>(new InjectionConstructor());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

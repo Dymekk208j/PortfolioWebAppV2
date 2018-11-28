@@ -297,6 +297,10 @@
     <Compile Include="Migrations\201811272002481_UpdatedProjectModelAndCreatedImageModel.Designer.cs">
       <DependentUpon>201811272002481_UpdatedProjectModelAndCreatedImageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.cs" />
+    <Compile Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.Designer.cs">
+      <DependentUpon>201811272135239_GitHubLinkAddedToProjectModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -325,6 +329,7 @@
     <Compile Include="Repository\IElementOfCv.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PrivateInformationRepository.cs" />
+    <Compile Include="Repository\ProjectsRepository.cs" />
     <Compile Include="Repository\TechnologyRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -599,7 +604,9 @@
     <Content Include="Views\Technology\_UpdateTechnologyPartialView.cshtml" />
     <Content Include="Views\Achievement\_UpdateAchievementPartialView.cshtml" />
     <Content Include="Views\AdditionalInformation\_UpdateAdditionalInformationPartialView.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\ProjectManagement.cshtml" />
+    <Content Include="Views\Projects\ProjectsList.cshtml" />
+    <Content Include="Views\Projects\TemporaryProjectsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -634,6 +641,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811272002481_UpdatedProjectModelAndCreatedImageModel.resx">
       <DependentUpon>201811272002481_UpdatedProjectModelAndCreatedImageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.resx">
+      <DependentUpon>201811272135239_GitHubLinkAddedToProjectModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

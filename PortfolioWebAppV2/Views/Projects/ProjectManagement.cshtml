@@ -1,0 +1,149 @@
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Header
+{Utwórz projekt}
+
+
+@section AdditionalCss
+{
+    <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
+
+}
+
+@using (Html.BeginForm("AddOrUpdate", "Projects", new {temporary = false }, FormMethod.Post, new { id = "MyForm" }))
+{
+
+    <div class="col-12 mt-5">
+        <div class="card">
+
+            <div class="card-body">
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <p class="mt-2">
+                    @Html.LabelFor(m => m.Title)
+                    @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" } })
+                </p>
+
+                <p class="mt-2">
+                    @Html.LabelFor(m => m.GitHubLink)
+                    @Html.EditorFor(m => m.GitHubLink, new { htmlAttributes = new { @class = "form-control" } })
+                </p>
+
+                <p class="mt-2">
+                    @Html.LabelFor(m => m.ShortDescription)
+                    <div id="TextBoxShortDescription"></div>
+                    @Html.HiddenFor(m => m.ShortDescription)
+                </p>
+
+                <p class="mt-2">
+                    @Html.LabelFor(m => m.FullDescription)
+                    <div id="TextBoxFullDescription"></div>
+                    @Html.HiddenFor(m => m.FullDescription)
+
+                </p>
+
+                <p class="mt-2">
+                    @Html.LabelFor(m => m.DateTimeCreated)
+                    <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="DateTimeCreated" name="DateTimeCreated">
+                </p>
+
+                <p class="mt-2">
+                    @Html.CheckBoxFor(m => m.Commercial)
+                    @Html.LabelFor(m => m.Commercial)
+                </p>
+
+                <p class="mt-2">
+                    @Html.CheckBoxFor(m => m.ShowInCv)
+                    @Html.LabelFor(m => m.ShowInCv)
+                </p>
+
+                <div class="float-right">
+                    <button type="button" id="DeleteButton" onclick="" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń</button>
+                    <button type="button" id="SaveButton" onclick="save()" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz</button>
+                    <button type="submit" id="CreateButton" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj</button>
+                </div>
+            </div>
+            
+            <br/>
+            <button type="button" class="btn btn-danger" onclick="SetDescriptionsToModel()">Test</button>
+        </div>
+    </div>
+
+}
+
+@section AdditionalJs
+{
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
+
+    <!-- include summernote css/js-->
+    <link href="~/Content/summernote/summernote-bs4.css" rel="stylesheet" />
+    <script src="~/Scripts/summernote/summernote-bs4.js"></script>
+
+    <script type="text/javascript">
+        $('#TextBoxShortDescription').summernote({
+            height: 100,
+            codemirror: {
+                theme: 'monokai'
+            }
+        });
+
+        $('#TextBoxFullDescription').summernote({
+            height: 250,
+            codemirror: {
+                theme: 'monokai'
+            }
+        });
+
+       
+        var FullDesc = '@((Model != null) && (Model.FullDescription != null) ? Model.FullDescription : "")';
+        var ShortDesc = '@((Model != null) && (Model.ShortDescription != null) ? Model.ShortDescription : "")';
+
+        $('#TextBoxFullDescription').summernote('code', FullDesc);
+
+        $('#TextBoxShortDescription').summernote('code', ShortDesc);
+
+    </script>
+
+    <script>
+        function save() {
+            var html = $('#TextBoxShortDescription').summernote('code');
+            return html;
+        }
+
+        $('#MyForm').submit(function() {
+            var c = confirm("Click OK to continue?");
+            var shortDesc = $('#TextBoxShortDescription').summernote('code');
+            $('#ShortDescription').val(shortDesc);
+            console.log(shortDesc);
+
+            var fullDesc = $('#TextBoxFullDescription').summernote('code');
+            $('#FullDescription').val(fullDesc);
+            console.log(fullDesc);
+
+            return c;
+
+        });
+
+        function SetDescriptionsToModel() {
+            alert('test');
+            var shortDesc = $('#TextBoxShortDescription').summernote('code');
+            $('#ShortDescription').val(shortDesc);
+            @*@Model.ShortDescription = shortDesc;*@
+            console.log(shortDesc);
+
+            var fullDesc = $('#TextBoxFullDescription').summernote('code');
+            @*@Model.FullDescription = fullDesc;*@
+            console.log(fullDesc);
+        }
+
+    </script>
+}
+

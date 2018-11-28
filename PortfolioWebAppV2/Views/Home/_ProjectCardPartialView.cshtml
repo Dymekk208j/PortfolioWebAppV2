@@ -37,19 +37,19 @@
             </div>
 
             <div class="card-body">
-                @if (!Model.IsIcon)
+                @*@if (!Model.IsIcon)
                 {
                     <img class="float-md-left rounded" src="~/Lib/images/PlaceHolder150x150.png" style="margin-bottom: 2em;" alt="" />
                 }
                 else
-                {
+                {*@
                     @*//TODO: Dodac pobieranie ikony*@
                     @*<img class="float-md-left rounded" src="@Html.Raw(Project.GetIconLink(Model.ProjectId))" style="margin-bottom: 2em;" alt="" />*@
-                }
+                @*}*@
 
                 <div class="media-body">
                     <p style="text-indent: 2%;">
-                        @Html.DisplayFor(m => m.ShordDescription)
+                        @Html.DisplayFor(m => m.ShortDescription)
                     </p>
                 </div>
             </div>

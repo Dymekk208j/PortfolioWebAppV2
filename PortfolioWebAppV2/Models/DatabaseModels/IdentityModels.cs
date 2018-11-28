@@ -12,6 +12,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public string LastName { get; set; }
         [Display(Name = "Zablokowany")]
         public bool Blocked { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

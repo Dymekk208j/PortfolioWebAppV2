@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
@@ -46,5 +47,12 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
 
         public virtual ICollection<Technology> Technologies { get; set; }
         public virtual ICollection<Image> Images { get; set; }
+
+
+        public string GetUserName(string guid)
+        {
+            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
+            return applicationDbContext.Users.FirstOrDefault(a => a.Id == guid)?.UserName ?? " - ";
+        }
     }
 }

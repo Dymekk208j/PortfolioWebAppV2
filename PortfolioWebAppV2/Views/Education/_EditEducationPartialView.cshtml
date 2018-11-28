@@ -1,7 +1,5 @@
 ﻿@model  PortfolioWebAppV2.Models.DatabaseModels.Education
 
-@*@{ using (Html.BeginForm("Update", "Education"))
-    {*@
 @{
     using (Ajax.BeginForm("Update", "Education",
         new AjaxOptions { HttpMethod = "post", UpdateTargetId = "UpdatePanel" + Model.EducationId.ToString(), InsertionMode = InsertionMode.Replace, OnSuccess = "OnFailUpdate('" + Model.EducationId.ToString() + "')" },

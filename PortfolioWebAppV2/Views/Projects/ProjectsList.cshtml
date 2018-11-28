@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Project>
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Header{ Projekty w portfolio }
+@section AdditionalCss
+{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+}
+
+<div class="col-12 mt-5">
+    <div class="card">
+        <div class="card-body">
+            <div class="data-tables">
+                <table id="dataTable" class="text-left hover compact">
+                    <thead class="bg-light text-capitalize ">
+                        <tr>
+                            <th>Id</th>
+                            <th>Tytuł</th>
+                            <th>Komercyjny</th>
+                            <th>Widoczny w CV</th>
+                            <th>Data utworzenia</th>
+                            <th>Autor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var u in Model)
+                        {
+                            <tr>
+                                <td class=" font-weight-bold">@Html.Name(u.ProjectId.ToString()). </td>
+                                <td>
+                                    @Html.Name(u.Title)
+                                </td>
+                                <td>
+                                    @if (u.Commercial)
+                                    {
+                                        @Html.Name("Tak")
+                                    }
+                                    else
+                                    {
+                                        @Html.Name("Nie")
+                                    }
+                                </td>
+                                <td>
+                                    @if (u.ShowInCv)
+                                    {
+                                        @Html.Name("Tak")
+                                    }
+                                    else
+                                    {
+                                        @Html.Name("Nie")
+                                    }
+                                </td>
+                                <td>
+                                    @Html.Name(u.DateTimeCreated.ToShortDateString())
+                                </td>
+                                <td>
+                                    @Html.Name(u.GetUserName(u.AuthorId))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AdditionalJs
+{
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}

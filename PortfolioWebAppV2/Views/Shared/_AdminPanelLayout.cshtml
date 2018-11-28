@@ -7,6 +7,8 @@
     <title>Panel administratora - Damian Dziura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    @RenderSection("AdditionalCss", false)
+
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Lib/assets/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/Lib/assets/css/themify-icons.css" />
@@ -28,7 +30,6 @@
     <script src="~/Scripts/umd/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 
-    @RenderSection("AdditionalCss", false)
 </head>
 <body>
 
@@ -62,9 +63,9 @@
                             <li>
                                 <a href="#" aria-expanded="true"><i class="ti-receipt"></i><span>Projekty</span></a>
                                 <ul class="collapse">
-                                    <li><a href="#">Lista projektów</a></li>
-                                    <li><a href="#">List tymczasowych projektów</a></li>
-                                    <li><a href="#">Utwórz projekt</a></li>
+                                    <li><a href="@Url.Action("ProjectsList", "Projects")">Lista projektów</a></li>
+                                    <li><a href="@Url.Action("TemporaryProjectsList", "Projects")">List tymczasowych projektów</a></li>
+                                    <li><a href="@Url.Action("ProjectManagement", "Projects")">Utwórz projekt</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -146,27 +147,27 @@
     <script src="~/Lib/assets/js/jquery.slimscroll.min.js"></script>
     <script src="~/Lib/assets/js/jquery.slicknav.min.js"></script>
     @*<!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- start zingchart js -->
-    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script>
-        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
-        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
-    </script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <!-- start highcharts js -->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <!-- start zingchart js -->
+        <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+        <script>
+            zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+            ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+        </script>*@
     <!-- all line chart activation -->
     <script src="~/Lib/assets/js/line-chart.js"></script>
 
     <!-- all pie chart -->
     <script src="~/Lib/assets/js/pie-chart.js"></script>
-    
+
 
     <!-- others plugins -->
+
+    @RenderSection("AdditionalJs", false)
     <script src="~/Lib/assets/js/plugins.js"></script>
     <script src="~/Lib/assets/js/scripts.js"></script>
-@RenderSection("AdditionalJs", false)
-
 
 
 </body>
