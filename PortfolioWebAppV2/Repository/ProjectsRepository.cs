@@ -63,6 +63,20 @@ namespace PortfolioWebAppV2.Repository
             return Context.SaveChanges() > 0;
         }
 
+        public bool Remove(int projectId)
+        {
+            try
+            {
+                var obj = Context.Projects.First(a => a.ProjectId == projectId);
+                Context.Projects.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return Context.SaveChanges() > 0;
+        }
         public bool Update(Project entity)
         {
             try

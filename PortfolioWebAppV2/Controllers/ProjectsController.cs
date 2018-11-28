@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Repository;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using PortfolioWebAppV2.Models.DatabaseModels;
-using Microsoft.AspNet.Identity;
-using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -17,25 +17,47 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
-        public ActionResult ProjectManagement()
+        public ActionResult CreateProject()
         {
             return View();
         }
 
+        [HttpGet]
+        public ActionResult EditProject(int projectId)
+        {
+            var project = _repository.Get(projectId);
+
+            return View(project);
+        }
+
         [HttpPost]
-        public ActionResult AddOrUpdate(Project project, bool temporary)
+        public ActionResult Create(Project project)
         {
             if (ModelState.IsValid)
             {
                 project.AuthorId = HttpContext.User.Identity.GetUserId();
-                project.TempProject = temporary;
 
                 _repository.AddOrUpdate(project);
 
-                return temporary == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+                return project.TempProject == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
             }
 
-            return View("ProjectManagement", project);
+            return View("CreateProject", project);
+        }
+
+        [HttpPost]
+        public ActionResult Update(Project project)
+        {
+            if (ModelState.IsValid)
+            {
+                project.AuthorId = HttpContext.User.Identity.GetUserId();
+
+                _repository.AddOrUpdate(project);
+
+                return project.TempProject == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+            }
+
+            return View("EditProject", project);
         }
 
         [HttpGet]
@@ -54,6 +76,11 @@ namespace PortfolioWebAppV2.Controllers
             return View(list);
         }
 
-      
+        public ActionResult RemoveProject(int projectId, bool temporary)
+        {
+            _repository.Remove(projectId);
+
+            return temporary == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+        }
     }
 }

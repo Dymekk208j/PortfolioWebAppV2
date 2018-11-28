@@ -604,9 +604,10 @@
     <Content Include="Views\Technology\_UpdateTechnologyPartialView.cshtml" />
     <Content Include="Views\Achievement\_UpdateAchievementPartialView.cshtml" />
     <Content Include="Views\AdditionalInformation\_UpdateAdditionalInformationPartialView.cshtml" />
-    <Content Include="Views\Projects\ProjectManagement.cshtml" />
+    <Content Include="Views\Projects\CreateProject.cshtml" />
     <Content Include="Views\Projects\ProjectsList.cshtml" />
     <Content Include="Views\Projects\TemporaryProjectsList.cshtml" />
+    <Content Include="Views\Projects\EditProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,7 +30,7 @@
                     <tbody>
                         @foreach (var u in Model)
                         {
-                            <tr>
+                            <tr onclick="location.href = '@Url.Action("EditProject", "Projects", new { projectId = u.ProjectId})';return false;">
                                 <td class=" font-weight-bold">@Html.Name(u.ProjectId.ToString()). </td>
                                 <td>
                                     @Html.Name(u.Title)

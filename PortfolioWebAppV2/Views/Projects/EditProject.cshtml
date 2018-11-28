@@ -5,18 +5,19 @@
 }
 
 @section Header
-{Utwórz projekt}
+{
+    @Html.Name("Edytuj projekt")
+}
 
 
 @section AdditionalCss
 {
-    <!-- include codemirror (codemirror.css, codemirror.js, xml.js, formatting.js) -->
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
 }
 
-@using (Html.BeginForm("AddOrUpdate", "Projects", new {temporary = false }, FormMethod.Post, new { id = "MyForm" }))
+@using (Html.BeginForm("Update", "Projects", FormMethod.Post, new { id = "MyForm" }))
 {
 
     <div class="col-12 mt-5">
@@ -24,6 +25,7 @@
 
             <div class="card-body">
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.ProjectId)
 
                 <p class="mt-2">
                     @Html.LabelFor(m => m.Title)
@@ -64,14 +66,16 @@
                 </p>
 
                 <div class="float-right">
-                    <button type="button" id="DeleteButton" onclick="" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń</button>
-                    <button type="button" id="SaveButton" onclick="save()" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz</button>
-                    <button type="submit" id="CreateButton" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj</button>
+                    @Html.HiddenFor(m => m.TempProject, new { id = "TempProject" })
+
+                    <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new { projectId = Model.ProjectId, temporary = Model.TempProject })';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
+                    <button type="submit" id="SaveButton" onclick="SaveAsTemporary()" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
+                    <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                    
+                    @*int projectId, bool temporary*@
                 </div>
+
             </div>
-            
-            <br/>
-            <button type="button" class="btn btn-danger" onclick="SetDescriptionsToModel()">Test</button>
         </div>
     </div>
 
@@ -82,8 +86,6 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
-
-    <!-- include summernote css/js-->
     <link href="~/Content/summernote/summernote-bs4.css" rel="stylesheet" />
     <script src="~/Scripts/summernote/summernote-bs4.js"></script>
 
@@ -102,24 +104,26 @@
             }
         });
 
-       
-        var FullDesc = '@((Model != null) && (Model.FullDescription != null) ? Model.FullDescription : "")';
-        var ShortDesc = '@((Model != null) && (Model.ShortDescription != null) ? Model.ShortDescription : "")';
+        var FullDesc = '@(Model?.FullDescription ?? "")';
+        var ShortDesc = '@(Model?.ShortDescription ?? "")';
 
         $('#TextBoxFullDescription').summernote('code', FullDesc);
-
         $('#TextBoxShortDescription').summernote('code', ShortDesc);
-
     </script>
 
     <script>
-        function save() {
-            var html = $('#TextBoxShortDescription').summernote('code');
-            return html;
+        function SaveAsTemporary() {
+            $('#TempProject').prop('checked', true);
+            $('#MyForm').submit();
         }
 
-        $('#MyForm').submit(function() {
-            var c = confirm("Click OK to continue?");
+        function AddToPortfolio() {
+            $('#TempProject').prop('checked', false);
+            $('#MyForm').submit();
+        }
+
+        $('#MyForm').submit(function () {
+            var c = confirm("Czy na pewno chcesz kontynuować?");
             var shortDesc = $('#TextBoxShortDescription').summernote('code');
             $('#ShortDescription').val(shortDesc);
             console.log(shortDesc);
@@ -129,21 +133,7 @@
             console.log(fullDesc);
 
             return c;
-
         });
-
-        function SetDescriptionsToModel() {
-            alert('test');
-            var shortDesc = $('#TextBoxShortDescription').summernote('code');
-            $('#ShortDescription').val(shortDesc);
-            @*@Model.ShortDescription = shortDesc;*@
-            console.log(shortDesc);
-
-            var fullDesc = $('#TextBoxFullDescription').summernote('code');
-            @*@Model.FullDescription = fullDesc;*@
-            console.log(fullDesc);
-        }
-
     </script>
 }
 
