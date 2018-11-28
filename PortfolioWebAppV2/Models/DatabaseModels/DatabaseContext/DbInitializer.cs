@@ -180,6 +180,28 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             context.Projects.Add(project4);
             context.SaveChanges();
 
+            for (int i = 0; i < 10; i++)
+            {
+                project4 =
+                    new Project()
+                    {
+                        FullDescription = "Pelen opis 4 projektu",
+                        ShortDescription = "Krotki opis 4 projektu",
+                        Title = "Tytul 4 projektu",
+                        Commercial = true,
+                        ShowInCv = true,
+                        DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
+                        Technologies = new List<Technology>()
+                    };
+
+                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
+                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
+                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
+
+                context.Projects.Add(project4);
+                context.SaveChanges();
+            }
+            
             var privateInformation = new List<PrivateInformation>
             {
                 new PrivateInformation() { PrivateInformationId = 1, City = "Koszalin", Email = "Kontakt@DamianDziura.pl", FirstName = "Damian", LastName = "Dziura"

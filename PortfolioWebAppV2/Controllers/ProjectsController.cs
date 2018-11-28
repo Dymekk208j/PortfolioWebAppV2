@@ -39,7 +39,7 @@ namespace PortfolioWebAppV2.Controllers
 
                 _repository.AddOrUpdate(project);
 
-                return project.TempProject == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+                return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
             }
 
             return View("CreateProject", project);
@@ -54,14 +54,14 @@ namespace PortfolioWebAppV2.Controllers
 
                 _repository.AddOrUpdate(project);
 
-                return project.TempProject == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+                return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
             }
 
             return View("EditProject", project);
         }
 
         [HttpGet]
-        public ActionResult ProjectsList()
+        public ActionResult ProjectsManagement()
         {
             IEnumerable<Project> list = _repository.GetAll().Where(m => m.TempProject == false);
 
@@ -69,18 +69,35 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
-        public ActionResult TemporaryProjectsList()
+        public ActionResult TemporaryProjectsManagement()
         {
             IEnumerable<Project> list = _repository.GetAll().Where(m => m.TempProject);
 
             return View(list);
         }
 
+        [HttpGet]
         public ActionResult RemoveProject(int projectId, bool temporary)
         {
             _repository.Remove(projectId);
 
-            return temporary == false ? RedirectToAction("ProjectsList") : RedirectToAction("TemporaryProjectsList");
+            return temporary == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
+        }
+
+        [HttpGet]
+        public ActionResult Projects(bool? commercial)
+        {
+            ViewBag.isCommercial = commercial.GetValueOrDefault();
+            var projects = _repository.GetAll().Where(a => a.Commercial == commercial.GetValueOrDefault());
+
+            return View(projects);
+        }
+
+        [HttpGet]
+        public ActionResult ProjectDetails(int projectId)
+        {
+            var project = _repository.Get(projectId);
+            return View(project);
         }
     }
 }

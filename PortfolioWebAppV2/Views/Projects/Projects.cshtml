@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Project>
+
+<section style="background: white;">
+    <div class="container" style="padding-bottom: 2em;">
+        <div class="row">
+            <div class="col text-center">
+                <h2>
+                    @if (ViewBag.isCommercial == true)
+                    {
+                        @Html.Name("Moje projekty komercyjne")
+                    }
+                    else
+                    {
+                        @Html.Name("Moje projekty niekomercyjne")
+                    }
+                </h2>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 1em">
+            <button type="button" class="btn btn-success" onclick="location.href = '@Url.Action("Projects", "Projects", new{commercial = true })';return false;">Komercyjne</button>
+            <button type="button" class="btn btn-success" onclick="location.href = '@Url.Action("Projects", "Projects", new{commercial = false })';return false;">Niekomercyjne</button>
+        </div>
+
+        <div class="main-content-inner">
+            <div class="row">
+                @foreach (var project in Model)
+                {
+                    <div class="col-lg-4 col-md-6 mt-5">
+                        <div class="card card-bordered">
+                            <div class="card-body">
+                                <h5 class="title">@Html.Name(project.Title)</h5>
+                                <img class="float-md-left rounded" src="~/Lib/Images/DynamicsNav.png" style="margin-bottom: 1em; margin-right: 1em;" alt="" />
+                                <div class="media-body">
+                                    <p style="text-indent: 2%;">
+                                        @Html.Raw(project.ShortDescription)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <a href="@Url.Action("ProjectDetails","Projects", new{projectId = project.ProjectId})" class="btn btn-sm btn-primary align-self-end m-2">Szczegóły</a>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+        </div>
+
+    </div>
+</section>

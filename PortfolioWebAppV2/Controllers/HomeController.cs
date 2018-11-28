@@ -26,35 +26,7 @@ namespace PortfolioWebAppV2.Controllers
 
             return PartialView("_SocialMediaBarPartialView", arg);
         }
-
-        [HttpGet]
-        public ActionResult Projects(int? page, bool? commercial)
-        {
-            int pageNumber = page.GetValueOrDefault();
-            bool isCommercial = commercial.GetValueOrDefault();
-            
-            ApplicationDbContext db = new ApplicationDbContext();
-            var projects = db.Projects.Where(a => a.Commercial == isCommercial).OrderByDescending(a => a.ProjectId).Skip(pageNumber * 10).Take(10).ToList();
-
-            ProjectsViewModel projectsViewModel = new ProjectsViewModel()
-            {
-                Commercial = isCommercial,
-                Page = pageNumber,
-                Projects = projects
-            };
-
-            return View(projectsViewModel);
-        }
-
-        [HttpGet]
-        public ActionResult Project(int id)
-        {
-            ApplicationDbContext dbContext = new ApplicationDbContext();
-            var project = dbContext.Projects.FirstOrDefault(a => a.ProjectId == id);
-
-            return View(project);
-        }
-
+      
         [HttpGet]
         public ActionResult Cv()
         {

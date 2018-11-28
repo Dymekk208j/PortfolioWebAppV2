@@ -417,6 +417,7 @@
     <Content Include="Lib\Images\android.png" />
     <Content Include="Lib\Images\asp.png" />
     <Content Include="Lib\Images\csharp.png" />
+    <Content Include="Lib\Images\DynamicsNav.png" />
     <Content Include="Lib\Images\facebook.png" />
     <Content Include="Lib\Images\git.png" />
     <Content Include="Lib\Images\java.png" />
@@ -568,9 +569,6 @@
     <Content Include="Views\Home\AboutMe.cshtml" />
     <Content Include="Views\Shared\_AdminPanelLayout.cshtml" />
     <Content Include="Views\AdminPanel\Index.cshtml" />
-    <Content Include="Views\Home\Projects.cshtml" />
-    <Content Include="Views\Home\_ProjectCardPartialView.cshtml" />
-    <Content Include="Views\Home\Project.cshtml" />
     <Content Include="Views\Home\Cv.cshtml" />
     <Content Include="Views\Home\PrintCv.cshtml" />
     <Content Include="Views\Technology\_AddTechnologyPartialView.cshtml" />
@@ -605,9 +603,11 @@
     <Content Include="Views\Achievement\_UpdateAchievementPartialView.cshtml" />
     <Content Include="Views\AdditionalInformation\_UpdateAdditionalInformationPartialView.cshtml" />
     <Content Include="Views\Projects\CreateProject.cshtml" />
-    <Content Include="Views\Projects\ProjectsList.cshtml" />
-    <Content Include="Views\Projects\TemporaryProjectsList.cshtml" />
+    <Content Include="Views\Projects\ProjectsManagement.cshtml" />
+    <Content Include="Views\Projects\TemporaryProjectsManagement.cshtml" />
     <Content Include="Views\Projects\EditProject.cshtml" />
+    <Content Include="Views\Projects\Projects.cshtml" />
+    <Content Include="Views\Projects\ProjectDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
