@@ -1,4 +1,5 @@
-﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+﻿@using Castle.Core.Internal
+@model PortfolioWebAppV2.Models.ViewModels.ProjectViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
@@ -15,6 +16,12 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
+    <script>
+        function SelectCheckBox(x) {
+            var name = "@Html.Raw("#tech")" + x;
+            $(name).click();
+        }
+    </script>
 }
 
 @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { id = "MyForm" }))
@@ -46,7 +53,6 @@
                     @Html.LabelFor(m => m.FullDescription)
                     <div id="TextBoxFullDescription"></div>
                     @Html.HiddenFor(m => m.FullDescription)
-
                 </p>
 
                 <p class="mt-2">
@@ -67,18 +73,32 @@
                     @Html.CheckBoxFor(m => m.TempProject, new { id = "TempProject" })
                     @Html.LabelFor(m => m.TempProject)
                 </p>
-                
+
+                <div class="float-left">
+                    <button type="button" id="TechnologiesPanelButton" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#TechnologiesPanel"><i class="ti-panel mr-2"></i>Wybierz technologie</button>
+                </div>
 
                 <div class="float-right">
                     <button type="button" id="SaveButton" onclick="SaveAsTemporary()" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz jako tymczasowy</button>
                     <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
-
                 </div>
             </div>
         </div>
     </div>
 
+
+
+
+    @Html.Action("GetTechnologiesPanel", "Projects")
 }
+@if (!Model.AuthorId.IsNullOrEmpty())
+{
+    foreach (var m in Model.Technologies)
+    {
+        <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
+    }
+}
+
 
 @section AdditionalJs
 {
@@ -124,7 +144,7 @@
             $('#MyForm').submit();
         }
 
-        $('#MyForm').submit(function() {
+        $('#MyForm').submit(function () {
             var c = confirm("Czy na pewno chcesz kontynuować?");
             var shortDesc = $('#TextBoxShortDescription').summernote('code');
             $('#ShortDescription').val(shortDesc);
@@ -136,6 +156,8 @@
 
             return c;
         });
+
+
     </script>
 }
 

@@ -1,4 +1,4 @@
-﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+﻿@model PortfolioWebAppV2.Models.ViewModels.ProjectViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
@@ -15,6 +15,12 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
+    <script>
+        function SelectCheckBox(x) {
+            var name = "@Html.Raw("#tech")" + x;
+            $(name).click();
+        }
+    </script>
 }
 
 @using (Html.BeginForm("Update", "Projects", FormMethod.Post, new { id = "MyForm" }))
@@ -69,18 +75,30 @@
                     @Html.CheckBoxFor(m => m.TempProject, new { id = "TempProject" })
                     @Html.LabelFor(m => m.TempProject)
                 </p>
-                
+
+                <div class="float-left">
+                    <button type="button" id="TechnologiesPanelButton" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#TechnologiesPanel"><i class="ti-panel mr-2"></i>Wybierz technologie</button>
+                </div>
 
                 <div class="float-right">
                     <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new {projectId = Model.ProjectId, temporary = Model.TempProject})';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
                     <button type="submit" id="SaveButton" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
-                    <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                    @if (Model.TempProject)
+                    {
+                        <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                    }
                 </div>
 
             </div>
         </div>
     </div>
 
+    @Html.Action("GetTechnologiesPanel", "Projects")
+}
+
+@foreach (var m in Model.Technologies)
+{
+    <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
 }
 
 @section AdditionalJs
@@ -120,14 +138,14 @@
     </script>
 
     <script>
-       
+
         function AddToPortfolio() {
             $('#TempProject').prop('checked', false);
             $('#MyForm').submit();
         }
 
         $('#MyForm').submit(function () {
-         
+
             var shortDesc = $('#TextBoxShortDescription').summernote('code');
             $('#ShortDescription').val(shortDesc);
             console.log(shortDesc);

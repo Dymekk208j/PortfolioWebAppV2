@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
+using PortfolioWebAppV2.Models.DatabaseModels;
 
-namespace PortfolioWebAppV2.Models.DatabaseModels
+namespace PortfolioWebAppV2.Models.ViewModels
 {
-    public class Project
+    public class ProjectViewModel
     {
         public int ProjectId { get; set; }
 
@@ -44,7 +46,14 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         [Display(Name = "GitHub link")]
         public string GitHubLink { get; set; }
 
-        public virtual ICollection<Technology> Technologies { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual IEnumerable<TechnologyViewModel> Technologies { get; set; }
+        public virtual IEnumerable<Image> Images { get; set; }
+
+
+        public string GetUserName(string guid)
+        {
+            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
+            return applicationDbContext.Users.FirstOrDefault(a => a.Id == guid)?.UserName ?? " - ";
+        }
     }
 }

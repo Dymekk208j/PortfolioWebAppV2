@@ -1,15 +1,14 @@
-﻿using System;
+﻿using PortfolioWebAppV2.Models.DatabaseModels;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+using System.Data.Entity;
 using System.Linq;
-using PortfolioWebAppV2.Models.DatabaseModels;
-using Unity.Attributes;
 
 namespace PortfolioWebAppV2.Repository
 {
     public class ProjectsRepository : IRepository<Project, int>, IElementOfCv
     {
-        [Dependency]
+        [Unity.Attributes.Dependency]
         public ApplicationDbContext Context { get; set; }
 
         public ProjectsRepository(ApplicationDbContext context)
@@ -42,12 +41,6 @@ namespace PortfolioWebAppV2.Repository
             return Context.SaveChanges() > 0;
         }
 
-        public bool AddOrUpdate(Project entity)
-        {
-            Context.Projects.AddOrUpdate(entity);
-            return Context.SaveChanges() > 0;
-        }
-
         public bool Remove(Project entity)
         {
             try
@@ -77,26 +70,39 @@ namespace PortfolioWebAppV2.Repository
             }
             return Context.SaveChanges() > 0;
         }
+
         public bool Update(Project entity)
         {
             try
             {
-                var project = Context.Projects.Single(a => a.ProjectId == entity.ProjectId) ?? throw new InvalidOperationException();
-                project.Commercial = entity.Commercial;
-                project.DateTimeCreated = entity.DateTimeCreated;
-                project.FullDescription = entity.FullDescription;
-                project.GitHubLink = entity.GitHubLink;
-                project.ShortDescription = entity.ShortDescription;
-                project.ShowInCv = entity.ShowInCv;
-                project.Title = entity.Title;
-                project.Icon = entity.Icon;
-                project.ShortDescription = entity.ShortDescription;
-                project.Images = entity.Images;
-                project.Technologies = entity.Technologies;
-                project.AuthorId = entity.AuthorId;
+                var existingProject = Context.Projects
+                    .Include("Technologies").FirstOrDefault(p => p.ProjectId == entity.ProjectId);
+
+                if (existingProject == null) return false;
+                existingProject.Commercial = entity.Commercial;
+                existingProject.DateTimeCreated = entity.DateTimeCreated;
+                existingProject.FullDescription = entity.FullDescription;
+                existingProject.GitHubLink = entity.GitHubLink;
+                existingProject.ShortDescription = entity.ShortDescription;
+                existingProject.ShowInCv = entity.ShowInCv;
+                existingProject.Title = entity.Title;
+                existingProject.Icon = entity.Icon;
+                existingProject.AuthorId = entity.AuthorId;
+                existingProject.TempProject = entity.TempProject;
+
+                var deletedTechnologies = existingProject.Technologies.Except(entity.Technologies, new TechnologyComparere()).ToList();
+                var addedTechnologies = entity.Technologies.Except(existingProject.Technologies, new TechnologyComparere()).ToList();
+
+                deletedTechnologies.ForEach(c => existingProject.Technologies.Remove(c));
+                foreach (Technology c in addedTechnologies)
+                {
+                    if (Context.Entry(c).State == EntityState.Detached)
+                        Context.Technologies.Attach(c);
+
+                    existingProject.Technologies.Add(c);
+                }
 
                 return Context.SaveChanges() > 0;
-
             }
             catch (Exception ex)
             {
@@ -132,6 +138,34 @@ namespace PortfolioWebAppV2.Repository
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        public IEnumerable<Technology> GetAllTechnologies()
+        {
+            return Context.Technologies.ToList();
+        }
+    }
+
+    internal class TechnologyComparere : IEqualityComparer<Technology>
+    {
+        public bool Equals(Technology x, Technology y)
+        {
+            if (x != null & y != null)
+            {
+                return x.TechnologyId == y.TechnologyId && x.Name == y.Name;
+            }
+
+            return false;
+        }
+
+        public int GetHashCode(Technology obj)
+        {
+            unchecked
+            {
+                int hashCode = obj.TechnologyId.GetHashCode();
+                hashCode = (hashCode * 397) ^ obj.TechnologyId.GetHashCode();
+                return hashCode;
             }
         }
     }

@@ -4,6 +4,8 @@ using PortfolioWebAppV2.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
+using PortfolioWebAppV2.Models.ViewModels;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -19,45 +21,66 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult CreateProject()
         {
-            return View();
+            var technologies =
+                Mapper.Map<IEnumerable<Technology>, IEnumerable<TechnologyViewModel>>(
+                    _repository.GetAllTechnologies());
+
+            var project = new ProjectViewModel()
+            {
+                Technologies = technologies
+            };
+            
+            return View(project);
         }
 
         [HttpGet]
         public ActionResult EditProject(int projectId)
         {
             var project = _repository.Get(projectId);
+            var projectViewModel = Mapper.Map<Project, ProjectViewModel>(project);
 
-            return View(project);
+            return View(projectViewModel);
         }
 
         [HttpPost]
-        public ActionResult Create(Project project)
+        public ActionResult Create(ProjectViewModel projectViewModel)
         {
+            projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
+            projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
+
+            var project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
+            
+
             if (ModelState.IsValid)
             {
-                project.AuthorId = HttpContext.User.Identity.GetUserId();
 
-                _repository.AddOrUpdate(project);
+                _repository.Add(project);
 
                 return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
             }
 
-            return View("CreateProject", project);
+            return View("CreateProject", projectViewModel);
         }
 
         [HttpPost]
-        public ActionResult Update(Project project)
+        public ActionResult Update(ProjectViewModel projectViewModel)
         {
+            var tech = projectViewModel.Technologies.Where(a => a.IsSelected);
+            projectViewModel.Technologies = tech;
+            projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
+
+            var project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
+
+
             if (ModelState.IsValid)
             {
-                project.AuthorId = HttpContext.User.Identity.GetUserId();
 
-                _repository.AddOrUpdate(project);
+                _repository.Update(project);
 
                 return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
             }
 
-            return View("EditProject", project);
+            return View("EditProject", projectViewModel);
         }
 
         [HttpGet]
@@ -98,6 +121,13 @@ namespace PortfolioWebAppV2.Controllers
         {
             var project = _repository.Get(projectId);
             return View(project);
+        }
+
+        public ActionResult GetTechnologiesPanel()
+        {
+            var t = _repository.GetAllTechnologies();
+
+            return PartialView("_TechnologiesPanelPartialView", t);
         }
     }
 }
