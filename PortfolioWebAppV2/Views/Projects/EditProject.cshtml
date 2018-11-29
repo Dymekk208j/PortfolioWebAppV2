@@ -45,7 +45,7 @@
 
                 <p class="mt-2">
                     @Html.LabelFor(m => m.FullDescription)
-                    <div id="TextBoxFullDescription"></div>
+                    <div id="TextBoxFullDescription"> </div>
                     @Html.HiddenFor(m => m.FullDescription)
 
                 </p>
@@ -65,14 +65,16 @@
                     @Html.LabelFor(m => m.ShowInCv)
                 </p>
 
-                <div class="float-right">
-                    @Html.HiddenFor(m => m.TempProject, new { id = "TempProject" })
+                <p class="mt-2">
+                    @Html.CheckBoxFor(m => m.TempProject, new { id = "TempProject" })
+                    @Html.LabelFor(m => m.TempProject)
+                </p>
+                
 
-                    <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new { projectId = Model.ProjectId, temporary = Model.TempProject })';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
-                    <button type="submit" id="SaveButton" onclick="SaveAsTemporary()" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
+                <div class="float-right">
+                    <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new {projectId = Model.ProjectId, temporary = Model.TempProject})';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
+                    <button type="submit" id="SaveButton" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
                     <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
-                    
-                    @*int projectId, bool temporary*@
                 </div>
 
             </div>
@@ -104,26 +106,28 @@
             }
         });
 
-        var FullDesc = '@(Model?.FullDescription ?? "")';
-        var ShortDesc = '@(Model?.ShortDescription ?? "")';
+        function htmlDecode(input){
+            var e = document.createElement('div');
+            e.innerHTML = input;
+            return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+        }
+
+        var FullDesc = htmlDecode('@(Model?.FullDescription ?? "")');
+        var ShortDesc = htmlDecode('@(Model?.ShortDescription ?? "")');
 
         $('#TextBoxFullDescription').summernote('code', FullDesc);
         $('#TextBoxShortDescription').summernote('code', ShortDesc);
     </script>
 
     <script>
-        function SaveAsTemporary() {
-            $('#TempProject').prop('checked', true);
-            $('#MyForm').submit();
-        }
-
+       
         function AddToPortfolio() {
             $('#TempProject').prop('checked', false);
             $('#MyForm').submit();
         }
 
         $('#MyForm').submit(function () {
-            var c = confirm("Czy na pewno chcesz kontynuować?");
+         
             var shortDesc = $('#TextBoxShortDescription').summernote('code');
             $('#ShortDescription').val(shortDesc);
             console.log(shortDesc);
@@ -132,7 +136,6 @@
             $('#FullDescription').val(fullDesc);
             console.log(fullDesc);
 
-            return c;
         });
     </script>
 }
