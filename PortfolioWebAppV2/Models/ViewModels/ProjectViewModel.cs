@@ -48,12 +48,6 @@ namespace PortfolioWebAppV2.Models.ViewModels
 
         public virtual IEnumerable<TechnologyViewModel> Technologies { get; set; }
         public virtual IEnumerable<Image> Images { get; set; }
-
-
-        public string GetUserName(string guid)
-        {
-            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
-            return applicationDbContext.Users.FirstOrDefault(a => a.Id == guid)?.UserName ?? " - ";
-        }
+        
     }
 }

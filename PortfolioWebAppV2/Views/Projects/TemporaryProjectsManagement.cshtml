@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Project>
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Project>
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
@@ -59,7 +60,7 @@
                                     @Html.Name(u.DateTimeCreated.ToShortDateString())
                                 </td>
                                 <td>
-                                    @*@Html.Name(u.GetUserName(u.AuthorId))*@
+                                    @Html.Name(ApplicationUser.GetUserName(u.AuthorId))
                                 </td>
                             </tr>
                         }

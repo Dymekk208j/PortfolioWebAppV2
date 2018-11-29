@@ -1,4 +1,5 @@
-﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model PortfolioWebAppV2.Models.DatabaseModels.Project
 
 <div class="row ">
     <div class="col-12 mt-5">
@@ -14,7 +15,7 @@
                 </h6>
                 
                 <h3>Autor:</h3>
-                @*@Html.Name(Model.GetUserName(Model.AuthorId))*@
+                @Html.Name(ApplicationUser.GetUserName(Model.AuthorId))
 
                 <h3>Skrócony opis</h3>
                 @Html.Raw(Model.ShortDescription)

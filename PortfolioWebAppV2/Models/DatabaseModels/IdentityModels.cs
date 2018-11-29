@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Linq;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
 {
@@ -12,6 +13,12 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public string LastName { get; set; }
         [Display(Name = "Zablokowany")]
         public bool Blocked { get; set; }
+
+        public static string GetUserName(string guid)
+        {
+            ApplicationDbContext applicationDbContext = new ApplicationDbContext();
+            return applicationDbContext.Users.FirstOrDefault(a => a.Id == guid)?.UserName ?? " - ";
+        }
 
     }
 
