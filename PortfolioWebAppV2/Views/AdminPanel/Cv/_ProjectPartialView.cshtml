@@ -1,9 +1,10 @@
-﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model PortfolioWebAppV2.Models.DatabaseModels.Project
 
 <div id="@Html.Raw("ComProjDiv" + Model.ProjectId.ToString())">
     <div id="@Html.Raw("ComProjDivBtns" + Model.ProjectId.ToString())" style="display: none;">
 
-        <button type="button" class="btn btn-outline-danger button-xs far fa-minus-square" onclick="location.href = '@Url.Action("RemoveProjectFromCv", "AdminPanel", new {id = Model.ProjectId})';return false;"></button>
+        <button type="button" class="btn btn-outline-danger button-xs" onclick="location.href = '@Url.Action("RemoveProjectFromCv", "AdminPanel", new {id = Model.ProjectId})';return false;"><i class="ti-close"></i></button>
 
     </div>
     <p>
@@ -11,7 +12,7 @@
         @if (Model.Technologies.Any())
         {
             int z = 0;
-            foreach (var j in Model.Technologies)
+            foreach (Technology j in Model.Technologies)
             {
 
                 if (Model.Technologies.Count > 1 && z < Model.Technologies.Count - 1)

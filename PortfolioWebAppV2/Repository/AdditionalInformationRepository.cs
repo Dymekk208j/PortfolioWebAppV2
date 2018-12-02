@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
+                AdditionalInfo obj = Context.AdditionalInfos.First(a => a.AdditionalInfoId == entity.AdditionalInfoId);
                 Context.AdditionalInfos.Remove(obj);
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var additionalInfo = Context.AdditionalInfos.Single(a => a.AdditionalInfoId == entity.AdditionalInfoId) ?? throw new Exception("Not found");
+                AdditionalInfo additionalInfo = Context.AdditionalInfos.Single(a => a.AdditionalInfoId == entity.AdditionalInfoId) ?? throw new Exception("Not found");
                 additionalInfo.Title = entity.Title;
                 additionalInfo.ShowInCv = entity.ShowInCv;
                 additionalInfo.Type = entity.Type;

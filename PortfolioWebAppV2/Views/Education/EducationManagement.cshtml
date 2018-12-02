@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Education>
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Education>
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
@@ -17,9 +18,9 @@
     <div class="card">
 
         <div class="card-body">
-            <button type="button" class="btn btn-success btn-sm far float-right mb-3" data-toggle="modal" data-target="#AddNewEducation"><i class="ti-file"></i> Dodaj wykształcenie</button>
+            <button type="button" class="btn btn-success btn-sm float-right mb-3" data-toggle="modal" data-target="#AddNewEducation"><i class="ti-file"></i> Dodaj wykształcenie</button>
 
-            <div class="data-tables">
+            <div class="dataTable">
                 <table id="dataTable" class="text-left hover compact">
                     <thead class="bg-light text-capitalize ">
                         <tr>
@@ -33,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var u in Model)
+                        @foreach (Education u in Model)
                         {
                             <tr data-toggle="modal" data-target="@Html.Raw("#UpdateEducation" + u.EducationId.ToString())">
                                 <td class=" font-weight-bold">@Html.Name(u.EducationId.ToString()). </td>
@@ -81,10 +82,10 @@
 </div>
 
 <div id="CreatePanel">
-    @Html.Partial("_CreateEducationPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Education())
+    @Html.Partial("_CreateEducationPartialView", new Education())
 </div>
 
-@foreach (var e in Model)
+@foreach (Education e in Model)
 {
     <div id="@Html.Raw("UpdatePanel" + e.EducationId.ToString())">
         @Html.Partial("_EditEducationPartialView", e)

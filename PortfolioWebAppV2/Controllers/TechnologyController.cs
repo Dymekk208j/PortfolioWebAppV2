@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
@@ -17,7 +18,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult TechnologyManagement()
         {
-            var technologies = _repository.GetAll();
+            IEnumerable<Technology> technologies = _repository.GetAll();
 
             return View("TechnologyManagement", technologies);
         }
@@ -49,7 +50,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Remove(int id)
         {
-            var technology = _repository.Get(id);
+            Technology technology = _repository.Get(id);
             _repository.Remove(technology);
 
             return RedirectToAction("TechnologyManagement");

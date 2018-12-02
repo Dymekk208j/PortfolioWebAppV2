@@ -10,13 +10,13 @@ namespace PortfolioWebAppV2Tests1
         {
             controller.ModelState.Clear();
 
-            var validationContext = new ValidationContext(viewModel, null, null);
-            var validationResult = new List<ValidationResult>();
+            ValidationContext validationContext = new ValidationContext(viewModel, null, null);
+            List<ValidationResult> validationResult = new List<ValidationResult>();
 
             Validator.TryValidateObject(viewModel, validationContext, validationResult, true);
-            foreach (var result in validationResult)
+            foreach (ValidationResult result in validationResult)
             {
-                foreach (var name in result.MemberNames)
+                foreach (string name in result.MemberNames)
                 {
                     controller.ModelState.AddModelError(name, result.ErrorMessage);
                 }

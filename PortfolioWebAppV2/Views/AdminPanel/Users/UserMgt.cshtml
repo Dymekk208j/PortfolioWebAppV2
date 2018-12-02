@@ -19,7 +19,8 @@
 <div class="col-12 mt-5">
     <div class="card">
         <div class="card-body">
-            <div class="data-tables">
+            <div class="
+                 ">
                 <table id="dataTable" class="text-center hover">
                     <thead class="bg-light text-capitalize ">
                         <tr>
@@ -30,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var u in Model)
+                        @foreach (ApplicationUser u in Model)
                         {
                             @Html.Partial("Users/_UserListPartialView", u)
                         }
@@ -41,9 +42,9 @@
     </div>
 </div>
 
-@foreach (var u in Model)
+@foreach (ApplicationUser u in Model)
 {
-    var z = Mapper.Map<ApplicationUser, UpdateViewModel>(u);
+    UpdateViewModel z = Mapper.Map<ApplicationUser, UpdateViewModel>(u);
 
     @Html.Partial("users/_UserEditPartial", z)
 }

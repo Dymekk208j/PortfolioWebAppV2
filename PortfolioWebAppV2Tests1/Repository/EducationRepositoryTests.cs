@@ -24,7 +24,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public EducationRepositoryTests()
         {
-            var educations = _educations.AsQueryable();
+            IQueryable<Education> educations = _educations.AsQueryable();
             _mockSet.As<IQueryable<Education>>().Setup(m => m.Provider).Returns(educations.Provider);
             _mockSet.As<IQueryable<Education>>().Setup(m => m.Expression).Returns(educations.Expression);
             _mockSet.As<IQueryable<Education>>().Setup(m => m.ElementType).Returns(educations.ElementType);
@@ -61,7 +61,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(education);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            Education result = _repository.GetAll().FirstOrDefault(a =>
                 a.CurrentPlaceOfEducation == currentPlaceOfEducation && a.SchooleName == schooleName && a.Department == department && a.Specialization == specialization);
 
             //assert
@@ -76,7 +76,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            Education result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _educations[0]);
@@ -137,13 +137,13 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest_nonexistent_object()
         {
             //Arrange
-            var education = new Education()
+            Education education = new Education()
             {
                 EducationId = -1
             };
 
             //Act 
-            var result = _repository.Update(education);
+            bool result = _repository.Update(education);
 
             //Assert
             Assert.False(result);
@@ -154,11 +154,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         {
             //Arrange 
             int exceptedResult = _educations.Count() - 1;
-            var achievementToRemove = _educations[0];
+            Education achievementToRemove = _educations[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);
@@ -168,7 +168,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_education()
         {
             //Arrange
-            var nonExistentEducation = new Education()
+            Education nonExistentEducation = new Education()
             {
                 EducationId = -1,
             };

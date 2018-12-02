@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
+                Education obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
                 Context.Educations.Remove(obj);
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var education = Context.Educations.Single(a => a.EducationId == entity.EducationId) ?? throw new Exception($"Not found id: {entity.EducationId}");
+                Education education = Context.Educations.Single(a => a.EducationId == entity.EducationId) ?? throw new Exception($"Not found id: {entity.EducationId}");
                 education.CurrentPlaceOfEducation = entity.CurrentPlaceOfEducation;
                 education.Department = entity.Department;
                 education.EndDate = entity.EndDate;

@@ -25,7 +25,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
         public PrivateInformationControllerTests()
         {
-            var information = _list.AsQueryable();
+            IQueryable<PrivateInformation> information = _list.AsQueryable();
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.Provider).Returns(information.Provider);
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.Expression).Returns(information.Expression);
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.ElementType).Returns(information.ElementType);
@@ -46,7 +46,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         public void UpdateTest_RedirectToActionEditCvInAdminPanelControllerIfModelStateIsValid()
         {
             //Arrange
-            var privateInformation = new PrivateInformation()
+            PrivateInformation privateInformation = new PrivateInformation()
             {
                 PrivateInformationId = 1,
                 City = "Koszalin",
@@ -63,7 +63,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var result = _controller.Update(privateInformation) as RedirectToRouteResult;
+            RedirectToRouteResult result = _controller.Update(privateInformation) as RedirectToRouteResult;
 
             //Assert
             Assert.NotNull(result);
@@ -75,7 +75,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         public void UpdateTest_RedirectToErrorPageIfModelStateIsNotValid()
         {
             //Arrange
-            var privateInformation = new PrivateInformation()
+            PrivateInformation privateInformation = new PrivateInformation()
             {
                 PrivateInformationId = 1,
                 City = "Koszalin",
@@ -93,7 +93,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             
             //Act
             Validate.ValidateModel(_controller, privateInformation);
-            var result = _controller.Update(privateInformation) as ViewResult;
+            ViewResult result = _controller.Update(privateInformation) as ViewResult;
 
             //Assert
             Assert.NotNull(result);

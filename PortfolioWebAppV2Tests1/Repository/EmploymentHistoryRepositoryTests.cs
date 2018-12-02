@@ -25,7 +25,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public EmploymentHistoryRepositoryTests()
         {
-            var employmentHistories = _employmentHistories.AsQueryable();
+            IQueryable<EmploymentHistory> employmentHistories = _employmentHistories.AsQueryable();
             _mockSet.As<IQueryable<EmploymentHistory>>().Setup(m => m.Provider).Returns(employmentHistories.Provider);
             _mockSet.As<IQueryable<EmploymentHistory>>().Setup(m => m.Expression).Returns(employmentHistories.Expression);
             _mockSet.As<IQueryable<EmploymentHistory>>().Setup(m => m.ElementType).Returns(employmentHistories.ElementType);
@@ -48,7 +48,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            EmploymentHistory result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _employmentHistories[0]);
@@ -99,7 +99,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(employmentHistory);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            EmploymentHistory result = _repository.GetAll().FirstOrDefault(a =>
                 a.CompanyName == companyName && a.CityOfEmployment == cityOfEmployment && a.Position == position);
 
             //assert
@@ -141,7 +141,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(employmentHistory);
+            bool result = _repository.Update(employmentHistory);
 
             //Assert
             Assert.False(result);
@@ -152,11 +152,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         {
             //Arrange 
             int exceptedResult = _employmentHistories.Count() - 1;
-            var achievementToRemove = _employmentHistories[0];
+            EmploymentHistory achievementToRemove = _employmentHistories[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);
@@ -166,7 +166,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_employmentHistory()
         {
             //Arrange
-            var nonExistentEmploymentHistory = new EmploymentHistory()
+            EmploymentHistory nonExistentEmploymentHistory = new EmploymentHistory()
             {
                 EmploymentHistoryId = -1,
             };

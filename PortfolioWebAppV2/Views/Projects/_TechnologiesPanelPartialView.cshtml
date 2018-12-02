@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
 
 <div class="modal fade" id="TechnologiesPanel" tabindex="-1" role="dialog" aria-labelledby="TechnologiesPanelLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -13,7 +14,7 @@
             <div class="modal-body">
                 <ul class="list-unstyled row pl-2 pr-2">
                     @{ int a = 0; }
-                    @foreach (var m in Model)
+                    @foreach (Technology m in Model)
                     {
 
                         <li class="col-sm-1 pl-1 mb-2">

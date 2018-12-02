@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public PrivateInformationRepositoryTests()
         {
-            var privateInformations = _privateInformations.AsQueryable();
+            IQueryable<PrivateInformation> privateInformations = _privateInformations.AsQueryable();
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.Provider).Returns(privateInformations.Provider);
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.Expression).Returns(privateInformations.Expression);
             _mockSet.As<IQueryable<PrivateInformation>>().Setup(m => m.ElementType).Returns(privateInformations.ElementType);
@@ -59,7 +59,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            PrivateInformation result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _privateInformations[0]);
@@ -113,7 +113,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(privateInformation);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            PrivateInformation result = _repository.GetAll().FirstOrDefault(a =>
                 a.City == privateInformation.City && a.FirstName == privateInformation.FirstName && a.LastName == privateInformation.LastName);
 
             //assert
@@ -159,7 +159,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(privateInformation);
+            bool result = _repository.Update(privateInformation);
 
             //Assert
             Assert.False(result);
@@ -170,11 +170,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         {
             //Arrange 
             int exceptedResult = _privateInformations.Count() - 1;
-            var achievementToRemove = _privateInformations[0];
+            PrivateInformation achievementToRemove = _privateInformations[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);
@@ -184,7 +184,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_PrivateInformation()
         {
             //Arrange
-            var nonExistentPrivateInformation = new PrivateInformation()
+            PrivateInformation nonExistentPrivateInformation = new PrivateInformation()
             {
                 PrivateInformationId = -1
             };

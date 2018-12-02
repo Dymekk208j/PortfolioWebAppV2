@@ -10,9 +10,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            var user = new ApplicationUser
+            ApplicationUser user = new ApplicationUser
             {
                 FirstName = "Damian",
                 LastName = "Dziura",
@@ -28,14 +28,14 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 userManager.Create(new ApplicationUser() { UserName = "User" + i.ToString(), FirstName = "User" + i.ToString() }, "Damian13");
             }
 
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!roleManager.RoleExists("Admin"))
             {
                 roleManager.Create(new IdentityRole("Admin"));
             }
             userManager.AddToRole(user.Id, "Admin");
 
-            var aboutMePage = new List<AboutMe>
+            List<AboutMe> aboutMePage = new List<AboutMe>
             {
                 new AboutMe() {Title = "Tytuł startowy",
                     Text = "Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.",
@@ -44,14 +44,14 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             aboutMePage.ForEach(g => context.AboutMe.Add(g));
             context.SaveChanges();
 
-            var contact = new List<Contact>
+            List<Contact> contact = new List<Contact>
             {
                 new Contact() { ContactId = 1, Email1 = "kontakt@DamianDziura.pl", Email2 = "Dymekk208j@gmail.com", FacebookLink = "https://www.facebook.com/dymekk208j", GitHubLink = "https://github.com/Dymekk208j/", LinkedInLink = "https://www.linkedin.com/in/damian-dziura-27a821114/", PhoneNumber = "+48 510-075-067" }
             };
             contact.ForEach(g => context.Contacts.Add(g));
             context.SaveChanges();
 
-            var achi = new List<Achievement>
+            List<Achievement> achi = new List<Achievement>
             {
                 new Achievement() { AchievementId = 1, Description = "Pierwsze osiagniecie, opis", Title = "Pierwsze osiagniecie", Date=DateTime.Now, ShowInCv = true },
                 new Achievement() { AchievementId = 2, Description = "Drugie osiagniecie, opis", Title = "Drugie osiagniecie", Date=DateTime.Now, ShowInCv = false }
@@ -61,7 +61,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             achi.ForEach(g => context.Achievements.Add(g));
             context.SaveChanges();
 
-            var additionalInfos = new List<AdditionalInfo>
+            List<AdditionalInfo> additionalInfos = new List<AdditionalInfo>
             {
                 new AdditionalInfo() { AdditionalInfoId = 1, Type = AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages, Title = "Język angielski - Poziom podstawowy", ShowInCv = true},
                 new AdditionalInfo() { AdditionalInfoId = 2, Type = AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills, Title = "Prawo jazdy B. (Dodatkowa um)", ShowInCv = true },
@@ -71,7 +71,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             additionalInfos.ForEach(g => context.AdditionalInfos.Add(g));
             context.SaveChanges();
 
-            var educations = new List<Education>
+            List<Education> educations = new List<Education>
             {
                 new Education() { EducationId = 1, CurrentPlaceOfEducation = true, SchooleName = "Politechnika koszalinska", Department = "WYDZIAŁ ELEKTRONIKI I INFORMATYKI", Specialization = "Inżynieria testów oprogramowania", EndDate = new DateTime(2020, 1, 1, 01, 01, 01), StartDate = new DateTime(2016, 1, 1, 01, 01, 01), ShowInCv = true},
                 new Education() { EducationId = 2, CurrentPlaceOfEducation = false, SchooleName = "ZESPÓŁ SZKÓŁ NR. 9 IM. ROMUALLDA TRAGUTTA", Department = "TECHNIKUM INFORMATYCZNE", Specialization = "Technik informatyk", EndDate = new DateTime(2014, 1, 1, 01, 01, 01), StartDate = new DateTime(2010, 1, 1, 01, 01, 01), ShowInCv = true}
@@ -79,7 +79,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             educations.ForEach(g => context.Educations.Add(g));
             context.SaveChanges();
 
-            var employmentHistorie = new List<EmploymentHistory>
+            List<EmploymentHistory> employmentHistorie = new List<EmploymentHistory>
             {
                 new EmploymentHistory() { EmploymentHistoryId = 1, CompanyName = "Mediadat software", CityOfEmployment="Koszalin", CurrentPlaceOfEmployment = true, Position="Programista", StartDate = new DateTime(2017, 9, 1, 01, 01, 01), ShowInCv = true},
                 new EmploymentHistory() { EmploymentHistoryId = 2, CompanyName = "GEIS", CityOfEmployment="Koszalin", CurrentPlaceOfEmployment = false, Position="Brygadzista", StartDate = new DateTime(2016, 1, 1, 01, 01, 01), EndDate = new DateTime(2017, 9, 1, 00, 00, 00), ShowInCv = true}
@@ -89,7 +89,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 
 
 
-            var technologies = new List<Technology>
+            List<Technology> technologies = new List<Technology>
             {
                 new Technology() { Name="JAVA", KnowledgeLevel = Technology.LevelOfKnowledge.Ok, ShowInCv = true },
                 new Technology() { Name="C#", KnowledgeLevel= Technology.LevelOfKnowledge.Ok, ShowInCv = true },
@@ -104,7 +104,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             technologies.ForEach(g => context.Technologies.Add(g));
             context.SaveChanges();
 
-            var project1 =
+            Project project1 =
                 new Project()
                 {
                     FullDescription = "Pelen opis 1 projektu",
@@ -123,7 +123,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             context.Projects.Add(project1);
             context.SaveChanges();
 
-            var project2 =
+            Project project2 =
                 new Project()
                 {
                     FullDescription = "Pelen opis 2 projektu",
@@ -142,7 +142,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             context.Projects.Add(project2);
             context.SaveChanges();
 
-            var project3 =
+            Project project3 =
                 new Project()
                 {
                     FullDescription = "Pelen opis 3 projektu",
@@ -161,7 +161,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             context.Projects.Add(project3);
             context.SaveChanges();
 
-            var project4 =
+            Project project4 =
                 new Project()
                 {
                     FullDescription = "Pelen opis 4 projektu",
@@ -202,7 +202,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 context.SaveChanges();
             }
             
-            var privateInformation = new List<PrivateInformation>
+            List<PrivateInformation> privateInformation = new List<PrivateInformation>
             {
                 new PrivateInformation() { PrivateInformationId = 1, City = "Koszalin", Email = "Kontakt@DamianDziura.pl", FirstName = "Damian", LastName = "Dziura"
                 , Street = "1 maja", HouseNumber = "1", FlatNumber = "3", PostCode="75-800", HomePage = "www.DamianDziura.pl", PhoneNumber="510-075-067", ImageLink= "http://via.placeholder.com/150x180" }

@@ -1,15 +1,15 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
     public class AboutMeController : Controller
     {
-        private IRepository<AboutMe, int> _repository;
+        private readonly IRepository<AboutMe, int> _repository;
 
         public AboutMeController(IRepository<AboutMe, int> repo)
         {
@@ -19,7 +19,8 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AboutMeManagement()
         {
-            AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(_repository.GetAll().FirstOrDefault());
+            AboutMeViewModel aboutMeViewModel =
+                Mapper.Map<AboutMe, AboutMeViewModel>(_repository.GetAll().FirstOrDefault());
 
             return View("AboutMeManagement", aboutMeViewModel);
         }
@@ -27,7 +28,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AboutMe()
         {
-            var c = _repository.GetAll().FirstOrDefault();
+            AboutMe c = _repository.GetAll().FirstOrDefault();
             AboutMeViewModel aboutMeViewModel = Mapper.Map<AboutMe, AboutMeViewModel>(c);
 
             return View(aboutMeViewModel);
@@ -40,15 +41,10 @@ namespace PortfolioWebAppV2.Controllers
             aboutMe.AboutMeId = 1;
 
 
-            if (ModelState.IsValid && _repository.Update(aboutMe))
-            {
-                return RedirectToAction("AboutMeManagement");
-            }
+            if (ModelState.IsValid && _repository.Update(aboutMe)) return RedirectToAction("AboutMeManagement");
 
 
             return View("ErrorPage");
         }
-
-
     }
 }

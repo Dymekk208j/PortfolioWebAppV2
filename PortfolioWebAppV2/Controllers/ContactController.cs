@@ -19,7 +19,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult ContactManagement()
         {
-            var contact = _repository.GetAll().FirstOrDefault();
+            Contact contact = _repository.GetAll().FirstOrDefault();
             ContactViewModel contactViewModel = Mapper.Map<Contact, ContactViewModel>(contact);
 
             return View(contactViewModel);
@@ -29,7 +29,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Update(ContactViewModel contactViewModel)
         {
 
-            var contact = Mapper.Map<ContactViewModel, Contact>(contactViewModel);
+            Contact contact = Mapper.Map<ContactViewModel, Contact>(contactViewModel);
             _repository.Update(contact);
 
             return RedirectToAction("ContactManagement");
@@ -39,7 +39,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Contact()
         {
             Contact contact = _repository.GetAll().FirstOrDefault();
-            var contactViewModel = Mapper.Map<Contact, ContactViewModel>(contact);
+            ContactViewModel contactViewModel = Mapper.Map<Contact, ContactViewModel>(contact);
 
             return View(contactViewModel);
         }

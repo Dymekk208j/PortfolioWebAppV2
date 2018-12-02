@@ -8,7 +8,7 @@
                 <h1>@Html.Name(Model.Title)</h1>
                 <h6>
                     Technologie:
-                    @foreach (var p in Model.Technologies)
+                    @foreach (Technology p in Model.Technologies)
                     {
                         @Html.Name(p.Name + " ")
                     }

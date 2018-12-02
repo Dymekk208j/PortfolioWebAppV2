@@ -27,7 +27,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
         public AdditionalInformationControllerTests()
         {
-            var additionalInfosAsQueryable = _additionalInfos.AsQueryable();
+            IQueryable<AdditionalInfo> additionalInfosAsQueryable = _additionalInfos.AsQueryable();
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.Provider).Returns(additionalInfosAsQueryable.Provider);
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.Expression).Returns(additionalInfosAsQueryable.Expression);
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.ElementType).Returns(additionalInfosAsQueryable.ElementType);
@@ -50,12 +50,12 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //act
-            var result = _controller.AdditionalInformationManagement() as ViewResult;
+            ViewResult result = _controller.AdditionalInformationManagement() as ViewResult;
 
             //Assert
             Assert.NotNull(result);
 
-            var model = result.Model;
+            object model = result.Model;
             Assert.NotNull(model);
 
             Assert.Equal(string.Empty, result.ViewName);
@@ -67,7 +67,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = _controller.Remove(1) as RedirectToRouteResult;
+            RedirectToRouteResult result = _controller.Remove(1) as RedirectToRouteResult;
 
             //Assert
             Assert.NotNull(result);
@@ -79,7 +79,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         {
             //Arrange
             //Act
-            var result = _controller.Remove(-1) as ViewResult;
+            ViewResult result = _controller.Remove(-1) as ViewResult;
 
             //Assert
             Assert.NotNull(result);

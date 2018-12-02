@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Achievements.First(a => a.AchievementId == entity.AchievementId);
+                Achievement obj = Context.Achievements.First(a => a.AchievementId == entity.AchievementId);
                 Context.Achievements.Remove(obj);
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new InvalidOperationException();
+                Achievement achievement = Context.Achievements.Single(a => a.AchievementId == entity.AchievementId) ?? throw new InvalidOperationException();
                 achievement.Date = entity.Date;
                 achievement.Description = entity.Description;
                 achievement.ShowInCv = entity.ShowInCv;
@@ -70,7 +70,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Achievements.Single(a => a.AchievementId == id);
+                Achievement achievement = Context.Achievements.Single(a => a.AchievementId == id);
                 achievement.ShowInCv = !achievement.ShowInCv;
                 return Update(achievement);
             }

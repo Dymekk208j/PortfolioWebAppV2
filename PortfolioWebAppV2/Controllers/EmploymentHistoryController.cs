@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
@@ -17,7 +18,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EmploymentHistoryManagement()
         {
-            var employmentHistory = _repository.GetAll();
+            IEnumerable<EmploymentHistory> employmentHistory = _repository.GetAll();
 
             return View(employmentHistory);
         }
@@ -25,7 +26,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Remove(int id)
         {
-            var employmentHistory = _repository.Get(id);
+            EmploymentHistory employmentHistory = _repository.Get(id);
             _repository.Remove(employmentHistory);
 
             return RedirectToAction("EmploymentHistoryManagement");

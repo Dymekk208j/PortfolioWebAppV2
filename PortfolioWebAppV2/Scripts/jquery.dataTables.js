@@ -13159,7 +13159,7 @@
              * object with the following parameters:
              *   <ul>
              *     <li>function:fn - function to call. Takes two parameters, oSettings
-             *       and the JSON string to save that has been thus far created. Returns
+             *       and the JSON string to save that has been thuscreated. Returns
              *       a JSON string to be inserted into a json object
              *       (i.e. '"param": [ 0, 1, 2]')</li>
              *     <li>string:sName - name of callback</li>

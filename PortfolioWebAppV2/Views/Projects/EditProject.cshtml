@@ -1,4 +1,5 @@
-﻿@model PortfolioWebAppV2.Models.ViewModels.ProjectViewModel
+﻿@using PortfolioWebAppV2.Models.ViewModels
+@model PortfolioWebAppV2.Models.ViewModels.ProjectViewModel
 
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
@@ -96,7 +97,7 @@
     @Html.Action("GetTechnologiesPanel", "Projects")
 }
 
-@foreach (var m in Model.Technologies)
+@foreach (TechnologyViewModel m in Model.Technologies)
 {
     <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
 }

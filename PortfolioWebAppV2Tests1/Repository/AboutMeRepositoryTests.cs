@@ -30,7 +30,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public AboutMeRepositoryTests()
         {
-            var aboutMes = _aboutMe.AsQueryable();
+            IQueryable<AboutMe> aboutMes = _aboutMe.AsQueryable();
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.Provider).Returns(aboutMes.Provider);
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.Expression).Returns(aboutMes.Expression);
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.ElementType).Returns(aboutMes.ElementType);
@@ -66,7 +66,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            AboutMe result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _aboutMe[0]);
@@ -111,7 +111,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest_existing_object(string title, string text, string imageLink)
         {
             //Arrange
-            var updateAboutMe = new AboutMe()
+            AboutMe updateAboutMe = new AboutMe()
             {
                 AboutMeId = 1,
                 ImageLink = imageLink,
@@ -131,7 +131,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest_nonexistent_object()
         {
             //Arrange
-            var updateAboutMe = new AboutMe()
+            AboutMe updateAboutMe = new AboutMe()
             {
                 AboutMeId = -1,
                 ImageLink = "imageLink",
@@ -140,7 +140,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(updateAboutMe);
+            bool result = _repository.Update(updateAboutMe);
 
             //Assert
             Assert.False(result);
@@ -151,11 +151,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_Correct_data_should_return_1()
         {
             //Arrange 
-            var achievementToRemove = _aboutMe[0];
+            AboutMe achievementToRemove = _aboutMe[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: 0, actual: result);
@@ -165,7 +165,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_aboutMe()
         {
             //Arrange
-            var nonExistentAboutMe = new AboutMe()
+            AboutMe nonExistentAboutMe = new AboutMe()
             {
                 AboutMeId = -1,
                 ImageLink = "imageLink",

@@ -2,6 +2,7 @@
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
@@ -18,7 +19,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AchievementsManagement()
         {
-            var achievements = _repository.GetAll();
+            IEnumerable<Achievement> achievements = _repository.GetAll();
             return View(achievements);
         }
 
@@ -28,7 +29,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             try
             {
-                var achievement = _repository.Get(id);
+                Achievement achievement = _repository.Get(id);
                 _repository.Remove(achievement);
                 return RedirectToAction("AchievementsManagement");
 

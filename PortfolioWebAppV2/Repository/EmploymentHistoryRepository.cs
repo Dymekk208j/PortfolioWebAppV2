@@ -35,7 +35,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
+                EmploymentHistory obj = Context.EmploymentHistories.First(a => a.EmploymentHistoryId == entity.EmploymentHistoryId);
                 Context.EmploymentHistories.Remove(obj);
 
             }
@@ -51,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var employmentHistory = Context.EmploymentHistories.Single(a => a.EmploymentHistoryId == entity.EmploymentHistoryId) ?? throw new Exception($"Not found id: {entity.EmploymentHistoryId}");
+                EmploymentHistory employmentHistory = Context.EmploymentHistories.Single(a => a.EmploymentHistoryId == entity.EmploymentHistoryId) ?? throw new Exception($"Not found id: {entity.EmploymentHistoryId}");
                 employmentHistory.CityOfEmployment = entity.CityOfEmployment;
                 employmentHistory.CompanyName = entity.CompanyName;
                 employmentHistory.CurrentPlaceOfEmployment = entity.CurrentPlaceOfEmployment;

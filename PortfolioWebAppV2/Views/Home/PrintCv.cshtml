@@ -46,7 +46,7 @@
                     <div class="col text-left">
                         @{
 
-                            foreach (var a in Model.Projects.Where(x => x.Commercial))
+                            foreach (Project a in Model.Projects.Where(x => x.Commercial))
                             {
                                 int techCount = a.Technologies.Count();
                                 <p>
@@ -54,7 +54,7 @@
                                     @if (a.Technologies.Any())
                                     {
                                         int z = 0;
-                                        foreach (var j in a.Technologies)
+                                        foreach (Technology j in a.Technologies)
                                         {
 
                                             if (techCount > 1 && z < techCount - 1)
@@ -84,7 +84,7 @@
                     <div class="col text-left">
                         @{
 
-                            foreach (var a in Model.Projects.Where(x => x.Commercial == false))
+                            foreach (Project a in Model.Projects.Where(x => x.Commercial == false))
                             {
                                 int techCount = a.Technologies.Count();
                                 <p>
@@ -92,7 +92,7 @@
                                     @if (a.Technologies.Any())
                                     {
                                         int z = 0;
-                                        foreach (var j in a.Technologies)
+                                        foreach (Technology j in a.Technologies)
                                         {
 
                                             if (techCount > 1 && z < techCount - 1)
@@ -124,7 +124,7 @@
                             <span style="font-weight: bold;">Dobra znajmość: </span>
                             @{
                                 int i = 0;
-                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell))
+                                foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell))
                                 {
                                     <span> @Html.Name(a.Name)</span>
                                     if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell) - 1)
@@ -142,7 +142,7 @@
                             <span style="font-weight: bold;">Znajmość podstaw: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well))
+                                foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well))
                                 {
                                     <span> @Html.Name(a.Name)</span>
                                     if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well) - 1)
@@ -159,7 +159,7 @@
                             <span style="font-weight: bold;">Styczność z: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok))
+                                foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok))
                                 {
                                     <span> @Html.Name(a.Name)</span>
                                     if (Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok) > 1 && i < Model.Technologies.Count(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok) - 1)
@@ -179,7 +179,7 @@
                     </div>
                     <div class="col text-left">
                         @{
-                            foreach (var a in Model.Achievements)
+                            foreach (Achievement a in Model.Achievements)
                             {
                                 <p>
                                     <b>@Html.Name(a.Title)</b><br />
@@ -200,7 +200,7 @@
                             <span style="font-weight: bold;">Języki obce: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
+                                foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
                                 {
                                     <span> @Html.Name(a.Title)</span>
                                     if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) > 1 
@@ -218,7 +218,7 @@
                             <span style="font-weight: bold;">Dodatkowe umiejętności: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
+                                foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
                                 {
                                     <span> @Html.Name(a.Title)</span>
                                     if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills) > 1
@@ -236,7 +236,7 @@
                             <span style="font-weight: bold;">Zainteresowania: </span>
                             @{
                                 i = 0;
-                                foreach (var a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
+                                foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
                                 {
                                     <span> @Html.Name(a.Title)</span>
                                     if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) > 1 
@@ -258,7 +258,7 @@
                     <div class="col text-left">
                         <div id="EmpHistory" class="d-inline">
                             @{
-                                foreach (var a in Model.EmploymentHistories.OrderByDescending(x => x.StartDate))
+                                foreach (EmploymentHistory a in Model.EmploymentHistories.OrderByDescending(x => x.StartDate))
                                 {
                                     <b>
                                         <span>@Html.Name(a.Position)</span>
@@ -288,7 +288,7 @@
                     <div class="col text-left">
                         <div id="educ" class="d-inline">
                             @{
-                                foreach (var a in Model.Educations.OrderByDescending(x => x.StartDate))
+                                foreach (Education a in Model.Educations.OrderByDescending(x => x.StartDate))
                                 {
                                     <b>
                                         <span>@Html.Name(a.SchooleName)</span>

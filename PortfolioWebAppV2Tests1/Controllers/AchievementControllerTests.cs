@@ -41,7 +41,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
         public AchievementControllerTests()
         {
-            var achievements = _achievements.AsQueryable();
+            IQueryable<Achievement> achievements = _achievements.AsQueryable();
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Provider).Returns(achievements.Provider);
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Expression).Returns(achievements.Expression);
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.ElementType).Returns(achievements.ElementType);
@@ -64,12 +64,12 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //act
-            var result = _controller.AchievementsManagement() as ViewResult;
+            ViewResult result = _controller.AchievementsManagement() as ViewResult;
 
             //Assert
             Assert.NotNull(result);
 
-            var model = result.Model;
+            object model = result.Model;
             Assert.NotNull(model);
 
             Assert.Equal(string.Empty, result.ViewName);
@@ -81,7 +81,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = (RedirectToRouteResult)_controller.Remove(1);
+            RedirectToRouteResult result = (RedirectToRouteResult)_controller.Remove(1);
 
             //Assert
             Assert.NotNull(result);
@@ -94,7 +94,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = _controller.Remove(-1) as ViewResult;
+            ViewResult result = _controller.Remove(-1) as ViewResult;
 
             //Assert
             Assert.NotNull(result);
@@ -105,7 +105,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         public void ReturnJavaScriptIfModelIsValid()
         {
             //Arrange
-            var achievement = new Achievement()
+            Achievement achievement = new Achievement()
             {
                 Date = DateTime.Parse("2011-01-01"),
                 Title = "Pierwszy tytuł",
@@ -114,7 +114,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var result = _controller.Add(achievement) as JavaScriptResult;
+            JavaScriptResult result = _controller.Add(achievement) as JavaScriptResult;
 
             //Assert
             Assert.NotNull(result);
@@ -128,7 +128,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         {
             //Arrange
 
-            var achievement = new Achievement()
+            Achievement achievement = new Achievement()
             {
                 Date = date,
                 Title = title,
@@ -138,7 +138,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
             //Act
             Validate.ValidateModel(_controller, achievement);
-            var viewResult = _controller.Add(achievement) as PartialViewResult;
+            PartialViewResult viewResult = _controller.Add(achievement) as PartialViewResult;
 
             //Assert
             Assert.NotNull(viewResult);
@@ -156,7 +156,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var result = (RedirectToRouteResult)_controller.AddAchievementToCv(cvViewModel);
+            RedirectToRouteResult result = (RedirectToRouteResult)_controller.AddAchievementToCv(cvViewModel);
 
             //Assert
             Assert.NotNull(result);
@@ -174,7 +174,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             };
 
             //Act
-            var viewResult = _controller.AddAchievementToCv(cvViewModel) as ViewResult;
+            ViewResult viewResult = _controller.AddAchievementToCv(cvViewModel) as ViewResult;
            
 
             //Assert
@@ -188,7 +188,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var viewResult = _controller.RemoveAchievementFromCv(-1) as ViewResult;
+            ViewResult viewResult = _controller.RemoveAchievementFromCv(-1) as ViewResult;
 
             //Assert
             Assert.NotNull(viewResult);
@@ -201,7 +201,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //Act
-            var result = (RedirectToRouteResult)_controller.RemoveAchievementFromCv(1);
+            RedirectToRouteResult result = (RedirectToRouteResult)_controller.RemoveAchievementFromCv(1);
 
             //Assert
             Assert.NotNull(result);

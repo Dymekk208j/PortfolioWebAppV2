@@ -45,7 +45,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Projects.First(a => a.ProjectId == entity.ProjectId);
+                Project obj = Context.Projects.First(a => a.ProjectId == entity.ProjectId);
                 Context.Projects.Remove(obj);
             }
             catch (Exception e)
@@ -60,7 +60,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Projects.First(a => a.ProjectId == projectId);
+                Project obj = Context.Projects.First(a => a.ProjectId == projectId);
                 Context.Projects.Remove(obj);
             }
             catch (Exception e)
@@ -75,7 +75,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var existingProject = Context.Projects
+                Project existingProject = Context.Projects
                     .Include("Technologies").FirstOrDefault(p => p.ProjectId == entity.ProjectId);
 
                 if (existingProject == null) return false;
@@ -90,8 +90,8 @@ namespace PortfolioWebAppV2.Repository
                 existingProject.AuthorId = entity.AuthorId;
                 existingProject.TempProject = entity.TempProject;
 
-                var deletedTechnologies = existingProject.Technologies.Except(entity.Technologies, new TechnologyComparere()).ToList();
-                var addedTechnologies = entity.Technologies.Except(existingProject.Technologies, new TechnologyComparere()).ToList();
+                List<Technology> deletedTechnologies = existingProject.Technologies.Except(entity.Technologies, new TechnologyComparere()).ToList();
+                List<Technology> addedTechnologies = entity.Technologies.Except(existingProject.Technologies, new TechnologyComparere()).ToList();
 
                 deletedTechnologies.ForEach(c => existingProject.Technologies.Remove(c));
                 foreach (Technology c in addedTechnologies)
@@ -115,7 +115,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var project = Context.Projects.Single(a => a.ProjectId == id);
+                Project project = Context.Projects.Single(a => a.ProjectId == id);
                 project.ShowInCv = !project.ShowInCv;
                 return Update(project);
             }
@@ -130,7 +130,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var project = Context.Projects.Single(a => a.ProjectId == id);
+                Project project = Context.Projects.Single(a => a.ProjectId == id);
                 project.TempProject = true;
                 return Update(project);
             }

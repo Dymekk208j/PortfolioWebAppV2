@@ -43,7 +43,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public AdditionalInformationRepositoryTests()
         {
-            var additionalInfos = _additionalInfos.AsQueryable();
+            IQueryable<AdditionalInfo> additionalInfos = _additionalInfos.AsQueryable();
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.Provider).Returns(additionalInfos.Provider);
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.Expression).Returns(additionalInfos.Expression);
             _mockSet.As<IQueryable<AdditionalInfo>>().Setup(m => m.ElementType).Returns(additionalInfos.ElementType);
@@ -66,7 +66,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            AdditionalInfo result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _additionalInfos[0]);
@@ -115,7 +115,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(additionalInfo);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            AdditionalInfo result = _repository.GetAll().FirstOrDefault(a =>
                 a.Title == title && a.ShowInCv == showInCv && a.Type == typeOfAddtionalInfo);
 
             //assert
@@ -157,7 +157,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(additionalInfo);
+            bool result = _repository.Update(additionalInfo);
 
             //Assert
             Assert.False(result);
@@ -168,11 +168,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         {
             //Arrange 
             int exceptedResult = _additionalInfos.Count()-1;
-            var achievementToRemove = _additionalInfos[0];
+            AdditionalInfo achievementToRemove = _additionalInfos[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);
@@ -182,7 +182,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_achievement()
         {
             //Arrange
-            var nonExistentAdditionalInfo = new AdditionalInfo()
+            AdditionalInfo nonExistentAdditionalInfo = new AdditionalInfo()
             {
                 AdditionalInfoId = -1,
                 Title = "",

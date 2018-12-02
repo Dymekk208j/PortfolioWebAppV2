@@ -21,11 +21,11 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult CreateProject()
         {
-            var technologies =
+            IEnumerable<TechnologyViewModel> technologies =
                 Mapper.Map<IEnumerable<Technology>, IEnumerable<TechnologyViewModel>>(
                     _repository.GetAllTechnologies());
 
-            var project = new ProjectViewModel()
+            ProjectViewModel project = new ProjectViewModel()
             {
                 Technologies = technologies
             };
@@ -36,8 +36,8 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EditProject(int projectId)
         {
-            var project = _repository.Get(projectId);
-            var projectViewModel = Mapper.Map<Project, ProjectViewModel>(project);
+            Project project = _repository.Get(projectId);
+            ProjectViewModel projectViewModel = Mapper.Map<Project, ProjectViewModel>(project);
 
             return View(projectViewModel);
         }
@@ -48,7 +48,7 @@ namespace PortfolioWebAppV2.Controllers
             projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
-            var project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
+            Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
             
 
             if (ModelState.IsValid)
@@ -65,11 +65,11 @@ namespace PortfolioWebAppV2.Controllers
         [HttpPost]
         public ActionResult Update(ProjectViewModel projectViewModel)
         {
-            var tech = projectViewModel.Technologies.Where(a => a.IsSelected);
+            IEnumerable<TechnologyViewModel> tech = projectViewModel.Technologies.Where(a => a.IsSelected);
             projectViewModel.Technologies = tech;
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
-            var project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
+            Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
 
 
             if (ModelState.IsValid)
@@ -111,7 +111,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Projects(bool? commercial)
         {
             ViewBag.isCommercial = commercial.GetValueOrDefault();
-            var projects = _repository.GetAll().Where(a => a.Commercial == commercial.GetValueOrDefault());
+            IEnumerable<Project> projects = _repository.GetAll().Where(a => a.Commercial == commercial.GetValueOrDefault());
 
             return View(projects);
         }
@@ -119,13 +119,13 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult ProjectDetails(int projectId)
         {
-            var project = _repository.Get(projectId);
+            Project project = _repository.Get(projectId);
             return View(project);
         }
 
         public ActionResult GetTechnologiesPanel()
         {
-            var t = _repository.GetAllTechnologies();
+            IEnumerable<Technology> t = _repository.GetAllTechnologies();
 
             return PartialView("_TechnologiesPanelPartialView", t);
         }

@@ -3,7 +3,7 @@
 
 <div id="@Html.Raw("EducationDiv" + Model.EducationId.ToString())">
     <div id="@Html.Raw("EducationDivBtn" + Model.EducationId.ToString())" style="display: none;">
-        <button type="button" class="btn btn-outline-danger button-xs far fa-minus-square" onclick="location.href = '@Url.Action("RemoveEducationFromCv", "Education", new { id = Model.EducationId })';return false;"></button>
+        <button type="button" class="btn btn-outline-danger button-xs" onclick="location.href = '@Url.Action("RemoveEducationFromCv", "Education", new { id = Model.EducationId })';return false;"><i class="ti-close"></i></button>
 
     </div>
     <p>

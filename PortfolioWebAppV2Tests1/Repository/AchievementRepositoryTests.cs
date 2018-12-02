@@ -38,7 +38,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public AchievementRepositoryTests()
         {
-            var achievements = _achievements.AsQueryable();
+            IQueryable<Achievement> achievements = _achievements.AsQueryable();
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Provider).Returns(achievements.Provider);
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.Expression).Returns(achievements.Expression);
             _mockSet.As<IQueryable<Achievement>>().Setup(m => m.ElementType).Returns(achievements.ElementType);
@@ -73,7 +73,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(achievement);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            Achievement result = _repository.GetAll().FirstOrDefault(a =>
                 a.Title == title && a.Description == description && a.Date == date && a.ShowInCv == showInCv);
 
             //assert
@@ -88,7 +88,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            Achievement result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _achievements[0]);
@@ -125,7 +125,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest(string title, string description, DateTime date, bool showInCv)
         {
             //Arrange
-            var updatedAchievement = new Achievement()
+            Achievement updatedAchievement = new Achievement()
             {
                 AchievementId = 1,
                 Title = title,
@@ -146,13 +146,13 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest_nonexistent_object()
         {
             //Arrange
-            var achievement = new Achievement()
+            Achievement achievement = new Achievement()
             {
                 AchievementId = -1,
             };
 
             //Act 
-            var result = _repository.Update(achievement);
+            bool result = _repository.Update(achievement);
 
             //Assert
             Assert.False(result);
@@ -162,11 +162,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_Correct_data_should_return_1()
         {
             //Arrange 
-            var achievementToRemove = _achievements[0];
+            Achievement achievementToRemove = _achievements[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected:1, actual:result);
@@ -176,7 +176,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_achievement()
         {
             //Arrange
-            var nonExistentAchievement = new Achievement()
+            Achievement nonExistentAchievement = new Achievement()
             {
                 AchievementId = -1
             };

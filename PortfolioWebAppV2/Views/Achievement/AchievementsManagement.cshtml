@@ -23,7 +23,7 @@
                             @Html.Name(u.Title)
                         </td>
                         <td class="text-right">
-                            <button id="@Html.Raw("RemoveBtn" + u.AchievementId.ToString())" type="button" class="btn btn-danger btn-sm far fa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Achievement", new { id = u.AchievementId })';return false;"> Usuń</button>
+                            <button id="@Html.Raw("RemoveBtn" + u.AchievementId.ToString())" type="button" class="btn btn-danger btn-smfa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Achievement", new { id = u.AchievementId })';return false;"> Usuń</button>
                         </td>
                     </tr>
                 }
@@ -32,7 +32,7 @@
         </table>
     </div>
 
-    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#Add"> Dodaj osiągnięcie</button>
+    <button type="button" class="btn btn-success btn-smfa-plus-square text-right" data-toggle="modal" data-target="#Add"> Dodaj osiągnięcie</button>
     <button onclick="Toggle()">Toggle</button>
 
 
@@ -59,6 +59,7 @@
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
 
+@using PortfolioWebAppV2.Models.DatabaseModels
 @model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
 
 @{
@@ -81,9 +82,9 @@
     <div class="card">
 
         <div class="card-body">
-            <button type="button" class="btn btn-success btn-sm far float-right mb-3" data-toggle="modal" data-target="#AddAchievement"><i class="ti-file"></i> Dodaj osiągnięcie</button>
+            <button type="button" class="btn btn-success btn-sm float-right mb-3" data-toggle="modal" data-target="#AddAchievement"><i class="ti-file"></i> Dodaj osiągnięcie</button>
 
-            <div class="data-tables">
+            <div class="dataTable">
                 <table id="dataTable" class="text-left hover compact">
                     <thead class="bg-light text-capitalize ">
                         <tr>
@@ -93,7 +94,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var u in Model)
+                        @foreach (Achievement u in Model)
                         {
                             <tr data-toggle="modal" data-target="@Html.Raw("#UpdateAchievement" + u.AchievementId.ToString())">
                                 <td class="align-middle font-weight-bold">@Html.Name(u.AchievementId.ToString()). </td>
@@ -113,10 +114,10 @@
 </div>
 
 <div id="CreatePanel">
-    @Html.Partial("_CreateAchievementPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Achievement())
+    @Html.Partial("_CreateAchievementPartialView", new Achievement())
 </div>
 
-@foreach (var e in Model)
+@foreach (Achievement e in Model)
 {
     <div id="@Html.Raw("UpdatePanel" + e.AchievementId.ToString())">
         @Html.Partial("_UpdateAchievementPartialView", e)

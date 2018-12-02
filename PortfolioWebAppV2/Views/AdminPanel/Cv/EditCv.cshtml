@@ -20,7 +20,7 @@
                     <img src="@Html.Raw(Model.PrivateInformation.ImageLink)" />
                 </div>
                 <div class="col text-right">
-                    <div id="AboutMeBtn" style="display: none;"><button type="button" class="btn btn-outline-secondary button-xs far fa-edit" data-toggle="modal" data-target="#EditPrivateInformation"></button><br /></div>
+                    <div id="AboutMeBtn" style="display: none;"><button type="button" class="btn btn-outline-secondary button-xs" data-toggle="modal" data-target="#EditPrivateInformation"><i class="ti-pencil-alt"></i></button><br /></div>
                     @Html.Raw(Model.PrivateInformation.Street + " " + Model.PrivateInformation.HouseNumber + "/" + Model.PrivateInformation.FlatNumber)<br />
                     @Html.Raw(Model.PrivateInformation.PostCode + " " + Model.PrivateInformation.City)<br />
                     @Html.Raw(Model.PrivateInformation.PhoneNumber + " | " + Model.PrivateInformation.HomePage)<br />
@@ -119,11 +119,11 @@
             <div class="row" style="margin-top: 1em; border-bottom-style: dotted; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="CommercialProjectsRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Projekty komercyjne</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddCommercialProject"> Dodaj projekt do CV</button>
+                    <button type="button" class="btn btn-success btn-sm text-right mt-2" data-toggle="modal" data-target="#AddCommercialProject"><i class="ti-folder mr-2"></i>Dodaj projekt do CV</button>
                 </div>
                 <div class="col text-left">
                     @{
-                        foreach (var a in Model.Projects.Where(x => x.Commercial && x.ShowInCv))
+                        foreach (Project a in Model.Projects.Where(x => x.Commercial && x.ShowInCv))
                         {
                             @Html.Partial("cv/_ProjectPartialView", a)
                         }
@@ -174,11 +174,11 @@
             <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="NotCommercialProjectsRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Projekty niekomercyjne</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddNonCommercialProject"> Dodaj projekt do CV</button>
+                    <button type="button" class="btn btn-success btn-sm text-right mt-2" data-toggle="modal" data-target="#AddNonCommercialProject"><i class="ti-folder mr-2"></i>Dodaj projekt do CV</button>
                 </div>
                 <div class="col text-left">
                     @{
-                        foreach (var a in Model.Projects.Where(x => x.Commercial == false && x.ShowInCv))
+                        foreach (Project a in Model.Projects.Where(x => x.Commercial == false && x.ShowInCv))
                         {
                             @Html.Partial("cv/_ProjectPartialView", a)
                         }
@@ -238,14 +238,18 @@
                                 Dobra znajmość:
                             </span>
                             <div id="BtnAddVeryGoodKnowTechnology" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddVeryWellKnowTechnology"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddVeryWellKnowTechnology"><i class="ti-plus"></i></button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell && x.ShowInCv))
+                            foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.VeryWell && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display: none;">
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new {id = a.TechnologyId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
+                                    </div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -270,14 +274,20 @@
                                 Znajomość podstaw:
                             </span>
                             <div id="BtnAddWellKnowTechnology" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddWellKnowTechnology"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddWellKnowTechnology">
+                                    <i class="ti-plus"></i>
+                                </button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well && x.ShowInCv))
+                            foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Well && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;">
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new {id = a.TechnologyId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
+                                    </div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -302,14 +312,20 @@
                                 Styczność z:
                             </span>
                             <div id="BtnAddKnowTechnology" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddKnowTechnology"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddKnowTechnology">
+                                    <i class="ti-plus"></i>
+                                </button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok && x.ShowInCv))
+                            foreach (Technology a in Model.Technologies.Where(x => x.KnowledgeLevel == Technology.LevelOfKnowledge.Ok && x.ShowInCv))
                             {
                                 <div id="@Html.Raw("TechDiv" + a.TechnologyId)" class="form-inline">
-                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new { id = a.TechnologyId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnTechDiv" + a.TechnologyId)" style="display:none;">
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveFromCv", "Technology", new {id = a.TechnologyId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
+                                    </div>
                                     @Html.Name(a.Name)
                                 </div>
 
@@ -483,12 +499,12 @@
             <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="AchievementsRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Osiągnięcia</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddAchievementToCV"> Dodaj osiągnięcie do CV</button>
+                    <button type="button" class="btn btn-success btn-sm mt-2 text-right" data-toggle="modal" data-target="#AddAchievementToCV"><i class="ti-folder mr-2"></i>Dodaj osiągnięcie do CV</button>
 
                 </div>
                 <div class="col text-left">
                     @{
-                        foreach (var a in Model.Achievements.Where(x => x.ShowInCv))
+                        foreach (Achievement a in Model.Achievements.Where(x => x.ShowInCv))
                         {
                             @Html.Partial("cv/_AchievementPartialView", a)
                         }
@@ -547,16 +563,18 @@
                                 Języki obce:
                             </span>
                             <div id="BtnAddLangs" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddLangs"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddLangs"><i class="ti-plus"></i></button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
+                            foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
                             {
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
                                     <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;">
-                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button>
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new {id = a.AdditionalInfoId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
                                     </div>
 
                                 </div>
@@ -582,15 +600,19 @@
                                 Dodatkowe umiejętności:
                             </span>
                             <div id="BtnAddiSkills" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddAddiSkill"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddAddiSkill"><i class="ti-plus"></i></button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
+                            foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
                             {
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
-                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;">
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new {id = a.AdditionalInfoId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
 
@@ -605,7 +627,6 @@
                                     });
                                 </script>
                             }
-
                         }
                     </div>
 
@@ -615,15 +636,19 @@
                                 Zainteresowania:
                             </span>
                             <div id="BtnIntrested" style="display: none;">
-                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm far fa-plus-square text-right button-xs" data-toggle="modal" data-target="#AddIntr"></button>
+                                <button type="button" style="margin-left: 0.2em" class="btn btn-outline-success btn-sm text-right button-xs" data-toggle="modal" data-target="#AddIntr"><i class="ti-plus"></i></button>
                             </div>
                         </div>
                         @{
-                            foreach (var a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
+                            foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.ShowInCv && x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
                             {
                                 <div id="@Html.Raw("AdditionalInfosDiv" + a.AdditionalInfoId)" class="form-inline">
                                     @Html.Name(a.Title)
-                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;"><button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm far fa-minus-square text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new { id = a.AdditionalInfoId })';return false;"></button></div>
+                                    <div id="@Html.Raw("BtnAdditionalInfosDiv" + a.AdditionalInfoId)" style="display:none;">
+                                        <button type="button" style="margin-left: 0.2em" class="btn btn-outline-danger btn-sm text-right button-xs" onclick="location.href = '@Url.Action("RemoveAdditionalInformationFromCv", "AdditionalInformation", new {id = a.AdditionalInfoId})';return false;">
+                                            <i class="ti-close"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
 
@@ -798,13 +823,13 @@
             <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="EmploymentHistoriesRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Historia zatrudnienia</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddEmployhmentHistoryToCv"> Dodaj historie zatrudnienia do CV</button>
+                    <button type="button" class="btn btn-success btn-sm mt-2 text-right" data-toggle="modal" data-target="#AddEmployhmentHistoryToCv"><i class="ti-folder mr-2"></i>Dodaj historie zatrudnienia do CV</button>
 
                 </div>
                 <div class="col text-left">
                     <div id="EmpHistory" class="d-inline">
                         @{
-                            foreach (var a in Model.EmploymentHistories.Where(m => m.ShowInCv).OrderByDescending(x => x.StartDate))
+                            foreach (EmploymentHistory a in Model.EmploymentHistories.Where(m => m.ShowInCv).OrderByDescending(x => x.StartDate))
                             {
                                 @Html.Partial("cv/_EmploymentHistoryPartialView", a)
                             }
@@ -855,13 +880,13 @@
             <div class="row" style="margin-top: 1em;" id="EducationRow">
                 <div class="col-4">
                     <h6 style="color: cornflowerblue;">Wykształcenie</h6>
-                    <button type="button" class="btn btn-success btn-sm far fa-plus-square text-right" data-toggle="modal" data-target="#AddEducationToCv"> Dodaj wykształcenie do CV</button>
+                    <button type="button" class="btn btn-success btn-sm mt-2 text-right" data-toggle="modal" data-target="#AddEducationToCv"><i class="ti-folder mr-2"></i>Dodaj wykształcenie do CV</button>
 
                 </div>
                 <div class="col text-left">
                     <div id="educ" class="d-inline">
                         @{
-                            foreach (var a in Model.Educations.Where(x => x.ShowInCv).OrderByDescending(x => x.StartDate))
+                            foreach (Education a in Model.Educations.Where(x => x.ShowInCv).OrderByDescending(x => x.StartDate))
                             {
                                 @Html.Partial("cv/_EducationPartialView", a)
                             }

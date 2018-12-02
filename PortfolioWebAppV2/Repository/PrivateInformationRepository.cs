@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.PrivateInformations.First(a => a.PrivateInformationId == entity.PrivateInformationId);
+                PrivateInformation obj = Context.PrivateInformations.First(a => a.PrivateInformationId == entity.PrivateInformationId);
                 Context.PrivateInformations.Remove(obj);
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var privateInformation = Context.PrivateInformations.Single(a => a.PrivateInformationId == entity.PrivateInformationId) ?? throw new Exception($"Not found id: {entity.PrivateInformationId}");
+                PrivateInformation privateInformation = Context.PrivateInformations.Single(a => a.PrivateInformationId == entity.PrivateInformationId) ?? throw new Exception($"Not found id: {entity.PrivateInformationId}");
                 privateInformation.City = entity.City;
                 privateInformation.Email = entity.Email;
                 privateInformation.FirstName = entity.FirstName;

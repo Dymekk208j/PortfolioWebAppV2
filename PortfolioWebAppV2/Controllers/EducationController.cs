@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
@@ -17,7 +18,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EducationManagement()
         {
-            var educations = _repository.GetAll();
+            IEnumerable<Education> educations = _repository.GetAll();
 
             return View(educations);
         }
@@ -25,7 +26,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Remove(int id)
         {
-            var education = _repository.Get(id);
+            Education education = _repository.Get(id);
             _repository.Remove(education);
 
             return RedirectToAction("EducationManagement");

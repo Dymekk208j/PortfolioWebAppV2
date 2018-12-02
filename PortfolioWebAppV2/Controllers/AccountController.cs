@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult DeleteUser(string userId)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            var usr = (from u in db.Users
+            ApplicationUser usr = (from u in db.Users
                        where u.Id == userId
                        select u).FirstOrDefault();
             if (usr == null) return RedirectToAction("UserMgt", "AdminPanel");
@@ -62,7 +63,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
 
-            var author = (from x in db.Users
+            ApplicationUser author = (from x in db.Users
                           where x.Id == authorId
                           select x).FirstOrDefault();
 
@@ -87,7 +88,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
@@ -122,7 +123,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                ApplicationUser user = new ApplicationUser()
                 {
                     UserName = model.UserName,
                     FirstName = model.FirstName,
@@ -130,7 +131,7 @@ namespace PortfolioWebAppV2.Controllers
                     Blocked = false,
                     Email = model.Email
                 };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
@@ -179,13 +180,13 @@ namespace PortfolioWebAppV2.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            ClaimsIdentity identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors)
+            foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }

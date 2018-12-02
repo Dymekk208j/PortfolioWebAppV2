@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
@@ -62,8 +63,8 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult UserMgt()
         {
-            var db = new ApplicationDbContext();
-            var usersList = db.Users.Where(u => u.Blocked == false).OrderBy(a => a.UserName).ToList();
+            ApplicationDbContext db = new ApplicationDbContext();
+            List<ApplicationUser> usersList = db.Users.Where(u => u.Blocked == false).OrderBy(a => a.UserName).ToList();
             
             return View("Users/UserMgt", usersList);
         }
@@ -71,8 +72,8 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult BlockedUsers()
         {
-            var db = new ApplicationDbContext();
-            var usersList = db.Users.Where(u => u.Blocked).OrderBy(a => a.UserName).ToList();
+            ApplicationDbContext db = new ApplicationDbContext();
+            List<ApplicationUser> usersList = db.Users.Where(u => u.Blocked).OrderBy(a => a.UserName).ToList();
 
             return View("Users/BlockedUsers", usersList);
         }

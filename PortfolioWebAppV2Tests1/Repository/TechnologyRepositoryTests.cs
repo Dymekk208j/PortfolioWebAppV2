@@ -25,7 +25,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public TechnologyRepositoryTests()
         {
-            var technologies = _technologies.AsQueryable();
+            IQueryable<Technology> technologies = _technologies.AsQueryable();
             _mockSet.As<IQueryable<Technology>>().Setup(m => m.Provider).Returns(technologies.Provider);
             _mockSet.As<IQueryable<Technology>>().Setup(m => m.Expression).Returns(technologies.Expression);
             _mockSet.As<IQueryable<Technology>>().Setup(m => m.ElementType).Returns(technologies.ElementType);
@@ -48,7 +48,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            Technology result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _technologies[0]);
@@ -86,7 +86,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void AddTest(string name, Technology.LevelOfKnowledge levelOfKnowledge, bool showInCv)
         {
             //Arrange
-            var technology = new Technology()
+            Technology technology = new Technology()
             {
                 Name = name,
                 KnowledgeLevel = levelOfKnowledge,
@@ -97,7 +97,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(technology);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            Technology result = _repository.GetAll().FirstOrDefault(a =>
                 a.Name == technology.Name && a.KnowledgeLevel == technology.KnowledgeLevel && a.ShowInCv == technology.ShowInCv);
 
             //assert
@@ -110,7 +110,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void UpdateTest(string name, Technology.LevelOfKnowledge levelOfKnowledge, bool showInCv)
         {
             //Arrange
-            var technology = new Technology()
+            Technology technology = new Technology()
             {
                 TechnologyId = 1,
                 Name = name,
@@ -136,7 +136,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(technology);
+            bool result = _repository.Update(technology);
 
             //Assert
             Assert.False(result);
@@ -147,11 +147,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         {
             //Arrange 
             int exceptedResult = _technologies.Count() - 1;
-            var achievementToRemove = _technologies[0];
+            Technology achievementToRemove = _technologies[0];
 
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);
@@ -161,7 +161,7 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_nonExistent_Technology()
         {
             //Arrange
-            var nonExistentAdditionalInfo = new Technology()
+            Technology nonExistentAdditionalInfo = new Technology()
             {
                 TechnologyId = -1
             };

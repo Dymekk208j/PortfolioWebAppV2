@@ -263,6 +263,7 @@
     <Compile Include="Controllers\AchievementController.cs" />
     <Compile Include="Controllers\AdditionalInformationController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
+    <Compile Include="Controllers\BlobConnector.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\EmploymentHistoryController.cs" />
@@ -300,6 +301,10 @@
     <Compile Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.cs" />
     <Compile Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.Designer.cs">
       <DependentUpon>201811272135239_GitHubLinkAddedToProjectModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812022011504_ImageModelMod.cs" />
+    <Compile Include="Migrations\201812022011504_ImageModelMod.Designer.cs">
+      <DependentUpon>201812022011504_ImageModelMod.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
@@ -356,6 +361,7 @@
     <Content Include="Lib\assets\css\bootstrap.min.css" />
     <Content Include="Lib\assets\css\default-css.css" />
     <Content Include="Lib\assets\css\font-awesome.min.css" />
+    <Content Include="Lib\assets\css\jquery.dataTables.css" />
     <Content Include="Lib\assets\css\metisMenu.css" />
     <Content Include="Lib\assets\css\owl.carousel.min.css" />
     <Content Include="Lib\assets\css\responsive.css" />
@@ -647,6 +653,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811272135239_GitHubLinkAddedToProjectModel.resx">
       <DependentUpon>201811272135239_GitHubLinkAddedToProjectModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812022011504_ImageModelMod.resx">
+      <DependentUpon>201812022011504_ImageModelMod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

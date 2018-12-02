@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
+                AboutMe obj = Context.AboutMe.First(a => a.AboutMeId == entity.AboutMeId);
                 Context.AboutMe.Remove(obj);
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var aboutMe = Context.AboutMe.Single(a => a.AboutMeId == entity.AboutMeId) ?? throw new Exception("Not found");
+                AboutMe aboutMe = Context.AboutMe.Single(a => a.AboutMeId == entity.AboutMeId) ?? throw new Exception("Not found");
                 aboutMe.Title = entity.Title;
                 aboutMe.ImageLink = entity.ImageLink;
                 aboutMe.Text = entity.Text;

@@ -33,7 +33,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
         public AboutMeControllerTests()
         {
-            var aboutMes = _aboutMe.AsQueryable();
+            IQueryable<AboutMe> aboutMes = _aboutMe.AsQueryable();
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.Provider).Returns(aboutMes.Provider);
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.Expression).Returns(aboutMes.Expression);
             _mockSet.As<IQueryable<AboutMe>>().Setup(m => m.ElementType).Returns(aboutMes.ElementType);
@@ -68,7 +68,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         public void RedirectToAboutMeManagementPageIfViewModelIsValid()
         {
             //Arrange
-            var updateAboutMe = new AboutMeViewModel()
+            AboutMeViewModel updateAboutMe = new AboutMeViewModel()
             {
                 ImageLink = "imageLink",
                 Text = "To jest minimalnie 10 znakow",
@@ -78,7 +78,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
 
             //Act
-            var result = (RedirectToRouteResult)_controller.Update(updateAboutMe);
+            RedirectToRouteResult result = (RedirectToRouteResult)_controller.Update(updateAboutMe);
 
             //Assert
             Assert.NotNull(result);
@@ -94,7 +94,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
         public void ShouldFailValidationWhenFieldIsEmpty(string imageLink, string text, string title)
         {
             //Arrange
-            var updateAboutMe = new AboutMeViewModel()
+            AboutMeViewModel updateAboutMe = new AboutMeViewModel()
             {
                 ImageLink = imageLink,
                 Text = text,
@@ -105,7 +105,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
 
 
             //Act
-            var viewResult = _controller.Update(updateAboutMe) as ViewResult;
+            ViewResult viewResult = _controller.Update(updateAboutMe) as ViewResult;
 
             //Assert
             Assert.NotNull(viewResult);
@@ -126,7 +126,7 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //act
-            var result = _controller.AboutMe() as ViewResult;
+            ViewResult result = _controller.AboutMe() as ViewResult;
 
             //Assert
             Assert.NotNull(result);
@@ -140,12 +140,12 @@ namespace PortfolioWebAppV2Tests1.Controllers
             //Arrange
 
             //act
-            var result = _controller.AboutMeManagement() as ViewResult;
+            ViewResult result = _controller.AboutMeManagement() as ViewResult;
 
             //Assert
             Assert.NotNull(result);
 
-            var model = result.Model;
+            object model = result.Model;
             Assert.NotNull(model);
 
             Assert.Equal("AboutMeManagement", result.ViewName);

@@ -39,7 +39,7 @@
             <div class="card-body">
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active " id="pills-ForeignLanguages" role="tabpanel" aria-labelledby="pills-ForeignLanguages-tab">
-                        <div class="data-tables">
+                        <div class="dataTable">
                             <table id="dataTable" class="text-left hover compact">
                                 <thead class="bg-light text-capitalize ">
                                     <tr>
@@ -48,7 +48,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
+                                    @foreach (AdditionalInfo u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
                                     {
                                         <tr data-toggle="modal" data-target="@Html.Raw("#UpdateAdditionalInfo" + u.AdditionalInfoId)">
                                             <td class="align-middle font-weight-bold">@Html.Name(u.AdditionalInfoId.ToString())</td>
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-AdditionalIfnormation" role="tabpanel" aria-labelledby="pills-AdditionalIfnormation-tab">
-                        <div class="data-tables">
+                        <div class="dataTable">
                             <table id="dataTable2" class="text-left hover compact" style="width: 100%">
                                 <thead class="bg-light text-capitalize ">
                                     <tr>
@@ -72,7 +72,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
+                                    @foreach (AdditionalInfo u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.AdditionalSkills))
                                     {
                                         <tr data-toggle="modal" data-target="@Html.Raw("#UpdateAdditionalInfo" + u.AdditionalInfoId)">
                                             <td class="font-weight-bold">@Html.Name(u.AdditionalInfoId.ToString())</td>
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="pills-interests" role="tabpanel" aria-labelledby="pills-contact-tab">
-                        <div class="data-tables">
+                        <div class="dataTable">
                             <table id="dataTable3" class="text-left hover compact" style="width: 100%">
                                 <thead class="bg-light text-capitalize ">
                                     <tr>
@@ -96,7 +96,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
+                                    @foreach (AdditionalInfo u in Model.Where(w => w.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
                                     {
                                         <tr data-toggle="modal" data-target="@Html.Raw("#UpdateAdditionalInfo" + u.AdditionalInfoId)">
                                             <td class="font-weight-bold">@Html.Name(u.AdditionalInfoId.ToString())</td>
@@ -123,7 +123,7 @@
     @Html.Partial("_CreateAdditionalInformationPartialView", new AdditionalInfo())
 </div>
 
-@foreach (var a in Model)
+@foreach (AdditionalInfo a in Model)
 {
     <div id="@Html.Raw("UpdatePanel" + a.AdditionalInfoId)">
         @Html.Partial("_UpdateAdditionalInformationPartialView", a)

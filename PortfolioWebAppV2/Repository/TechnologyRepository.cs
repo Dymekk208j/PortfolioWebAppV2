@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId);
+                Technology obj = Context.Technologies.First(a => a.TechnologyId == entity.TechnologyId);
                 Context.Technologies.Remove(obj);
 
             }
@@ -52,7 +52,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var achievement = Context.Technologies.Single(a => a.TechnologyId == entity.TechnologyId) ?? throw new Exception($"Not found id: {entity.TechnologyId}");
+                Technology achievement = Context.Technologies.Single(a => a.TechnologyId == entity.TechnologyId) ?? throw new Exception($"Not found id: {entity.TechnologyId}");
                 achievement.KnowledgeLevel = entity.KnowledgeLevel;
                 achievement.Name = entity.Name;
                 achievement.ShowInCv = entity.ShowInCv;

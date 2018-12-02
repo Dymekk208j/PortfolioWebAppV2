@@ -36,7 +36,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var obj = Context.Contacts.First(a => a.ContactId == entity.ContactId);
+                Contact obj = Context.Contacts.First(a => a.ContactId == entity.ContactId);
                 Context.Contacts.Remove(obj);
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                var contact = Context.Contacts.Single(a => a.ContactId == entity.ContactId) ?? throw new Exception($"Not found id: {entity.ContactId}");
+                Contact contact = Context.Contacts.Single(a => a.ContactId == entity.ContactId) ?? throw new Exception($"Not found id: {entity.ContactId}");
                 contact.ContactId = entity.ContactId;
                 contact.Email1 = entity.Email1;
                 contact.Email2 = entity.Email2;

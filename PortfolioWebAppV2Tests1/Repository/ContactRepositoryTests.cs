@@ -32,7 +32,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
         public ContactRepositoryTests()
         {
-            var contacts = _contacts.AsQueryable();
+            IQueryable<Contact> contacts = _contacts.AsQueryable();
             _mockSet.As<IQueryable<Contact>>().Setup(m => m.Provider).Returns(contacts.Provider);
             _mockSet.As<IQueryable<Contact>>().Setup(m => m.Expression).Returns(contacts.Expression);
             _mockSet.As<IQueryable<Contact>>().Setup(m => m.ElementType).Returns(contacts.ElementType);
@@ -67,7 +67,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             _repository.Add(contact);
 
 
-            var result = _repository.GetAll().FirstOrDefault(a =>
+            Contact result = _repository.GetAll().FirstOrDefault(a =>
                 a.Email1 == contact.Email1 && a.Email2 == contact.Email2 && a.GitHubLink == contact.GitHubLink && a.ContactId == contact.ContactId);
 
             //assert
@@ -82,7 +82,7 @@ namespace PortfolioWebAppV2Tests1.Repository
 
 
             //Act
-            var result = _repository.Get(1);
+            Contact result = _repository.Get(1);
 
             //Assert
             Assert.Equal(result, _contacts[0]);
@@ -147,7 +147,7 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
 
             //Act 
-            var result = _repository.Update(nonExistingContact);
+            bool result = _repository.Update(nonExistingContact);
 
             //Assert
             Assert.False(result);
@@ -157,11 +157,11 @@ namespace PortfolioWebAppV2Tests1.Repository
         public void RemoveTest_Correct_data_should_return_1()
         {
             //Arrange 
-            var achievementToRemove = _contacts[0];
+            Contact achievementToRemove = _contacts[0];
             int exceptedResult = _contacts.Count - 1;
             //Act
             _repository.Remove(achievementToRemove);
-            var result = _repository.GetAll().Count();
+            int result = _repository.GetAll().Count();
 
             //Assert
             Assert.Equal(expected: exceptedResult, actual: result);

@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Index()
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            var project = db.Projects.OrderByDescending(a => a.ProjectId).FirstOrDefault();
+            Project project = db.Projects.OrderByDescending(a => a.ProjectId).FirstOrDefault();
 
             return View(project);
         }
@@ -22,7 +22,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult GetSocialMediaBarPartial()
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
-            var arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
+            ContactViewModel arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
 
             return PartialView("_SocialMediaBarPartialView", arg);
         }

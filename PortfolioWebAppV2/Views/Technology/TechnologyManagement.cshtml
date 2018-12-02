@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
+@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Technology>
 @{
     Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
 }
@@ -17,9 +18,9 @@
     <div class="card">
 
         <div class="card-body">
-            <button type="button" class="btn btn-success btn-sm far float-right mb-3" data-toggle="modal" data-target="#AddTechnology"><i class="ti-file"></i> Utwórz technologie</button>
+            <button type="button" class="btn btn-success btn-sm float-right mb-3" data-toggle="modal" data-target="#AddTechnology"><i class="ti-file"></i> Utwórz technologie</button>
 
-            <div class="data-tables">
+            <div class="dataTable">
                 <table id="dataTable" class="text-left hover compact">
                     <thead class="bg-light text-capitalize ">
                         <tr>
@@ -28,7 +29,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var t in Model)
+                        @foreach (Technology t in Model)
                         {
                             <tr data-toggle="modal" data-target="@Html.Raw("#UpdateTechnology" + t.TechnologyId.ToString())">
                                 <td class="font-weight-bold">@Html.Name(t.TechnologyId.ToString()). </td>
@@ -47,10 +48,10 @@
 </div>
 
 <div id="CreatePanel" name="CreatePanel">
-    @Html.Partial("_AddTechnologyPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Technology())
+    @Html.Partial("_AddTechnologyPartialView", new Technology())
 </div>
 
-@foreach (var t in Model)
+@foreach (Technology t in Model)
 {
     <div id="@Html.Raw("UpdatePanel" + t.TechnologyId.ToString())" name="@Html.Raw("UpdatePanel" + t.TechnologyId.ToString())">
         @Html.Partial("_UpdateTechnologyPartialView", t)

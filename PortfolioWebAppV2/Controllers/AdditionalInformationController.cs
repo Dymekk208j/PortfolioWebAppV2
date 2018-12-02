@@ -2,6 +2,7 @@
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
@@ -18,7 +19,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult AdditionalInformationManagement()
         {
-            var additionalInfos = _repository.GetAll();
+            IEnumerable<AdditionalInfo> additionalInfos = _repository.GetAll();
 
             return View(additionalInfos);
         }
@@ -28,7 +29,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             try
             {
-                var additionalInfo = _repository.Get(id);
+                AdditionalInfo additionalInfo = _repository.Get(id);
                 _repository.Remove(additionalInfo);
                 return RedirectToAction("AdditionalInformationManagement");
             }
