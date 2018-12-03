@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 {
@@ -201,7 +201,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
                 context.Projects.Add(project4);
                 context.SaveChanges();
             }
-            
+
             List<PrivateInformation> privateInformation = new List<PrivateInformation>
             {
                 new PrivateInformation() { PrivateInformationId = 1, City = "Koszalin", Email = "Kontakt@DamianDziura.pl", FirstName = "Damian", LastName = "Dziura"
@@ -209,7 +209,17 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
               };
             privateInformation.ForEach(g => context.PrivateInformations.Add(g));
             context.SaveChanges();
-            
+
+            List<Image> images = new List<Image>
+            {
+              new Image(){Favorite = false, FileName = "DynamicsNav.png", ImageType = ImageType.Icon, Guid = "32e95d6a-fed0-4388-b53c-b9e259c134b9"},
+                new Image(){Favorite = false, FileName = "cpp.png", ImageType = ImageType.Icon, Guid = "5c9a0a6e-5f4f-411b-978b-ee82748f5356"},
+
+
+            };
+            // achievements.ForEach(g => context.Achievements.Add(g));
+            images.ForEach(g => context.Images.Add(g));
+            context.SaveChanges();
         }
 
 

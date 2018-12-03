@@ -1,0 +1,74 @@
+﻿@model  IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Image>
+
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Header{ Zarządzanie ikonami  }
+
+<div class="card">
+    <div class="card-body">
+        <button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#UploadIcon">Dodaj ikonę</button>
+        @*<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#UploadIcon">Dodaj ikonę</button>
+            <br />
+
+            @foreach (var i in Model)
+            {
+                @Html.Name(i.GetLink())
+                <br/>
+            }*@
+        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+
+        <div class="main-content-inner">
+            <div class="row">
+                @if (Model != null)
+                {
+                    foreach (var image in Model)
+                    {
+
+                        <div class="card card-bordered m-1" style="width: 160px;">
+                            <div class="card-header p-0 m-0 text-center">@Html.Name(image.FileName)</div>
+                            <div class="card-body p-1">
+                                <img src="@Html.Raw("http://" + image.GetLink())" />
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <h3>Brak elementów do wyświetlenia</h3>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@using (
+    Html.BeginForm("UploadIcon", "Image", FormMethod.Post,
+        new { enctype = "multipart/form-data", onsubmit = "return confirm('Czy na pewno chcesz przesłać plik?');" }))
+{
+    <div class="modal fade" id="UploadIcon" tabindex="-1" role="dialog" aria-labelledby="UploadIconLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UploadIconLabel">Prześlij ikonę</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.TextBox("file", "", new { type = "file" }) <br />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Wyślij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+

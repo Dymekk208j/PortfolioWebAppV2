@@ -8,23 +8,27 @@ namespace PortfolioWebAppV2.Controllers
 {
     public static class BlobConnector
     {
+        private static readonly CloudBlobContainer IconsContainer;
+        private static CloudBlobContainer TempProjectImages;
+        private static CloudBlobContainer ProjectImages;
+
         static BlobConnector()
         {
             //TODO: Nie ustawia automatycznie uprawnień na kontenerach na publiczne, przez co nie będzie mozna pobrać obrazka. Trzeba robić to ręcznie przy tworzeniu kontenera.
-            StorageCredentials storageCredentials = new StorageCredentials("damiandziuraportfolio",
-                "eL6FmFEJ8sp+zC3NRIfFY8rBg4cS1ySypJs8b+52p7OJv2si1+YiaARwZyp6GOzvrPH3EC89Op8rU4gYbB47+w==");
-            CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, true);
-            CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            var storageCredentials = new StorageCredentials("damiandziuraportfolio", "eL6FmFEJ8sp+zC3NRIfFY8rBg4cS1ySypJs8b+52p7OJv2si1+YiaARwZyp6GOzvrPH3EC89Op8rU4gYbB47+w==");
+            var cloudStorageAccount = new CloudStorageAccount(storageCredentials, true);
+            var cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
 
-            CloudBlobContainer iconsContainer = cloudBlobClient.GetContainerReference("icons");
-            iconsContainer.CreateIfNotExistsAsync();
+            IconsContainer = cloudBlobClient.GetContainerReference("icons");
+            IconsContainer.CreateIfNotExistsAsync();
 
-            CloudBlobContainer tempProjectImages = cloudBlobClient.GetContainerReference("tempprojectimages");
-            tempProjectImages.CreateIfNotExistsAsync();
+            TempProjectImages = cloudBlobClient.GetContainerReference("tempprojectimages");
+            TempProjectImages.CreateIfNotExistsAsync();
 
-            CloudBlobContainer projectImages = cloudBlobClient.GetContainerReference("projectimages");
-            projectImages.CreateIfNotExistsAsync();
+            ProjectImages = cloudBlobClient.GetContainerReference("projectimages");
+            ProjectImages.CreateIfNotExistsAsync();
         }
+
 
         public static void RemoveImage(Image image)
         {
@@ -41,15 +45,13 @@ namespace PortfolioWebAppV2.Controllers
             // cblob.UploadFromStream(file.InputStream);
         }
 
-        public static void UploadIcon(HttpPostedFileBase file, int projectId, bool temp)
+        public static void UploadIcon(HttpPostedFileBase file, Image image)
         {
-            //string fileName = temp ? Project.GetIconName(projectId) : TempProject.GetIconName(projectId);
-
-            //CloudBlockBlob cblob = IconsContainer.GetBlockBlobReference(fileName);
-            //cblob.Properties.ContentType = "image/png";
+            CloudBlockBlob cBlob = IconsContainer.GetBlockBlobReference(image.Guid + image.FileName);
+            cBlob.Properties.ContentType = file.ContentType;
 
 
-            //cblob.UploadFromStream(file.InputStream);
+            cBlob.UploadFromStream(file.InputStream);
         }
 
         public static void RemoveIcon(int projectId, bool temp)

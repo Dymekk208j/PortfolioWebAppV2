@@ -23,6 +23,8 @@ namespace PortfolioWebAppV2
             container.RegisterType<IRepository<PrivateInformation, int>, PrivateInformationRepository>();
             container.RegisterType<IRepository<Technology, int>, TechnologyRepository>();
             container.RegisterType<IRepository<Project, int>, ProjectsRepository>();
+            container.RegisterType<IRepository<Image, int>, ImageRepository>();
+
 
             container.RegisterType<AccountController>(new InjectionConstructor());
 
