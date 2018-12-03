@@ -9,8 +9,8 @@ namespace PortfolioWebAppV2.Controllers
     public static class BlobConnector
     {
         private static readonly CloudBlobContainer IconsContainer;
-        private static CloudBlobContainer TempProjectImages;
-        private static CloudBlobContainer ProjectImages;
+        //private static CloudBlobContainer TempProjectImages;
+        //private static CloudBlobContainer ProjectImages;
 
         static BlobConnector()
         {
@@ -22,29 +22,20 @@ namespace PortfolioWebAppV2.Controllers
             IconsContainer = cloudBlobClient.GetContainerReference("icons");
             IconsContainer.CreateIfNotExistsAsync();
 
-            TempProjectImages = cloudBlobClient.GetContainerReference("tempprojectimages");
-            TempProjectImages.CreateIfNotExistsAsync();
+            //TempProjectImages = cloudBlobClient.GetContainerReference("tempprojectimages");
+            //TempProjectImages.CreateIfNotExistsAsync();
 
-            ProjectImages = cloudBlobClient.GetContainerReference("projectimages");
-            ProjectImages.CreateIfNotExistsAsync();
+            //ProjectImages = cloudBlobClient.GetContainerReference("projectimages");
+            //ProjectImages.CreateIfNotExistsAsync();
         }
 
-
-        public static void RemoveImage(Image image)
+        public static bool RemoveIcon(Image image)
         {
-            // CloudBlockBlob cblob = image.TempraryProject ? TempProjectImages.GetBlockBlobReference(image.FileName) : ProjectImages.GetBlockBlobReference(image.FileName);
+            CloudBlockBlob cBlob = IconsContainer.GetBlockBlobReference(image.Guid + image.FileName);
 
-            // cblob.DeleteIfExists();
+            return cBlob.DeleteIfExists();
+            
         }
-
-        public static void UploadImage(HttpPostedFileBase file, Image image)
-        {
-            //  CloudBlockBlob cblob = image.TempraryProject ? TempProjectImages.GetBlockBlobReference(image.FileName) : ProjectImages.GetBlockBlobReference(image.FileName);
-
-            // cblob.Properties.ContentType = "image/png";
-            // cblob.UploadFromStream(file.InputStream);
-        }
-
         public static void UploadIcon(HttpPostedFileBase file, Image image)
         {
             CloudBlockBlob cBlob = IconsContainer.GetBlockBlobReference(image.Guid + image.FileName);
@@ -54,28 +45,38 @@ namespace PortfolioWebAppV2.Controllers
             cBlob.UploadFromStream(file.InputStream);
         }
 
-        public static void RemoveIcon(int projectId, bool temp)
-        {
-            //string fileName = temp ? Project.GetIconName(projectId) : TempProject.GetIconName(projectId);
+        //public static void UploadImage(HttpPostedFileBase file, Image image)
+        //{
+        //    //  CloudBlockBlob cblob = image.TempraryProject ? TempProjectImages.GetBlockBlobReference(image.FileName) : ProjectImages.GetBlockBlobReference(image.FileName);
 
-            //CloudBlockBlob cblob = IconsContainer.GetBlockBlobReference(fileName);
-            //cblob.DeleteIfExists();
-        }
+        //    // cblob.Properties.ContentType = "image/png";
+        //    // cblob.UploadFromStream(file.InputStream);
+        //}
 
-        public static void MoveIconFromTempToProject(int tempProjectId, int projectId)
-        {
-            //CloudBlockBlob oldFile = IconsContainer.GetBlockBlobReference(TempProject.GetIconName(tempProjectId));
-            //CloudBlockBlob newFile = IconsContainer.GetBlockBlobReference(Project.GetIconName(projectId));
-            //newFile.StartCopy(oldFile);
-            //oldFile.DeleteIfExists();
-        }
 
-        public static void MoveImageFromTempToProject(Image image, int projectId)
-        {
-            //CloudBlockBlob oldFile = TempProjectImages.GetBlockBlobReference(image.FileName);
-            //CloudBlockBlob newFile = ProjectImages.GetBlockBlobReference("Project" + projectId + image.OriginalFileName);
-            //newFile.StartCopy(oldFile);
-            //oldFile.DeleteIfExists();
-        }
+
+        //public static void RemoveIcon(int projectId, bool temp)
+        //{
+        //    //string fileName = temp ? Project.GetIconName(projectId) : TempProject.GetIconName(projectId);
+
+        //    //CloudBlockBlob cblob = IconsContainer.GetBlockBlobReference(fileName);
+        //    //cblob.DeleteIfExists();
+        //}
+
+        //public static void MoveIconFromTempToProject(int tempProjectId, int projectId)
+        //{
+        //    //CloudBlockBlob oldFile = IconsContainer.GetBlockBlobReference(TempProject.GetIconName(tempProjectId));
+        //    //CloudBlockBlob newFile = IconsContainer.GetBlockBlobReference(Project.GetIconName(projectId));
+        //    //newFile.StartCopy(oldFile);
+        //    //oldFile.DeleteIfExists();
+        //}
+
+        //public static void MoveImageFromTempToProject(Image image, int projectId)
+        //{
+        //    //CloudBlockBlob oldFile = TempProjectImages.GetBlockBlobReference(image.FileName);
+        //    //CloudBlockBlob newFile = ProjectImages.GetBlockBlobReference("Project" + projectId + image.OriginalFileName);
+        //    //newFile.StartCopy(oldFile);
+        //    //oldFile.DeleteIfExists();
+        //}
     }
 }

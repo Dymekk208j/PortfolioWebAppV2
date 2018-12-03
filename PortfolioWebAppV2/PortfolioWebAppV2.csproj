@@ -323,6 +323,10 @@
     <Compile Include="Migrations\201812030027586_GuidPropAddedToImageModel.Designer.cs">
       <DependentUpon>201812030027586_GuidPropAddedToImageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812032152398_RemoveRequairedFromNameInImageModel.cs" />
+    <Compile Include="Migrations\201812032152398_RemoveRequairedFromNameInImageModel.Designer.cs">
+      <DependentUpon>201812032152398_RemoveRequairedFromNameInImageModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -404,6 +408,7 @@
     <Content Include="Lib\assets\images\card\card-img7.jpg" />
     <Content Include="Lib\assets\images\card\card-img8.jpg" />
     <Content Include="Lib\assets\images\card\card-img9.jpg" />
+    <Content Include="Lib\assets\images\icon\AcceptIcon.png" />
     <Content Include="Lib\assets\images\icon\loader.gif" />
     <Content Include="Lib\assets\images\icon\logo.png" />
     <Content Include="Lib\assets\images\icon\logo2.png" />
@@ -415,6 +420,8 @@
     <Content Include="Lib\assets\images\icon\market-value\trends-up-icon.png" />
     <Content Include="Lib\assets\images\icon\market-value\triangle-down.png" />
     <Content Include="Lib\assets\images\icon\market-value\triangle-up.png" />
+    <Content Include="Lib\assets\images\icon\RemoveIcon.png" />
+    <Content Include="Lib\assets\images\icon\selectIconPlaceHolder.png" />
     <Content Include="Lib\assets\images\media\media1.jpg" />
     <Content Include="Lib\assets\images\media\media2.jpg" />
     <Content Include="Lib\assets\images\team\team-author1.jpg" />
@@ -627,6 +634,7 @@
     <Content Include="Views\Projects\ProjectDetails.cshtml" />
     <Content Include="Views\Projects\_TechnologiesPanelPartialView.cshtml" />
     <Content Include="Views\Image\IconsManagement.cshtml" />
+    <Content Include="Views\Projects\_SelectIconPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -679,6 +687,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812030027586_GuidPropAddedToImageModel.resx">
       <DependentUpon>201812030027586_GuidPropAddedToImageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812032152398_RemoveRequairedFromNameInImageModel.resx">
+      <DependentUpon>201812032152398_RemoveRequairedFromNameInImageModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

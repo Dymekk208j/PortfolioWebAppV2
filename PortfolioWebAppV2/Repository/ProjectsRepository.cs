@@ -21,6 +21,11 @@ namespace PortfolioWebAppV2.Repository
             return Context.Projects.ToList();
         }
 
+        public IEnumerable<Image> GetAllIcons()
+        {
+            return Context.Images.Where(i => i.ImageType == ImageType.Icon).ToList();
+        }
+
         public Project Get(int id)
         {
             try

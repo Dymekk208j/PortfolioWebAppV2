@@ -6,17 +6,50 @@
 
 @section Header{ Zarządzanie ikonami  }
 
+@section AdditionalCss
+{
+    <style>
+        .iconCard:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            -moz-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            box-shadow: -1px 9px 40px -12px #000000 !important;
+            box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+        }
+
+            .iconCard:hover .image {
+                opacity: 0.3;
+            }
+
+            .iconCard:hover .middle {
+                opacity: 1;
+            }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+}
 <div class="card">
     <div class="card-body">
         <button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#UploadIcon">Dodaj ikonę</button>
-        @*<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#UploadIcon">Dodaj ikonę</button>
-            <br />
-
-            @foreach (var i in Model)
-            {
-                @Html.Name(i.GetLink())
-                <br/>
-            }*@
         @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
 
         <div class="main-content-inner">
@@ -26,10 +59,16 @@
                     foreach (var image in Model)
                     {
 
-                        <div class="card card-bordered m-1" style="width: 160px;">
+                        <div class="card card-bordered m-1 iconCard" style="width: 160px; ">
                             <div class="card-header p-0 m-0 text-center">@Html.Name(image.FileName)</div>
                             <div class="card-body p-1">
-                                <img src="@Html.Raw("http://" + image.GetLink())" />
+
+                                <img src="@Html.Raw(image.GetLink())" class="image" alt="Image" />
+                                <div class="middle">
+                                    <a href="@Url.Action("RemoveIcon","Image", new{ id = image.ImageId})">
+                                        <img src="~/Lib/assets/images/icon/RemoveIcon.png" alt="RemoveImage" />
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

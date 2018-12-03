@@ -23,6 +23,45 @@
             $(name).click();
         }
     </script>
+    
+    <style>
+        .iconCard:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            -moz-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            box-shadow: -1px 9px 40px -12px #000000 !important;
+            box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+        }
+
+        .iconCard:hover .image {
+            opacity: 0.3;
+        }
+
+        .iconCard:hover .middle {
+            opacity: 1;
+        }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
 }
 
 @using (Html.BeginForm("Create", "Projects", FormMethod.Post, new { id = "MyForm" }))
@@ -33,7 +72,21 @@
 
             <div class="card-body">
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#SelectIcon">
+                        @if (Model?.Icon != null)
+                        {
+                            <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg"/>
 
+                        }
+                        else
+                        {
+                            <img src="~/Lib/assets/images/icon/selectIconPlaceHolder.png" alt="" id="IconImg"/>
+                        }
+                    </a>
+
+                    @Html.HiddenFor(m => m.Icon.ImageId, new{ htmlAttributes = new{ id = "IconId" }})
+                </p>
                 <p class="mt-2">
                     @Html.LabelFor(m => m.Title)
                     @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control" } })
@@ -86,20 +139,24 @@
             </div>
         </div>
     </div>
-
-
-
-
+    
     @Html.Action("GetTechnologiesPanel", "Projects")
-}
-@if (!Model.AuthorId.IsNullOrEmpty())
-{
-    foreach (TechnologyViewModel m in Model.Technologies)
-    {
-        <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
-    }
+
 }
 
+@if (Model != null)
+{
+    if (!Model.AuthorId.IsNullOrEmpty())
+     {
+         foreach (TechnologyViewModel m in Model.Technologies)
+         {
+             <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
+         }
+     }
+}
+
+
+@Html.Action("GetIconsSelectorPanel", "Projects")
 
 @section AdditionalJs
 {
@@ -158,6 +215,12 @@
             return c;
         });
 
+        function selectIcon(ids) {
+            $('#IconId').val(ids);
+            $.get('@Url.Action("GetIconLink", "Projects")', { id: ids }, function (data) {
+                $("#IconImg").attr("src", data);
+            });
+        }
 
     </script>
 }

@@ -210,16 +210,15 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             privateInformation.ForEach(g => context.PrivateInformations.Add(g));
             context.SaveChanges();
 
-            List<Image> images = new List<Image>
-            {
-              new Image(){Favorite = false, FileName = "DynamicsNav.png", ImageType = ImageType.Icon, Guid = "32e95d6a-fed0-4388-b53c-b9e259c134b9"},
-                new Image(){Favorite = false, FileName = "cpp.png", ImageType = ImageType.Icon, Guid = "5c9a0a6e-5f4f-411b-978b-ee82748f5356"},
+            //List<Image> images = new List<Image>
+            //{
+            //  new Image(){Favorite = false, FileName = "DynamicsNav.png", ImageType = ImageType.Icon, Guid = "32e95d6a-fed0-4388-b53c-b9e259c134b9"},
+            //    new Image(){Favorite = false, FileName = "cpp.png", ImageType = ImageType.Icon, Guid = "5c9a0a6e-5f4f-411b-978b-ee82748f5356"},
 
 
-            };
-            // achievements.ForEach(g => context.Achievements.Add(g));
-            images.ForEach(g => context.Images.Add(g));
-            context.SaveChanges();
+            //};
+            //images.ForEach(g => context.Images.Add(g));
+            //context.SaveChanges();
         }
 
 

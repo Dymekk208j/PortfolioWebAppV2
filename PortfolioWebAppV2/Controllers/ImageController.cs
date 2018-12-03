@@ -59,7 +59,34 @@ namespace PortfolioWebAppV2.Controllers
 
 
             return View("IconsManagement", _repository.GetAll());
-
         }
+
+        public ActionResult RemoveIcon(int id)
+        {
+            Image image = _repository.Get(id);
+            if (image == null)
+            {
+                ModelState.AddModelError("CustomError", @"Nie znaleziono ikony o id " + id.ToString());
+
+                return View("IconsManagement", _repository.GetAll());
+            }
+            if (!BlobConnector.RemoveIcon(image))
+            {
+                ModelState.AddModelError("CustomError", @"Nie znaleziono na serwerze ikony o nazwie: " + image.Guid + image.FileName);
+
+                return View("IconsManagement", _repository.GetAll());
+            }
+            if (!_repository.Remove(image))
+            {
+                ModelState.AddModelError("CustomError", @"Błąd usuwania ikony z bazy danych");
+
+                return View("IconsManagement", _repository.GetAll());
+            }
+            
+            
+            return RedirectToAction("IconsManagement");
+        }
+
+       
     }
 }

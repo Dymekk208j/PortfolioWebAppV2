@@ -46,6 +46,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Create(ProjectViewModel projectViewModel)
         {
             projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
+            projectViewModel.Icon = _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
             Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
@@ -128,6 +129,20 @@ namespace PortfolioWebAppV2.Controllers
             IEnumerable<Technology> t = _repository.GetAllTechnologies();
 
             return PartialView("_TechnologiesPanelPartialView", t);
+        }
+
+        public ActionResult GetIconsSelectorPanel()
+        {
+            IEnumerable<Image> icons = _repository.GetAllIcons();
+
+            return PartialView("_SelectIconPartialView", icons);
+        }
+
+        public string GetIconLink(int id)
+        {
+            Image image = _repository.GetAllIcons().First(i => i.ImageId == id);
+
+            return image.GetLink();
         }
     }
 }
