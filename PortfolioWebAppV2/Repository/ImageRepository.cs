@@ -20,6 +20,11 @@ namespace PortfolioWebAppV2.Repository
             return Context.Images.ToList();
         }
 
+        public IEnumerable<Project> GetAllProjects()
+        {
+            return Context.Projects.ToList();
+        }
+
         public Image Get(int id)
         {
             try
@@ -39,7 +44,14 @@ namespace PortfolioWebAppV2.Repository
             Context.Images.Add(entity);
             return Context.SaveChanges() > 0;
         }
+        public bool AddScreenshot(Image entity, int projectId)
+        {
+            Context.Images.Add(entity);
+            var project = Context.Projects.First(p => p.ProjectId == projectId);
+            project.Images.Add(entity);
 
+            return Context.SaveChanges() > 0;
+        }
         public bool Remove(Image entity)
         {
             try
@@ -60,6 +72,23 @@ namespace PortfolioWebAppV2.Repository
             try
             {
                 Image obj = Context.Images.First(a => a.ImageId == imageId);
+                Context.Images.Remove(obj);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return Context.SaveChanges() > 0;
+        }
+
+        public bool RemoveScreenshot(int imageId, int projectId)
+        {
+            try
+            {
+                Image obj = Context.Images.First(a => a.ImageId == imageId);
+                Project project = Context.Projects.First(p => p.ProjectId == projectId);
+                project.Images.Remove(obj);
                 Context.Images.Remove(obj);
             }
             catch (Exception e)

@@ -9,8 +9,7 @@ namespace PortfolioWebAppV2.Controllers
     public static class BlobConnector
     {
         private static readonly CloudBlobContainer IconsContainer;
-        //private static CloudBlobContainer TempProjectImages;
-        //private static CloudBlobContainer ProjectImages;
+        private static CloudBlobContainer ProjectImages;
 
         static BlobConnector()
         {
@@ -22,11 +21,8 @@ namespace PortfolioWebAppV2.Controllers
             IconsContainer = cloudBlobClient.GetContainerReference("icons");
             IconsContainer.CreateIfNotExistsAsync();
 
-            //TempProjectImages = cloudBlobClient.GetContainerReference("tempprojectimages");
-            //TempProjectImages.CreateIfNotExistsAsync();
-
-            //ProjectImages = cloudBlobClient.GetContainerReference("projectimages");
-            //ProjectImages.CreateIfNotExistsAsync();
+            ProjectImages = cloudBlobClient.GetContainerReference("projectimages");
+            ProjectImages.CreateIfNotExistsAsync();
         }
 
         public static bool RemoveIcon(Image image)
@@ -39,6 +35,22 @@ namespace PortfolioWebAppV2.Controllers
         public static void UploadIcon(HttpPostedFileBase file, Image image)
         {
             CloudBlockBlob cBlob = IconsContainer.GetBlockBlobReference(image.Guid + image.FileName);
+            cBlob.Properties.ContentType = file.ContentType;
+
+
+            cBlob.UploadFromStream(file.InputStream);
+        }
+
+        public static bool RemoveScreenshot(Image image)
+        {
+            CloudBlockBlob cBlob = ProjectImages.GetBlockBlobReference(image.Guid + image.FileName);
+
+            return cBlob.DeleteIfExists();
+
+        }
+        public static void UploadScreenshot(HttpPostedFileBase file, Image image)
+        {
+            CloudBlockBlob cBlob = ProjectImages.GetBlockBlobReference(image.Guid + image.FileName);
             cBlob.Properties.ContentType = file.ContentType;
 
 

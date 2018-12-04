@@ -31,7 +31,7 @@
                         <div class="card card-bordered">
                             <div class="card-body">
                                 <h5 class="title">@Html.Name(project.Title)</h5>
-                                <img class="float-md-left rounded" src="~/Lib/Images/DynamicsNav.png" style="margin-bottom: 1em; margin-right: 1em;" alt="" />
+                                <img class="float-md-left rounded" src="@Html.Raw(project.Icon?.GetLink())" style="margin-bottom: 1em; margin-right: 1em;" alt="" />
                                 <div class="media-body">
                                     <p style="text-indent: 2%;">
                                         @Html.Raw(project.ShortDescription)

@@ -1,4 +1,6 @@
-﻿namespace PortfolioWebAppV2.Models.DatabaseModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PortfolioWebAppV2.Models.DatabaseModels
 {
     public enum ImageType
     {
@@ -20,7 +22,7 @@
                 case ImageType.Icon:
                     return "http://damiandziuraportfolio.blob.core.windows.net/icons/" + Guid + FileName;
                 case ImageType.ScreenShot:
-                    return "http://damiandziuraportfolio.blob.core.windows.net/ScreenShots/" + Guid + FileName;
+                    return "http://damiandziuraportfolio.blob.core.windows.net/projectimages/" + Guid + FileName;
                 default:
                     return null;
             }

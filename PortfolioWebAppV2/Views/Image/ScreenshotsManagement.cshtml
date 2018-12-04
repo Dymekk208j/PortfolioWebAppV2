@@ -1,0 +1,114 @@
+﻿@model PortfolioWebAppV2.Models.DatabaseModels.Project
+
+@{
+    Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
+}
+
+@section Header{ Zarządzanie zrzutami ekranu }
+
+@section AdditionalCss
+{
+    <style>
+        .iconCard:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            -moz-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            box-shadow: -1px 9px 40px -12px #000000 !important;
+            box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+        }
+
+            .iconCard:hover .image {
+                opacity: 0.3;
+            }
+
+            .iconCard:hover .middle {
+                opacity: 1;
+            }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+}
+<div class="card">
+    <div class="card-body">
+        <button type="button" class="btn btn-sm btn-primary mb-2" data-toggle="modal" data-target="#UploadScreenshot">Dodaj zrzut ekranu</button>
+        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+
+        <div class="main-content-inner">
+            <div class="row">
+                @if (Model != null)
+                {
+                    foreach (var image in Model.Images)
+                    {
+
+                        <div class="card card-bordered m-1 iconCard" style="width: 160px; ">
+                            <div class="card-header p-0 m-0 text-center">@Html.Name(image.FileName)</div>
+                            <div class="card-body p-1">
+
+                                <img src="@Html.Raw(image.GetLink())" class="image" alt="Image" />
+                                <div class="middle">
+                                    <a href="@Url.Action("RemoveScreenshot","Image", new{ id = image.ImageId, projectId = Model.ProjectId})">
+                                        <img src="~/Lib/assets/images/icon/RemoveIcon.png" alt="RemoveImage" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <h3>Brak elementów do wyświetlenia</h3>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@using (
+    Html.BeginForm("UploadScreenshot", "Image", FormMethod.Post,
+        new { enctype = "multipart/form-data", onsubmit = "return confirm('Czy na pewno chcesz przesłać plik?');" }))
+{
+    <div class="modal fade" id="UploadScreenshot" tabindex="-1" role="dialog" aria-labelledby="UploadScreenshotLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UploadScreenshotLabel">Prześlij zrzut ekranu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.TextBox("file", "", new { type = "file" }) <br />
+                    @Html.HiddenFor(m => m.ProjectId)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Wyślij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+

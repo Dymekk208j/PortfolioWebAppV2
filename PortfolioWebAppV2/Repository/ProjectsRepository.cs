@@ -18,7 +18,7 @@ namespace PortfolioWebAppV2.Repository
 
         public IEnumerable<Project> GetAll()
         {
-            return Context.Projects.ToList();
+            return Context.Projects.Include("Icon").ToList();
         }
 
         public IEnumerable<Image> GetAllIcons()

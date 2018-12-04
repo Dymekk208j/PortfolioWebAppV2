@@ -635,6 +635,8 @@
     <Content Include="Views\Projects\_TechnologiesPanelPartialView.cshtml" />
     <Content Include="Views\Image\IconsManagement.cshtml" />
     <Content Include="Views\Projects\_SelectIconPartialView.cshtml" />
+    <Content Include="Views\Image\ProjectsList.cshtml" />
+    <Content Include="Views\Image\ScreenshotsManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

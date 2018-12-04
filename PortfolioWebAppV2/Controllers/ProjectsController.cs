@@ -46,7 +46,13 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Create(ProjectViewModel projectViewModel)
         {
             projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
-            projectViewModel.Icon = _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
+
+            if (projectViewModel.Icon.ImageId == 0)
+            {
+                ModelState.AddModelError("IconError", @"Musisz wybrać ikonę");
+            }
+            else projectViewModel.Icon = _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
+
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
             Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
@@ -57,7 +63,8 @@ namespace PortfolioWebAppV2.Controllers
 
                 _repository.Add(project);
 
-                return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
+               // return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
+                return RedirectToAction("ScreenshotsManagement", "Image", new {projectId = project.ProjectId});
             }
 
             return View("CreateProject", projectViewModel);
@@ -112,7 +119,7 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Projects(bool? commercial)
         {
             ViewBag.isCommercial = commercial.GetValueOrDefault();
-            IEnumerable<Project> projects = _repository.GetAll().Where(a => a.Commercial == commercial.GetValueOrDefault());
+            IEnumerable<Project> projects = _repository.GetAll().Where(a => a.Commercial == commercial.GetValueOrDefault()).ToList();
 
             return View(projects);
         }

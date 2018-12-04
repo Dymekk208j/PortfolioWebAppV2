@@ -11,7 +11,7 @@ namespace PortfolioWebAppV2.Models.ViewModels
         public int ProjectId { get; set; }
 
         [Display(Name = "Tytuł")]
-        [Required(ErrorMessage = "Tytuł projektu nie może być pustu")]
+        [Required(ErrorMessage = "Tytuł projektu nie może być pusty")]
         public string Title { get; set; }
 
         [AllowHtml]

@@ -23,7 +23,7 @@
             $(name).click();
         }
     </script>
-    
+
     <style>
         .iconCard:hover {
             -webkit-box-shadow: -1px 9px 40px -12px #000000 !important;
@@ -34,13 +34,13 @@
             box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
         }
 
-        .iconCard:hover .image {
-            opacity: 0.3;
-        }
+            .iconCard:hover .image {
+                opacity: 0.3;
+            }
 
-        .iconCard:hover .middle {
-            opacity: 1;
-        }
+            .iconCard:hover .middle {
+                opacity: 1;
+            }
 
         .image {
             opacity: 1;
@@ -72,20 +72,21 @@
 
             <div class="card-body">
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
                 <p>
                     <a href="#" data-toggle="modal" data-target="#SelectIcon">
-                        @if (Model?.Icon != null)
+                        @if (Model?.Icon != null && Model?.Icon?.ImageId != 0)
                         {
-                            <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg"/>
+                            <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg" />
 
                         }
                         else
                         {
-                            <img src="~/Lib/assets/images/icon/selectIconPlaceHolder.png" alt="" id="IconImg"/>
+                            <img src="~/Lib/assets/images/icon/selectIconPlaceHolder.png" alt="" id="IconImg" />
                         }
                     </a>
 
-                    @Html.HiddenFor(m => m.Icon.ImageId, new{ htmlAttributes = new{ id = "IconId" }})
+                    @Html.HiddenFor(m => m.Icon.ImageId)
                 </p>
                 <p class="mt-2">
                     @Html.LabelFor(m => m.Title)
@@ -139,7 +140,7 @@
             </div>
         </div>
     </div>
-    
+
     @Html.Action("GetTechnologiesPanel", "Projects")
 
 }
@@ -147,12 +148,12 @@
 @if (Model != null)
 {
     if (!Model.AuthorId.IsNullOrEmpty())
-     {
-         foreach (TechnologyViewModel m in Model.Technologies)
-         {
-             <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
-         }
-     }
+    {
+        foreach (TechnologyViewModel m in Model.Technologies)
+        {
+            <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
+        }
+    }
 }
 
 
@@ -216,10 +217,12 @@
         });
 
         function selectIcon(ids) {
-            $('#IconId').val(ids);
-            $.get('@Url.Action("GetIconLink", "Projects")', { id: ids }, function (data) {
-                $("#IconImg").attr("src", data);
-            });
+
+            $('#Icon_ImageId').val(ids);
+                $.get('@Url.Action("GetIconLink", "Projects")', { id: ids }, function (data) {
+                    $("#IconImg").attr("src", data);
+                    });
+
         }
 
     </script>
