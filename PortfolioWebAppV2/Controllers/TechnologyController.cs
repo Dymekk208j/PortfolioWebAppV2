@@ -6,6 +6,7 @@ using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class TechnologyController : Controller
     {
         private IRepository<Technology, int> _repository;

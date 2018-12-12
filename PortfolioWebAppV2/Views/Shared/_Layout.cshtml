@@ -7,14 +7,16 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous" />
-
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Lib/Styles/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Lib/assets/css/ekko-lightbox.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Lib/assets/js/ekko-lightbox.js"></script>
+
+    @RenderSection("AdditionalCss", false)
 
 </head>
 <body>
@@ -108,6 +110,7 @@
     </section>
 
 
+@RenderSection("AdditionalJS", false)
 
 </body>
 </html>

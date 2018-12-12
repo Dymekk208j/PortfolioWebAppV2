@@ -19,6 +19,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateProject()
         {
             IEnumerable<TechnologyViewModel> technologies =
@@ -34,6 +35,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProject(int projectId)
         {
             Project project = _repository.Get(projectId);
@@ -43,6 +45,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(ProjectViewModel projectViewModel)
         {
             projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
@@ -71,10 +74,16 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(ProjectViewModel projectViewModel)
         {
             IEnumerable<TechnologyViewModel> tech = projectViewModel.Technologies.Where(a => a.IsSelected);
             projectViewModel.Technologies = tech;
+            if (projectViewModel.Icon.ImageId == 0)
+            {
+                ModelState.AddModelError("IconError", @"Musisz wybrać ikonę");
+            }
+            else projectViewModel.Icon = _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
             Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
@@ -92,6 +101,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult ProjectsManagement()
         {
             IEnumerable<Project> list = _repository.GetAll().Where(m => m.TempProject == false);
@@ -100,6 +110,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult TemporaryProjectsManagement()
         {
             IEnumerable<Project> list = _repository.GetAll().Where(m => m.TempProject);
@@ -108,6 +119,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult RemoveProject(int projectId, bool temporary)
         {
             _repository.Remove(projectId);

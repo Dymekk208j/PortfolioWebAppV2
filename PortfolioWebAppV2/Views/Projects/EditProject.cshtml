@@ -22,6 +22,45 @@
             $(name).click();
         }
     </script>
+
+    <style>
+        .iconCard:hover {
+            -webkit-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -webkit-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            -moz-box-shadow: -1px 9px 40px -12px #000000 !important;
+            -moz-box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+            box-shadow: -1px 9px 40px -12px #000000 !important;
+            box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75) !important;
+        }
+
+            .iconCard:hover .image {
+                opacity: 0.3;
+            }
+
+            .iconCard:hover .middle {
+                opacity: 1;
+            }
+
+        .image {
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: .5s ease;
+            backface-visibility: hidden;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
 }
 
 @using (Html.BeginForm("Update", "Projects", FormMethod.Post, new { id = "MyForm" }))
@@ -33,6 +72,22 @@
             <div class="card-body">
                 @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 @Html.HiddenFor(m => m.ProjectId)
+
+                <p>
+                    <a href="#" data-toggle="modal" data-target="#SelectIcon">
+                        @if (Model?.Icon != null && Model?.Icon?.ImageId != 0)
+                        {
+                            <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg" />
+
+                        }
+                        else
+                        {
+                            <img src="~/Lib/assets/images/icon/selectIconPlaceHolder.png" alt="" id="IconImg" />
+                        }
+                    </a>
+
+                    @Html.HiddenFor(m => m.Icon.ImageId)
+                </p>
 
                 <p class="mt-2">
                     @Html.LabelFor(m => m.Title)
@@ -82,12 +137,18 @@
                 </div>
 
                 <div class="float-right">
-                    <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new {projectId = Model.ProjectId, temporary = Model.TempProject})';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
-                    <button type="submit" id="SaveButton" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
-                    @if (Model.TempProject)
-                    {
-                        <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                    @{
+                        if (Model != null)
+                        {
+                            <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new {projectId = Model.ProjectId, temporary = Model.TempProject})';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
+                            <button type="submit" id="SaveButton" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
+                            if (Model.TempProject)
+                             {
+                                 <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                             }
+                        }
                     }
+                    
                 </div>
 
             </div>
@@ -96,12 +157,17 @@
 
     @Html.Action("GetTechnologiesPanel", "Projects")
 }
+@Html.Action("GetIconsSelectorPanel", "Projects")
 
-@foreach (TechnologyViewModel m in Model.Technologies)
+@if (Model != null)
 {
-    <script>SelectCheckBox(@Html.Raw(m.TechnologyId))</script>
+    foreach (TechnologyViewModel m in Model.Technologies)
+    {
+        <script>
+    SelectCheckBox(@Html.Raw(m.TechnologyId))
+        </script>
+    }
 }
-
 @section AdditionalJs
 {
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
@@ -139,6 +205,14 @@
     </script>
 
     <script>
+        function selectIcon(ids) {
+
+            $('#Icon_ImageId').val(ids);
+            $.get('@Url.Action("GetIconLink", "Projects")', { id: ids }, function (data) {
+                $("#IconImg").attr("src", data);
+            });
+
+        }
 
         function AddToPortfolio() {
             $('#TempProject').prop('checked', false);

@@ -30,7 +30,7 @@ namespace PortfolioWebAppV2.Repository
         {
             try
             {
-                return Context.Projects.First(a => a.ProjectId == id);
+                return Context.Projects.Include("Icon").Include("Images").First(a => a.ProjectId == id);
 
             }
             catch (Exception e)
@@ -81,7 +81,7 @@ namespace PortfolioWebAppV2.Repository
             try
             {
                 Project existingProject = Context.Projects
-                    .Include("Technologies").FirstOrDefault(p => p.ProjectId == entity.ProjectId);
+                    .Include("Technologies").Include("Icon").FirstOrDefault(p => p.ProjectId == entity.ProjectId);
 
                 if (existingProject == null) return false;
                 existingProject.Commercial = entity.Commercial;

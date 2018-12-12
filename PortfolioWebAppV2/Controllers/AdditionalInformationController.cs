@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdditionalInformationController : Controller
     {
         private IRepository<AdditionalInfo, int> _repository;

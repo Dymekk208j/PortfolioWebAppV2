@@ -6,6 +6,7 @@ using PortfolioWebAppV2.Models.ViewModels;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
         [HttpGet]

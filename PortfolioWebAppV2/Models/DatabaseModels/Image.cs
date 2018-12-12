@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PortfolioWebAppV2.Models.DatabaseModels
+﻿namespace PortfolioWebAppV2.Models.DatabaseModels
 {
     public enum ImageType
     {

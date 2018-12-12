@@ -7,6 +7,8 @@ namespace PortfolioWebAppV2.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            CommandTimeout = 300;
+
         }
 
         protected override void Seed(Models.DatabaseModels.ApplicationDbContext context)

@@ -1,33 +1,130 @@
 ﻿@using PortfolioWebAppV2.Models.DatabaseModels
 @model PortfolioWebAppV2.Models.DatabaseModels.Project
+@section additionalCSS{
+    <style>
+        .carousel-inner .carousel-item.active,
+        .carousel-inner .carousel-item-next,
+        .carousel-inner .carousel-item-prev {
+            display: flex;
+        }
 
-<div class="row ">
-    <div class="col-12 mt-5">
-        <div class="card">
-            <div class="card-body align-self-center">
-                <h1>@Html.Name(Model.Title)</h1>
-                <h6>
+        .carousel-inner .carousel-item-right.active,
+        .carousel-inner .carousel-item-next {
+            transform: translateX(25%);
+        }
+
+        .carousel-inner .carousel-item-left.active,
+        .carousel-inner .carousel-item-prev {
+            transform: translateX(-25%);
+        }
+
+        .carousel-inner .carousel-item-right,
+        .carousel-inner .carousel-item-left{
+            transform: translateX(0);
+
+        }
+    </style>
+
+
+}
+
+
+<div class="card ">
+    <div class="card-body ">
+        <div style="text-align: center;">
+
+            <blockquote class="blockquote">
+                <p class="mb-0 h1">@Html.Name(Model.Title)</p>
+                <footer class="blockquote-footer">
                     Technologie:
                     @foreach (Technology p in Model.Technologies)
                     {
-                        @Html.Name(p.Name + " ")
+                        if (Model.Technologies.Count() > 1)
+                        {
+                            if (Model.Technologies.First() == p)
+                            {
+                                @Html.Name(p.Name)
+
+                            }
+                            else
+                            {
+                                @Html.Name(", " + p.Name)
+
+                            }
+                        }
+                        else
+                        {
+                            @Html.Name(", " + p.Name)
+                        }
                     }
-                </h6>
-                
-                <h3>Autor:</h3>
-                @Html.Name(ApplicationUser.GetUserName(Model.AuthorId))
 
-                <h3>Skrócony opis</h3>
+                </footer>
+                <footer class="blockquote-footer">Autor: @Html.Name(ApplicationUser.GetUserName(Model.AuthorId))</footer>
+                @if (!string.IsNullOrEmpty(Model.GitHubLink))
+                {
+                    <footer class="blockquote-footer">GitHub: <a href="@Html.Raw(Model.GitHubLink)">@Html.Name(Model.GitHubLink)</a></footer>
+                }
+            </blockquote>
+
+            @if (Model?.Icon != null && Model?.Icon?.ImageId != 0)
+            {
+                <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg" />
+
+            }
+            else
+            {
+                <img src="~/Lib/assets/images/icon/selectIconPlaceHolder.png" alt="" id="IconImg" />
+            }
+
+            <div class="mt-3">
+                <p class="h1">Skrócony opis</p>
                 @Html.Raw(Model.ShortDescription)
+            </div>
+            <div class="mt-3">
+                <p class="h1">Galeria</p>
+                @Html.Partial("_GalleryModulePartialView", Model.Images)
+            </div>
 
-                <h3>Pełen opis</h3>
+            <div class="mt-3">
+                <p class="h1">Pełen opis</p>
                 @Html.Raw(Model.FullDescription)
-
-                <h3>GitHub:</h3>
-                @Html.Name(Model.GitHubLink)
-                
-
             </div>
         </div>
     </div>
 </div>
+
+@section AdditionalJS
+{
+
+    <script>
+        $('#recipeCarousel').carousel({
+            interval: 10000
+        });
+
+        $('.carousel .carousel-item').each(function(){
+            var next = $(this).next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+            next.children(':first-child').clone().appendTo($(this));
+
+            for (var i=0;i<4;i++) {
+                next=next.next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+
+                next.children(':first-child').clone().appendTo($(this));
+            }
+        });
+
+
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+        
+    </script>
+}

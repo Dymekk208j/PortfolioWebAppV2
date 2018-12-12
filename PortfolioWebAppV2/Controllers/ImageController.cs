@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ImageController : Controller
     {
         private ImageRepository _repository;

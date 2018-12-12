@@ -4,6 +4,7 @@ using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PrivateInformationController : Controller
     {
         private IRepository<PrivateInformation, int> _repository;

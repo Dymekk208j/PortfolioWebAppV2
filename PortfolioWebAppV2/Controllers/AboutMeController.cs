@@ -17,6 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AboutMeManagement()
         {
             AboutMeViewModel aboutMeViewModel =
@@ -35,6 +36,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(AboutMeViewModel aboutMeViewModel)
         {
             AboutMe aboutMe = Mapper.Map<AboutMeViewModel, AboutMe>(aboutMeViewModel);

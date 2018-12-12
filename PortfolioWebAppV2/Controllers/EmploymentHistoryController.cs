@@ -6,6 +6,7 @@ using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EmploymentHistoryController : Controller
     {
         private IRepository<EmploymentHistory, int> _repository;

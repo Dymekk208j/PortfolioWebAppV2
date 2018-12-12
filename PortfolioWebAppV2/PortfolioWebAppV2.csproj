@@ -333,6 +333,7 @@
     <Compile Include="Models\DatabaseModels\AdditionalInfo.cs" />
     <Compile Include="Models\DatabaseModels\Contact.cs" />
     <Compile Include="Models\DatabaseModels\DatabaseContext\DbInitializer.cs" />
+    <Compile Include="Models\DatabaseModels\DatabaseContext\MyDbConfiguration.cs" />
     <Compile Include="Models\DatabaseModels\Education.cs" />
     <Compile Include="Models\DatabaseModels\EmploymentHistory.cs" />
     <Compile Include="Models\DatabaseModels\Image.cs" />
@@ -379,6 +380,7 @@
     </Content>
     <Content Include="Lib\assets\css\bootstrap.min.css" />
     <Content Include="Lib\assets\css\default-css.css" />
+    <Content Include="Lib\assets\css\ekko-lightbox.css" />
     <Content Include="Lib\assets\css\font-awesome.min.css" />
     <Content Include="Lib\assets\css\jquery.dataTables.css" />
     <Content Include="Lib\assets\css\metisMenu.css" />
@@ -431,6 +433,8 @@
     <Content Include="Lib\assets\images\team\team-author5.jpg" />
     <Content Include="Lib\assets\js\bar-chart.js" />
     <Content Include="Lib\assets\js\bootstrap.min.js" />
+    <Content Include="Lib\assets\js\ekko-lightbox.js" />
+    <Content Include="Lib\assets\js\ekko-lightbox.min.js" />
     <Content Include="Lib\assets\js\jquery.slicknav.min.js" />
     <Content Include="Lib\assets\js\jquery.slimscroll.min.js" />
     <Content Include="Lib\assets\js\line-chart.js" />
@@ -492,6 +496,14 @@
     <Content Include="Content\summernote\font\summernote.woff" />
     <Content Include="Content\summernote\font\summernote.ttf" />
     <Content Include="Content\summernote\font\summernote.eot" />
+    <Content Include="Lib\assets\js\ekko-lightbox.js.map" />
+    <Content Include="Lib\assets\js\ekko-lightbox.min.js.map" />
+    <None Include="Properties\PublishProfiles\DamianDziura - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\DamianDziura - FTP1.pubxml" />
+    <None Include="Properties\PublishProfiles\DamianDziura - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\DamianDziura - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\DamianDziura2 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\DamianDziura2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -566,7 +578,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -637,6 +651,7 @@
     <Content Include="Views\Projects\_SelectIconPartialView.cshtml" />
     <Content Include="Views\Image\ProjectsList.cshtml" />
     <Content Include="Views\Image\ScreenshotsManagement.cshtml" />
+    <Content Include="Views\Projects\_GalleryModulePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

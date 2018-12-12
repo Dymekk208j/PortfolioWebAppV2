@@ -17,6 +17,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AchievementsManagement()
         {
             IEnumerable<Achievement> achievements = _repository.GetAll();
@@ -25,6 +26,7 @@ namespace PortfolioWebAppV2.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Remove(int id)
         {
             try
@@ -42,6 +44,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Add(Achievement achievement)
         {
             if (ModelState.IsValid)
@@ -54,6 +57,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(Achievement achievement)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddAchievementToCv(CvViewModel cvModel)
         {
             if (_repository.ChangeStatusInCv(cvModel.SelectedAchievement))
@@ -76,6 +81,7 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult RemoveAchievementFromCv(int id)
         {
             if (_repository.ChangeStatusInCv(id))

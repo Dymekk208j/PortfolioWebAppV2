@@ -23,7 +23,7 @@ namespace PortfolioWebAppV2.Controllers
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
             ContactViewModel arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
-
+            if (arg == null) return null;
             return PartialView("_SocialMediaBarPartialView", arg);
         }
       

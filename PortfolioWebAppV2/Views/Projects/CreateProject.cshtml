@@ -190,6 +190,9 @@
 
         var FullDesc = htmlDecode('@(Model?.FullDescription ?? "")');
         var ShortDesc = htmlDecode('@(Model?.ShortDescription ?? "")');
+
+        $('#TextBoxFullDescription').summernote('code', FullDesc);
+        $('#TextBoxShortDescription').summernote('code', ShortDesc);
     </script>
 
     <script>
