@@ -12,7 +12,7 @@ namespace PortfolioWebAppV2.Models.ViewModels
 
         [Display(Name = "Treść")]
         [Required(ErrorMessage = "Musisz wprowadzić treść")]
-        [StringLength(200, MinimumLength = 10, ErrorMessage = "Treść musi się składać od 10 do 200 znaków")]
+        [StringLength(1500, MinimumLength = 10, ErrorMessage = "Treść musi się składać od 10 do 500 znaków")]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 

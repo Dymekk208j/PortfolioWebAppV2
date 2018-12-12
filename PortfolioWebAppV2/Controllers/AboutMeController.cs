@@ -42,11 +42,13 @@ namespace PortfolioWebAppV2.Controllers
             AboutMe aboutMe = Mapper.Map<AboutMeViewModel, AboutMe>(aboutMeViewModel);
             aboutMe.AboutMeId = 1;
 
+            if (ModelState.IsValid && _repository.Update(aboutMe))
+            {
+                return RedirectToAction("AboutMeManagement");
+            }
 
-            if (ModelState.IsValid && _repository.Update(aboutMe)) return RedirectToAction("AboutMeManagement");
 
-
-            return View("ErrorPage");
+            return View("AboutMeManagement", aboutMeViewModel);
         }
     }
 }

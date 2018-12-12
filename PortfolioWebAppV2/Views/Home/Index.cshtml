@@ -104,14 +104,14 @@
         <div class="row">
             <div class="col text-center">
                 <div style="text-align: center;">
-                    @*@if (!Model.IsIcon)
+                    @if (Model.Icon == null)
                     {
                         <img class="rounded" src="~/Lib/images/PlaceHolder150x150.png" style="margin-bottom: 2em;" alt="" />
                     }
                     else
                     {
-                        @*<img class="rounded" src="@Html.Raw(Project.GetIconLink(Model.ProjectId))" style="margin-bottom: 2em;" alt="" />
-                    }*@
+                        <img class="rounded" src="@Html.Raw(Model.Icon?.GetLink())" style="margin-bottom: 2em;" alt="" />
+                    }
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
         <div class="row">
             <div class="col text-center">
                 <p style="text-indent: 2%;">
-                    @Html.DisplayFor(m => m.ShortDescription);
+                    @Html.DisplayFor(m => m.ShortDescription)
                 </p>
             </div>
         </div>

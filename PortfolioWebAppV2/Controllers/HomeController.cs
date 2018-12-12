@@ -2,16 +2,37 @@
 using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
+using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ContactRepository _contactRepository;
+        private readonly PrivateInformationRepository _privateInformationRepository;
+        private readonly AchievementRepository _achievementRepository;
+        private readonly AdditionalInformationRepository _additionalInformationRepository;
+        private readonly EducationRepository _educationRepository;
+        private readonly EmploymentHistoryRepository _employmentHistoryRepository;
+        private readonly ProjectsRepository _projectsRepository;
+        private readonly TechnologyRepository _technologyRepository;
+
+        public HomeController(ContactRepository contactRepository, PrivateInformationRepository privateInformationRepository, AchievementRepository achievementRepository, AdditionalInformationRepository additionalInformationRepository, EducationRepository educationRepository, EmploymentHistoryRepository employmentHistoryRepository, ProjectsRepository projectsRepository, TechnologyRepository technologyRepository)
+        {
+            _contactRepository = contactRepository;
+            _privateInformationRepository = privateInformationRepository;
+            _achievementRepository = achievementRepository;
+            _additionalInformationRepository = additionalInformationRepository;
+            _educationRepository = educationRepository;
+            _employmentHistoryRepository = employmentHistoryRepository;
+            _projectsRepository = projectsRepository;
+            _technologyRepository = technologyRepository;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Project project = db.Projects.OrderByDescending(a => a.ProjectId).FirstOrDefault();
+            Project project = _projectsRepository.GetAll().OrderByDescending(a => a.ProjectId).FirstOrDefault();
 
             return View(project);
         }
@@ -21,27 +42,23 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult GetSocialMediaBarPartial()
         {
-            ApplicationDbContext dbContext = new ApplicationDbContext();
-            ContactViewModel arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(dbContext.Contacts.FirstOrDefault());
-            if (arg == null) return null;
-            return PartialView("_SocialMediaBarPartialView", arg);
+            ContactViewModel arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(_contactRepository.GetAll().FirstOrDefault());
+            return arg == null ? null : PartialView("_SocialMediaBarPartialView", arg);
         }
       
         [HttpGet]
         public ActionResult Cv()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            
             CvViewModel cvViewModel = new CvViewModel()
             {
-                Contact = db.Contacts.FirstOrDefault(),
-                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achievements = db.Achievements.Where(a => a.ShowInCv).ToList(),
-                AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
-                Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
-                EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),
-                Projects = db.Projects.Where(a => a.ShowInCv).ToList(),
-                Technologies = db.Technologies.Where(a => a.ShowInCv).ToList()
+                Contact = _contactRepository.GetAll().FirstOrDefault(),
+                PrivateInformation = _privateInformationRepository.GetAll().FirstOrDefault(),
+                Achievements = _achievementRepository.GetAll().ToList(),
+                AdditionalInfos = _additionalInformationRepository.GetAll().ToList(),
+                Educations = _educationRepository.GetAll().ToList(),
+                EmploymentHistories = _employmentHistoryRepository.GetAll().ToList(),
+                Projects = _projectsRepository.GetAll().ToList(),
+                Technologies = _technologyRepository.GetAll().ToList()
             };
 
             return View(cvViewModel);
@@ -50,18 +67,16 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult PrintCv()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-
             CvViewModel cvViewModel = new CvViewModel()
             {
-                Contact = db.Contacts.FirstOrDefault(),
-                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achievements = db.Achievements.Where(a => a.ShowInCv).ToList(),
-                AdditionalInfos = db.AdditionalInfos.Where(a => a.ShowInCv).ToList(),
-                Educations = db.Educations.Where(a => a.ShowInCv).ToList(),
-                EmploymentHistories = db.EmploymentHistories.Where(a => a.ShowInCv).ToList(),
-                Projects = db.Projects.Where(a => a.ShowInCv).ToList(),
-                Technologies = db.Technologies.Where(a => a.ShowInCv).ToList()
+                Contact = _contactRepository.GetAll().FirstOrDefault(),
+                PrivateInformation = _privateInformationRepository.GetAll().FirstOrDefault(),
+                Achievements = _achievementRepository.GetAll().ToList(),
+                AdditionalInfos = _additionalInformationRepository.GetAll().ToList(),
+                Educations = _educationRepository.GetAll().ToList(),
+                EmploymentHistories = _employmentHistoryRepository.GetAll().ToList(),
+                Projects = _projectsRepository.GetAll().ToList(),
+                Technologies = _technologyRepository.GetAll().ToList()
             };
 
             return View(cvViewModel);

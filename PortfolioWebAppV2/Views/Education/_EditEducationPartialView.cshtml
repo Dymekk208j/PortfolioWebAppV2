@@ -36,11 +36,11 @@
                         <p>
                             @Html.ValidationMessageFor(m => m.StartDate, "*", new { @class = "text-danger" })
                             @Html.LabelFor(m => m.StartDate, new { type = "date" })
-                            <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="StartDate" name="StartDate">
+                            <input class="form-control" type="date" value="@Html.Raw(Model.StartDate.ToString("yyyy-MM-dd"))" id="StartDate" name="StartDate">
 
                         </p>
                         <p>
-                            @Html.EditorFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { @Name = @Html.Raw("addCurrentPlaceOfEducation" + Model.EducationId), id = @Html.Raw("addCurrentPlaceOfEducation" + Model.EducationId) } })
+                            @Html.EditorFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { id = @Html.Raw("addCurrentPlaceOfEducation" + Model.EducationId) } })
                             @Html.LabelFor(m => m.CurrentPlaceOfEducation, new { htmlAttributes = new { @class = "control-label" } })
 
                         </p>
@@ -49,7 +49,7 @@
 
                             @Html.ValidationMessageFor(m => m.EndDate, "*", new { @class = "text-danger" })
                             @Html.LabelFor(m => m.EndDate, new { type = "date" })
-                            <input class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="EndDate" name="EndDate">
+                            <input class="form-control" type="date" value="@Html.Raw(Model.EndDate.ToString("yyyy-MM-dd"))" id="EndDate" name="EndDate">
                         </p>
                         <p>
                             <span>

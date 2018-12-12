@@ -41,9 +41,6 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult EditCv()
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var test = _contactRepository.GetAll().FirstOrDefault();
-
             CvViewModel cvViewModel = new CvViewModel()
             {
                 Contact = _contactRepository.GetAll().FirstOrDefault(),

@@ -21,7 +21,7 @@ namespace PortfolioWebAppV2.Controllers
 
         public ActionResult IconsManagement()
         {
-            IEnumerable<Image> images = _repository.GetAll();
+            IEnumerable<Image> images = _repository.GetAll().Where(i => i.ImageType == ImageType.Icon);
 
             return View(images);
         }

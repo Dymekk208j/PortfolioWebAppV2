@@ -28,7 +28,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public ApplicationDbContext()
             : base("AppConnectionString", throwIfV1Schema: false)
         {
-            this.Database.CommandTimeout = 900;
+            Database.CommandTimeout = 900;
 
         }
 

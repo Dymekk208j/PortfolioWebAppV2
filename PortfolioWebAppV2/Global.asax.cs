@@ -1,10 +1,8 @@
-﻿using System.Data.Entity;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using AutoMapper;
 using PortfolioWebAppV2.Models.DatabaseModels;
-using PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext;
 using PortfolioWebAppV2.Models.ViewModels;
 
 namespace PortfolioWebAppV2
@@ -26,7 +24,7 @@ namespace PortfolioWebAppV2
 
             });
 
-            Database.SetInitializer(new DbInitializer());
+            //Database.SetInitializer(new DbInitializer());
             UnityConfig.RegisterComponents();
         }
     }
