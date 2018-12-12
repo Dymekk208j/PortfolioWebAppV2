@@ -136,7 +136,22 @@ namespace PortfolioWebAppV2.Repository
             try
             {
                 Project project = Context.Projects.Single(a => a.ProjectId == id);
-                project.TempProject = true;
+                project.ShowInCv = true;
+                return Update(project);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public bool RemoveFromPortfolio(int id)
+        {
+            try
+            {
+                Project project = Context.Projects.Single(a => a.ProjectId == id);
+                project.ShowInCv = false;
                 return Update(project);
             }
             catch (Exception e)

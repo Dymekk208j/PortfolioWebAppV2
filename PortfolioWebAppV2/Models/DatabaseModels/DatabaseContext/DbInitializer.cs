@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 {
-    public class DbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class DbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -23,11 +23,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
 
             userManager.Create(user, "Damian13");
             userManager.Create(new ApplicationUser() { UserName = "Dymekk", FirstName = "Damian2" }, "Damian13");
-            for (int i = 0; i < 32; i++)
-            {
-                userManager.Create(new ApplicationUser() { UserName = "User" + i.ToString(), FirstName = "User" + i.ToString() }, "Damian13");
-            }
-
+         
             RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             if (!roleManager.RoleExists("Admin"))
             {
@@ -180,28 +176,6 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
             context.Projects.Add(project4);
             context.SaveChanges();
 
-            for (int i = 0; i < 10; i++)
-            {
-                project4 =
-                    new Project()
-                    {
-                        FullDescription = "Pelen opis 4 projektu",
-                        ShortDescription = "Krotki opis 4 projektu",
-                        Title = "Tytul 4 projektu",
-                        Commercial = true,
-                        ShowInCv = true,
-                        DateTimeCreated = new DateTime(2016, 1, 1, 01, 01, 01),
-                        Technologies = new List<Technology>()
-                    };
-
-                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 1));
-                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 2));
-                project4.Technologies.Add(technologies.Find(a => a.TechnologyId == 3));
-
-                context.Projects.Add(project4);
-                context.SaveChanges();
-            }
-
             List<PrivateInformation> privateInformation = new List<PrivateInformation>
             {
                 new PrivateInformation() { PrivateInformationId = 1, City = "Koszalin", Email = "Kontakt@DamianDziura.pl", FirstName = "Damian", LastName = "Dziura"
@@ -209,16 +183,6 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
               };
             privateInformation.ForEach(g => context.PrivateInformations.Add(g));
             context.SaveChanges();
-
-            //List<Image> images = new List<Image>
-            //{
-            //  new Image(){Favorite = false, FileName = "DynamicsNav.png", ImageType = ImageType.Icon, Guid = "32e95d6a-fed0-4388-b53c-b9e259c134b9"},
-            //    new Image(){Favorite = false, FileName = "cpp.png", ImageType = ImageType.Icon, Guid = "5c9a0a6e-5f4f-411b-978b-ee82748f5356"},
-
-
-            //};
-            //images.ForEach(g => context.Images.Add(g));
-            //context.SaveChanges();
         }
 
 

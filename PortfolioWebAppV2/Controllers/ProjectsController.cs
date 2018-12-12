@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using PortfolioWebAppV2.Models.DatabaseModels;
+using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AutoMapper;
-using PortfolioWebAppV2.Models.ViewModels;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -30,7 +30,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 Technologies = technologies
             };
-            
+
             return View(project);
         }
 
@@ -59,15 +59,15 @@ namespace PortfolioWebAppV2.Controllers
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
             Project project = Mapper.Map<ProjectViewModel, Project>(projectViewModel);
-            
+
 
             if (ModelState.IsValid)
             {
 
                 _repository.Add(project);
 
-               // return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
-                return RedirectToAction("ScreenshotsManagement", "Image", new {projectId = project.ProjectId});
+                // return project.TempProject == false ? RedirectToAction("ProjectsManagement") : RedirectToAction("TemporaryProjectsManagement");
+                return RedirectToAction("ScreenshotsManagement", "Image", new { projectId = project.ProjectId });
             }
 
             return View("CreateProject", projectViewModel);
@@ -162,6 +162,22 @@ namespace PortfolioWebAppV2.Controllers
             Image image = _repository.GetAllIcons().First(i => i.ImageId == id);
 
             return image.GetLink();
+        }
+
+        [HttpPost]
+        public ActionResult AddProjectToCv(CvViewModel cvModel)
+        {
+            _repository.AddToPortfolio(cvModel.SelectedProject);
+
+            return RedirectToAction("EditCv", "AdminPanel");
+        }
+
+        [HttpGet]
+        public ActionResult RemoveProjectFromCv(int id)
+        {
+            _repository.RemoveFromPortfolio(id);
+
+            return RedirectToAction("EditCv", "AdminPanel");
         }
     }
 }

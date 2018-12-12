@@ -3,12 +3,35 @@ using System.Linq;
 using System.Web.Mvc;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
+using PortfolioWebAppV2.Repository;
 
 namespace PortfolioWebAppV2.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminPanelController : Controller
     {
+        private readonly ContactRepository _contactRepository;
+        private readonly PrivateInformationRepository _privateInformationRepository;
+        private readonly AchievementRepository _achievementRepository;
+        private readonly AdditionalInformationRepository _additionalInformationRepository;
+        private readonly EducationRepository _educationRepository;
+        private readonly EmploymentHistoryRepository _employmentHistoryRepository;
+        private readonly ProjectsRepository _projectsRepository;
+        private readonly TechnologyRepository _technologyRepository;
+
+        public AdminPanelController(ContactRepository contactRepository, PrivateInformationRepository privateInformationRepository, AchievementRepository achievementRepository, AdditionalInformationRepository additionalInformationRepository, EducationRepository educationRepository, EmploymentHistoryRepository employmentHistoryRepository, ProjectsRepository projectsRepository, TechnologyRepository technologyRepository)
+        {
+            _contactRepository = contactRepository;
+            _privateInformationRepository = privateInformationRepository;
+            _achievementRepository = achievementRepository;
+            _additionalInformationRepository = additionalInformationRepository;
+            _educationRepository = educationRepository;
+            _employmentHistoryRepository = employmentHistoryRepository;
+            _projectsRepository = projectsRepository;
+            _technologyRepository = technologyRepository;
+        }
+
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -19,47 +42,24 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult EditCv()
         {
             ApplicationDbContext db = new ApplicationDbContext();
+            var test = _contactRepository.GetAll().FirstOrDefault();
 
             CvViewModel cvViewModel = new CvViewModel()
             {
-                Contact = db.Contacts.FirstOrDefault(),
-                PrivateInformation = db.PrivateInformations.FirstOrDefault(),
-                Achievements = db.Achievements.ToList(),
-                AdditionalInfos = db.AdditionalInfos.ToList(),
-                Educations = db.Educations.ToList(),
-                EmploymentHistories = db.EmploymentHistories.ToList(),
-                Projects = db.Projects.ToList(),
-                Technologies = db.Technologies.ToList()
+                Contact = _contactRepository.GetAll().FirstOrDefault(),
+                PrivateInformation = _privateInformationRepository.GetAll().FirstOrDefault(),
+                Achievements = _achievementRepository.GetAll().ToList(),
+                AdditionalInfos = _additionalInformationRepository.GetAll().ToList(),
+                Educations = _educationRepository.GetAll().ToList(),
+                EmploymentHistories = _employmentHistoryRepository.GetAll().ToList(),
+                Projects = _projectsRepository.GetAll().ToList(),
+                Technologies = _technologyRepository.GetAll().ToList()
             };
+
 
             return View("Cv/EditCv", cvViewModel);
         }
         
-        [HttpPost]
-        public ActionResult AddProjectToCv(CvViewModel cvModel)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Project project = new Project() { ProjectId = cvModel.SelectedProject, ShowInCv = true };
-
-            db.Projects.Attach(project);
-            db.Entry(project).Property(x => x.ShowInCv).IsModified = true;
-            db.SaveChanges();
-
-            return RedirectToAction("EditCv");
-        }
-
-        [HttpGet]
-        public ActionResult RemoveProjectFromCv(int id)
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            Project project = new Project() { ProjectId = id, ShowInCv = false };
-
-            db.Projects.Attach(project);
-            db.Entry(project).Property(x => x.ShowInCv).IsModified = true;
-            db.SaveChanges();
-
-            return RedirectToAction("EditCv");
-        }
 
         [HttpGet]
         public ActionResult UserMgt()
