@@ -98,7 +98,7 @@ namespace PortfolioWebAppV2.Controllers
 
         public ActionResult ScreenshotsManagement(int projectId)
         {
-            var project = _repository.GetAllProjects().First(p => p.ProjectId == projectId);
+            var project = _repository.GetProject(projectId);
 
             return View(project);
         }

@@ -121,7 +121,7 @@ namespace PortfolioWebAppV2.Tests.Unit.Repository
         }
 
         [Theory()]
-        [InlineData("Nowy tytuł", "Nowy opis", "2018-11-04", false)]
+        [InlineData("Nowy tytuł", "Wygrana w konkursie na opracowanie koncepcji/projektu społecznej kampanii edukacyjno-informacyjnej w zakresie gospodarki odpadami kierowanej do mieszkańców Koszalina.", "2018-11-04", false)]
         public void UpdateTest(string title, string description, DateTime date, bool showInCv)
         {
             //Arrange

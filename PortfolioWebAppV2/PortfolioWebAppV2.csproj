@@ -327,6 +327,10 @@
     <Compile Include="Migrations\201812032152398_RemoveRequairedFromNameInImageModel.Designer.cs">
       <DependentUpon>201812032152398_RemoveRequairedFromNameInImageModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812211722551_AchievementModelHasBeenUpdated.cs" />
+    <Compile Include="Migrations\201812211722551_AchievementModelHasBeenUpdated.Designer.cs">
+      <DependentUpon>201812211722551_AchievementModelHasBeenUpdated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -707,6 +711,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812032152398_RemoveRequairedFromNameInImageModel.resx">
       <DependentUpon>201812032152398_RemoveRequairedFromNameInImageModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812211722551_AchievementModelHasBeenUpdated.resx">
+      <DependentUpon>201812211722551_AchievementModelHasBeenUpdated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,12 @@ namespace PortfolioWebAppV2.Repository
 
         public IEnumerable<Project> GetAllProjects()
         {
-            return Context.Projects.ToList();
+            return Context.Projects.Include("Images").ToList();
+        }
+
+        public Project GetProject(int projectId)
+        {
+            return Context.Projects.Include("Images").First(p => p.ProjectId == projectId); ;
         }
 
         public Image Get(int id)

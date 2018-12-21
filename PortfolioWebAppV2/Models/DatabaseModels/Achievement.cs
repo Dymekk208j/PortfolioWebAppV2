@@ -8,12 +8,12 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         public int AchievementId { get; set; }
 
         [Required(ErrorMessage = "Musisz wprowadzić tytuł.")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Tytuł musi się składać od 5 do 50 znaków")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Tytuł musi się składać od 5 do 100 znaków")]
         [Display(Name = "Tytuł osiągnięcia")]
         public string Title { get; set; }
 
         [Display(Name = "Opis osiągnięcia")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Opis musi się składać od 5 do 200 znaków")]
+        [StringLength(250, MinimumLength = 5, ErrorMessage = "Opis musi się składać od 5 do 250 znaków")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Musisz wprowadzić date.")]
