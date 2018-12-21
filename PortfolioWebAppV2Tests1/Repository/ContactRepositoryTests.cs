@@ -7,7 +7,7 @@ using System.Linq;
 using Moq;
 using PortfolioWebAppV2.Models.DatabaseModels;
 
-namespace PortfolioWebAppV2Tests1.Repository
+namespace PortfolioWebAppV2.Tests.Unit.Repository
 {
     public class ContactRepositoryTests
     {

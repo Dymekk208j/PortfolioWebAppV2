@@ -7,7 +7,7 @@ using Moq;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Repository;
 
-namespace PortfolioWebAppV2Tests1.Repository
+namespace PortfolioWebAppV2.Tests.Unit.Repository
 {
     public class EducationRepositoryTests
     {
@@ -41,12 +41,13 @@ namespace PortfolioWebAppV2Tests1.Repository
         }
 
         [Theory()]
-        [InlineData(true, "Politechnika koszalinska", "WYDZIAŁ ELEKTRONIKI I INFORMATYKI", "Inżynieria testów oprogramowania", "2020-01-01", "2016-01-01", true)]
-        public void AddTest(bool currentPlaceOfEducation, string schooleName, string department, string specialization, DateTime endDate, DateTime startDate, bool showInCv)
+        [InlineData(true, "Politechni123ka", "WYDZIAŁ", "Inżynieria", "2020-01-01", "2016-01-01", true)]
+        public void AddTest_AddingEducationWithCorrectModelShouldReturnTrue(bool currentPlaceOfEducation, string schooleName, string department, string specialization, DateTime endDate, DateTime startDate, bool showInCv)
         {
             //Arrange
             Education education = new Education()
             {
+                EducationId = 10,
                 CurrentPlaceOfEducation = currentPlaceOfEducation,
                 SchooleName = schooleName,
                 Department = department,
@@ -57,15 +58,15 @@ namespace PortfolioWebAppV2Tests1.Repository
             };
             
 
-                //Act
+            //Act
             _repository.Add(education);
 
 
-            Education result = _repository.GetAll().FirstOrDefault(a =>
+            Education edu = _repository.GetAll().FirstOrDefault(a =>
                 a.CurrentPlaceOfEducation == currentPlaceOfEducation && a.SchooleName == schooleName && a.Department == department && a.Specialization == specialization);
 
             //assert
-            Assert.NotNull(result);
+            Assert.NotNull(edu);
 
         }
 

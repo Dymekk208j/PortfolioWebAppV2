@@ -23,7 +23,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
 
     }
     [DbConfigurationType(typeof(MyDbConfiguration))]
-    public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
             : base("AppConnectionString", throwIfV1Schema: false)
@@ -37,18 +37,18 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
             return new ApplicationDbContext();
         }
 
-        public DbSet<AboutMe> AboutMe { get; set; }
-        public DbSet<Achievement> Achievements { get; set; }
-        public DbSet<AdditionalInfo> AdditionalInfos { get; set; }
-        public DbSet<Education> Educations { get; set; }
-        public DbSet<EmploymentHistory> EmploymentHistories { get; set; }
-        public DbSet<PrivateInformation> PrivateInformations { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Image> Images { get; set; }
-        public DbSet<Technology> Technologies { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<AboutMe> AboutMe { get; set; }
+        public virtual DbSet<Achievement> Achievements { get; set; }
+        public virtual DbSet<AdditionalInfo> AdditionalInfos { get; set; }
+        public virtual DbSet<Education> Educations { get; set; }
+        public virtual DbSet<EmploymentHistory> EmploymentHistories { get; set; }
+        public virtual DbSet<PrivateInformation> PrivateInformations { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<Technology> Technologies { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
 
-        public new int SaveChanges()
+        public new virtual int SaveChanges()
         {
             return base.SaveChanges();
         }

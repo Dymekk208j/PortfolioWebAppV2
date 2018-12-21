@@ -38,6 +38,8 @@ namespace PortfolioWebAppV2.Repository
             {
                 Education obj = Context.Educations.First(a => a.EducationId == entity.EducationId);
                 Context.Educations.Remove(obj);
+              
+
             }
             catch (Exception e)
             {

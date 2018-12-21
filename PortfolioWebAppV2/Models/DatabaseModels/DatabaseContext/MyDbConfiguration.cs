@@ -8,7 +8,6 @@ namespace PortfolioWebAppV2.Models.DatabaseModels.DatabaseContext
         public MyDbConfiguration()
         {
             SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
-
         }
     }
 }

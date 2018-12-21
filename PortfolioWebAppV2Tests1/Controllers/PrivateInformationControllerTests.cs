@@ -8,7 +8,7 @@ using PortfolioWebAppV2.Controllers;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Repository;
 
-namespace PortfolioWebAppV2Tests1.Controllers
+namespace PortfolioWebAppV2.Tests.Unit.Controllers
 {
     public class PrivateInformationControllerTests
     {

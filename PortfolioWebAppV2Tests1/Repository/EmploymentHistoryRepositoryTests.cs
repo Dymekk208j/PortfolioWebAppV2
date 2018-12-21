@@ -7,7 +7,7 @@ using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Repository;
 using Xunit;
 
-namespace PortfolioWebAppV2Tests1.Repository
+namespace PortfolioWebAppV2.Tests.Unit.Repository
 {
     public class EmploymentHistoryRepositoryTests
     {

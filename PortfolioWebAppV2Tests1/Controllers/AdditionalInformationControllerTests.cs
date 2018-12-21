@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Xunit;
 
-namespace PortfolioWebAppV2Tests1.Controllers
+namespace PortfolioWebAppV2.Tests.Unit.Controllers
 {
     public class AdditionalInformationControllerTests
     {

@@ -95,8 +95,8 @@ namespace PortfolioWebAppV2.Repository
                 existingProject.AuthorId = entity.AuthorId;
                 existingProject.TempProject = entity.TempProject;
 
-                List<Technology> deletedTechnologies = existingProject.Technologies.Except(entity.Technologies, new TechnologyComparere()).ToList();
-                List<Technology> addedTechnologies = entity.Technologies.Except(existingProject.Technologies, new TechnologyComparere()).ToList();
+                List<Technology> deletedTechnologies = existingProject.Technologies.Except(entity.Technologies, new TechnologyComparer()).ToList();
+                List<Technology> addedTechnologies = entity.Technologies.Except(existingProject.Technologies, new TechnologyComparer()).ToList();
 
                 deletedTechnologies.ForEach(c => existingProject.Technologies.Remove(c));
                 foreach (Technology c in addedTechnologies)
@@ -167,7 +167,7 @@ namespace PortfolioWebAppV2.Repository
         }
     }
 
-    internal class TechnologyComparere : IEqualityComparer<Technology>
+    internal class TechnologyComparer : IEqualityComparer<Technology>
     {
         public bool Equals(Technology x, Technology y)
         {

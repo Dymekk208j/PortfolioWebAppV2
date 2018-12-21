@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace PortfolioWebAppV2Tests1
+namespace PortfolioWebAppV2.Tests.Unit
 {
     public static class Validate
     {

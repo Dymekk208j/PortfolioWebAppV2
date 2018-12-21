@@ -8,8 +8,8 @@
     <ProjectGuid>{8E7C19FC-D11C-41ED-8A02-C49A18FD09AB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PortfolioWebAppV2Tests1</RootNamespace>
-    <AssemblyName>PortfolioWebAppV2Tests1</AssemblyName>
+    <RootNamespace>PortfolioWebAppV2.Tests.Unit</RootNamespace>
+    <AssemblyName>PortfolioWebAppV2.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -119,6 +119,7 @@
     <Compile Include="Controllers\AboutMeControllerTests.cs" />
     <Compile Include="Controllers\AchievementControllerTests.cs" />
     <Compile Include="Controllers\AdditionalInformationControllerTests.cs" />
+    <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\PrivateInformationControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AboutMeRepositoryTests.cs" />
