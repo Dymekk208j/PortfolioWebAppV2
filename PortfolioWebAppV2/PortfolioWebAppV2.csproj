@@ -331,6 +331,10 @@
     <Compile Include="Migrations\201812211722551_AchievementModelHasBeenUpdated.Designer.cs">
       <DependentUpon>201812211722551_AchievementModelHasBeenUpdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812211756221_NewMigr.cs" />
+    <Compile Include="Migrations\201812211756221_NewMigr.Designer.cs">
+      <DependentUpon>201812211756221_NewMigr.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseModels\AboutMe.cs" />
     <Compile Include="Models\DatabaseModels\Achievement.cs" />
@@ -656,6 +660,7 @@
     <Content Include="Views\Image\ProjectsList.cshtml" />
     <Content Include="Views\Image\ScreenshotsManagement.cshtml" />
     <Content Include="Views\Projects\_GalleryModulePartialView.cshtml" />
+    <Content Include="Views\Achievement\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -714,6 +719,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812211722551_AchievementModelHasBeenUpdated.resx">
       <DependentUpon>201812211722551_AchievementModelHasBeenUpdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812211756221_NewMigr.resx">
+      <DependentUpon>201812211756221_NewMigr.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

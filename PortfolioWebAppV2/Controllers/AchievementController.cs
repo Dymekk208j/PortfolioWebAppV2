@@ -77,7 +77,7 @@ namespace PortfolioWebAppV2.Controllers
             {
                 return RedirectToAction("EditCv", "AdminPanel");
             }
-            return View("ErrorPage");
+            return RedirectToAction("ErrorPage");
         }
 
         [HttpGet]
@@ -88,7 +88,12 @@ namespace PortfolioWebAppV2.Controllers
             {
                 return RedirectToAction("EditCv", "AdminPanel");
             }
-            return View("ErrorPage");
+            return RedirectToAction("ErrorPage");
+        }
+
+        public ActionResult ErrorPage()
+        {
+            return View();
         }
 
     }

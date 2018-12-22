@@ -21,7 +21,7 @@ namespace PortfolioWebAppV2
                 config.CreateMap<TechnologyViewModel, Technology>().ReverseMap();
                 config.CreateMap<ProjectViewModel, Project>().ReverseMap();
                 config.CreateMap<AboutMeViewModel, AboutMe>().ReverseMap();
-
+                config.CreateMap<ApplicationUser, UpdateViewModel>().ReverseMap();
             });
 
             //Database.SetInitializer(new DbInitializer());

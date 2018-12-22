@@ -20,7 +20,7 @@
                     <div class="modal-body">
                         @Html.ValidationSummary(false, "", new {@class = "text-danger"})
                         
-                        @Html.HiddenFor(m => m.AchievementId)
+                         @Html.HiddenFor(m => m.AchievementId)
 
                         @Html.ValidationMessageFor(m => m.Title, "*", new {@class = "text-danger"})
                         @Html.LabelFor(m => m.Title, new {style = "font-weight: bold; Margin-top: 10px;"})

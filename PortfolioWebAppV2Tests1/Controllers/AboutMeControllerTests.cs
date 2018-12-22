@@ -72,14 +72,13 @@ namespace PortfolioWebAppV2.Tests.Unit.Controllers
             {
                 ImageLink = "imageLink",
                 Text = "To jest minimalnie 10 znakow",
-                Title = "title"
+                Title = "tYTUL"
             };
             Validate.ValidateModel(_controller, updateAboutMe);
 
 
             //Act
             RedirectToRouteResult result = (RedirectToRouteResult)_controller.Update(updateAboutMe);
-
             //Assert
             Assert.NotNull(result);
             Assert.Equal("AboutMeManagement", result.RouteValues["action"]);

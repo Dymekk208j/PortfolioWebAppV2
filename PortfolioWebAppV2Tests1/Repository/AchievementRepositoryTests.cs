@@ -46,8 +46,7 @@ namespace PortfolioWebAppV2.Tests.Unit.Repository
             _mockSet.Setup(d => d.Add(It.IsAny<Achievement>())).Callback<Achievement>((s) => _achievements.Add(s));
             _mockSet.Setup(d => d.Remove(It.IsAny<Achievement>())).Callback<Achievement>((s) => _achievements.Remove(s));
 
-            _dbMock.Setup(x => x.SaveChanges())
-                .Verifiable();
+            //_dbMock.Setup(x => x.SaveChanges()).Returns(1).Verifiable();
             _dbMock.Setup(x => x.Achievements).Returns(_mockSet.Object);
 
 
@@ -121,7 +120,7 @@ namespace PortfolioWebAppV2.Tests.Unit.Repository
         }
 
         [Theory()]
-        [InlineData("Nowy tytuł", "Wygrana w konkursie na opracowanie koncepcji/projektu społecznej kampanii edukacyjno-informacyjnej w zakresie gospodarki odpadami kierowanej do mieszkańców Koszalina.", "2018-11-04", false)]
+        [InlineData("N123owy tytuł", "Wygrana w konkursie na opracowanie koncepcji/projektu społecznej kampanii edukacyjno-informacyjnej w zakresie gospodarki odpadami kierowanej do mieszkańców Koszalina.", "2018-11-04", false)]
         public void UpdateTest(string title, string description, DateTime date, bool showInCv)
         {
             //Arrange

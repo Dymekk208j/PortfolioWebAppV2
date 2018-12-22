@@ -156,7 +156,7 @@ namespace PortfolioWebAppV2.Tests.Unit.Controllers
             };
 
             //Act
-            RedirectToRouteResult result = (RedirectToRouteResult)_controller.AddAchievementToCv(cvViewModel);
+            RedirectToRouteResult result = (RedirectToRouteResult) _controller.AddAchievementToCv(cvViewModel);
 
             //Assert
             Assert.NotNull(result);
@@ -174,12 +174,11 @@ namespace PortfolioWebAppV2.Tests.Unit.Controllers
             };
 
             //Act
-            ViewResult viewResult = _controller.AddAchievementToCv(cvViewModel) as ViewResult;
-           
+            RedirectToRouteResult result = _controller.AddAchievementToCv(cvViewModel) as RedirectToRouteResult;
 
             //Assert
-            Assert.NotNull(viewResult);
-            Assert.Equal("ErrorPage", viewResult.ViewName);
+            Assert.NotNull(result);
+            Assert.Equal("ErrorPage", result.RouteValues["action"]);
         }
 
         [Fact()]
@@ -188,11 +187,11 @@ namespace PortfolioWebAppV2.Tests.Unit.Controllers
             //Arrange
 
             //Act
-            ViewResult viewResult = _controller.RemoveAchievementFromCv(-1) as ViewResult;
+            RedirectToRouteResult result = _controller.RemoveAchievementFromCv(-1) as RedirectToRouteResult;
 
             //Assert
-            Assert.NotNull(viewResult);
-            Assert.Equal("ErrorPage", viewResult.ViewName);
+            Assert.NotNull(result);
+            Assert.Equal("ErrorPage", result.RouteValues["action"]);
         }
 
         [Fact()]
@@ -201,7 +200,7 @@ namespace PortfolioWebAppV2.Tests.Unit.Controllers
             //Arrange
 
             //Act
-            RedirectToRouteResult result = (RedirectToRouteResult)_controller.RemoveAchievementFromCv(1);
+            RedirectToRouteResult result = (RedirectToRouteResult) _controller.RemoveAchievementFromCv(1);
 
             //Assert
             Assert.NotNull(result);
