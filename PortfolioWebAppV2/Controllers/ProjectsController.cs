@@ -28,7 +28,11 @@ namespace PortfolioWebAppV2.Controllers
 
             ProjectViewModel project = new ProjectViewModel()
             {
-                Technologies = technologies
+                Technologies = technologies,
+                Icon = new Image()
+                {
+                    ImageId = -1
+                }
             };
 
             return View(project);
@@ -49,12 +53,17 @@ namespace PortfolioWebAppV2.Controllers
         public ActionResult Create(ProjectViewModel projectViewModel)
         {
             projectViewModel.Technologies = projectViewModel.Technologies.Where(a => a.IsSelected);
-
-            if (projectViewModel.Icon.ImageId == 0)
+            if (projectViewModel.TempProject == false)
             {
-                ModelState.AddModelError("IconError", @"Musisz wybrać ikonę");
-            }
-            else projectViewModel.Icon = _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
+                if (projectViewModel.Icon.ImageId < 1)
+                {
+                    ModelState.AddModelError("IconError", @"Musisz wybrać ikonę");
+                }
+                else
+                    projectViewModel.Icon =
+                        _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
+            }else projectViewModel.Icon =  projectViewModel.Icon.ImageId < 1 ?  
+                null : _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
 
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 

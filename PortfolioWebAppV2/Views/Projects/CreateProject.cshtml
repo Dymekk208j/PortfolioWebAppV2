@@ -75,7 +75,7 @@
 
                 <p>
                     <a href="#" data-toggle="modal" data-target="#SelectIcon">
-                        @if (Model?.Icon != null && Model?.Icon?.ImageId != 0)
+                        @if (Model?.Icon != null && Model?.Icon?.ImageId >= 1)
                         {
                             <img src="@Html.Raw(Model.Icon.GetLink())" alt="" id="IconImg" />
 
