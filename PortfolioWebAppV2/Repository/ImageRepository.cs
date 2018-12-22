@@ -27,7 +27,7 @@ namespace PortfolioWebAppV2.Repository
 
         public Project GetProject(int projectId)
         {
-            return Context.Projects.Include("Images").First(p => p.ProjectId == projectId); ;
+            return Context.Projects.Include("Images").First(p => p.ProjectId == projectId); 
         }
 
         public Image Get(int id)

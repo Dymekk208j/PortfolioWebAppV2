@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web.Mvc;
 using Moq;
 using PortfolioWebAppV2.Controllers;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Repository;
-using Xunit;
 using Image = PortfolioWebAppV2.Models.DatabaseModels.Image;
 
 namespace PortfolioWebAppV2.Tests.Unit.Controllers

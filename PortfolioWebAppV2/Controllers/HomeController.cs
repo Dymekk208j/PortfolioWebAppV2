@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using PortfolioWebAppV2.Models.DatabaseModels;
+﻿using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -37,7 +37,7 @@ namespace PortfolioWebAppV2.Controllers
             return View(project);
         }
 
-        
+
 
         [HttpGet]
         public ActionResult GetSocialMediaBarPartial()
@@ -45,7 +45,7 @@ namespace PortfolioWebAppV2.Controllers
             ContactViewModel arg = AutoMapper.Mapper.Map<Contact, ContactViewModel>(_contactRepository.GetAll().FirstOrDefault());
             return arg == null ? null : PartialView("_SocialMediaBarPartialView", arg);
         }
-      
+
         [HttpGet]
         public ActionResult Cv()
         {
@@ -78,9 +78,7 @@ namespace PortfolioWebAppV2.Controllers
                 Projects = _projectsRepository.GetAll().ToList(),
                 Technologies = _technologyRepository.GetAll().ToList()
             };
-
             return View(cvViewModel);
         }
-
     }
 }
