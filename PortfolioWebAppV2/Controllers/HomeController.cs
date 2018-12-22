@@ -32,7 +32,7 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            Project project = _projectsRepository.GetAll().OrderByDescending(a => a.ProjectId).FirstOrDefault();
+            Project project = _projectsRepository.GetAll().OrderByDescending(a => a.ProjectId).FirstOrDefault(p => p.TempProject == false);
 
             return View(project);
         }
