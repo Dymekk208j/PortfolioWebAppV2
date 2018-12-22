@@ -761,9 +761,9 @@
         height: 250px;
     }
     /* pie chart */
-    #ampiechart1,
-    #ampiechart2,
-    #ampiechart3,
+    #TechnologiesChartDiv,
+    #ProjectsChartDiv,
+    #highpiechart3,
     #highpiechart4,
     #highpiechart5,
     #highpiechart6 {

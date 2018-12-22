@@ -18,12 +18,12 @@ namespace PortfolioWebAppV2.Repository
 
         public IEnumerable<Technology> GetAll()
         {
-            return Context.Technologies.ToList();
+            return Context.Technologies.Include("Projects").ToList();
         }
 
         public Technology Get(int id)
         {
-            return Context.Technologies.First(a => a.TechnologyId == id) ?? throw new InvalidOperationException();
+            return Context.Technologies.Include("Projects").First(a => a.TechnologyId == id) ?? throw new InvalidOperationException();
         }
 
         public bool Add(Technology entity)

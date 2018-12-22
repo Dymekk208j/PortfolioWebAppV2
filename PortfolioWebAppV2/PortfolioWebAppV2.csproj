@@ -353,6 +353,7 @@
     <Compile Include="Models\DatabaseModels\IdentityModels.cs" />
     <Compile Include="Models\ViewModels\ContactViewModel.cs" />
     <Compile Include="Models\ViewModels\CvViewModel.cs" />
+    <Compile Include="Models\ViewModels\DashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\ProjectViewModel.cs" />
     <Compile Include="Models\ViewModels\TechnologyViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -449,7 +450,6 @@
     <Content Include="Lib\assets\js\maps.js" />
     <Content Include="Lib\assets\js\metisMenu.min.js" />
     <Content Include="Lib\assets\js\owl.carousel.min.js" />
-    <Content Include="Lib\assets\js\pie-chart.js" />
     <Content Include="Lib\assets\js\plugins.js" />
     <Content Include="Lib\assets\js\popper.min.js" />
     <Content Include="Lib\assets\js\scripts.js" />

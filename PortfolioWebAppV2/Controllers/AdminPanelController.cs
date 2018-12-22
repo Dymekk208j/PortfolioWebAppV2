@@ -35,7 +35,13 @@ namespace PortfolioWebAppV2.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            DashboardViewModel dashboardViewModel = new DashboardViewModel()
+            {
+                Technologies = _technologyRepository.GetAll().Where(t => t.Projects.Count > 0),
+                Projects = _projectsRepository.GetAll()
+            };
+
+            return View(dashboardViewModel);
         }
 
         [HttpGet]

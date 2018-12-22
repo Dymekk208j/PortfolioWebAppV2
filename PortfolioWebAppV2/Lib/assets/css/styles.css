@@ -1578,57 +1578,6 @@ table.dbkit-table tr td {
     background: #f7cb3f;
 }
 
-/*-------------------- END Dashboard Three ------------------- */
-
-
-/*-------------------- 5. Bar Chart ------------------- */
-
-#ambarchart1,
-#ambarchart2,
-#ambarchart3,
-#ambarchart4,
-#ambarchart5,
-#ambarchart6 {
-    height: 400px;
-}
-
-.amcharts-chart-div>a {
-    display: none!important;
-}
-
-/*-------------------- END Bar Chart ------------------- */
-
-
-/*-------------------- 6. Line Chart ------------------- */
-
-#amlinechart1,
-#amlinechart2,
-#amlinechart3,
-#amlinechart4,
-#amlinechart5 {
-    height: 400px;
-}
-
-
-
-/*-------------------- END Line Chart ------------------- */
-
-
-/*-------------------- 7. Pie Chart ------------------- */
-
-#ampiechart1,
-#ampiechart2,
-#ampiechart3,
-#highpiechart4,
-#highpiechart5,
-#highpiechart6 {
-    height: 400px;
-    width: 100%;
-}
-
-/*-------------------- END Pie Chart ------------------- */
-
-/*-------------------- 8. Accroding ------------------- */
 
 .according .card {
     margin-bottom: 20px;
