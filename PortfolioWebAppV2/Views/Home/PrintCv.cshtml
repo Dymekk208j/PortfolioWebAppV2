@@ -202,7 +202,7 @@
                                 foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages))
                                 {
                                     <span> @Html.Name(a.Title)</span>
-                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) > 1 
+                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) > 1
                                         && i < Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.ForeignLanguages) - 1)
                                     {
                                         @Html.Raw(", ")
@@ -238,7 +238,7 @@
                                 foreach (AdditionalInfo a in Model.AdditionalInfos.Where(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests))
                                 {
                                     <span> @Html.Name(a.Title)</span>
-                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) > 1 
+                                    if (Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) > 1
                                         && i < Model.AdditionalInfos.Count(x => x.Type == AdditionalInfo.TypeOfAddtionalInfo.Interests) - 1)
                                     {
                                         @Html.Raw(", ")
@@ -280,7 +280,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="margin-top: 1em;" id="EducationRow">
+                <div class="row" style="margin-top: 1em; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: cornflowerblue !important; padding-bottom: 0.2em;" id="EducationRow">
                     <div class="col-4">
                         <h6 style="color: cornflowerblue;">Wykształcenie</h6>
                     </div>
@@ -306,6 +306,12 @@
                                 }
                             }
                         </div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1em;" id="AgreementsRow">
+                    <div class="col text-center">
+                        <p>Wyrażam zgodę na przetwarzanie danych osobowych zawartych w mojej ofercie pracy dla potrzeb procesu rekrutacji zgodnie z ustawą z d. 29.08.1997r. o Ochronie Danych Osobowych, tekst jednolity: Dz. U. z 2002r., Ne 101, po. 26 z późniejszymi zmianami</p>
                     </div>
                 </div>
             </div>
