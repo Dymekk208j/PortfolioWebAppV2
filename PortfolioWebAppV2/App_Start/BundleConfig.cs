@@ -21,7 +21,7 @@ namespace PortfolioWebAppV2
 
             bundles.Add(new StyleBundle("~/Content/AdminPanelCss").Include(
                 "~/Content/bootstrap.min.css",
-                "~/Lib/assets/css/font-awesome.min.css",
+             
                 "~/Lib/assets/css/themify-icons.css",
                "~/Lib/assets/css/metisMenu.css",
                 "~/Lib/assets/css/owl.carousel.min.css",
