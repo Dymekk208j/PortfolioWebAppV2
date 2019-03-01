@@ -1,65 +1,4 @@
-﻿@*@model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
-
-    @{
-        Layout = "~/Views/Shared/_AdminPanelLayout.cshtml";
-    }
-    @section Header{ Osiągnięcia }
-
-    <div id="userlist-section" style="margin-right:1em;">
-        <table class="table table-hover table-striped table-sm" style="border:solid; border-width: 1px;">
-            <thead class="thead-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Nazwa</th>
-                    <th class="text-right">Akcje</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var u in Model)
-                {
-                    <tr>
-                        <td class="align-middle font-weight-bold">@Html.Name(u.AchievementId.ToString()). </td>
-                        <td class="align-middle">
-                            @Html.Name(u.Title)
-                        </td>
-                        <td class="text-right">
-                            <button id="@Html.Raw("RemoveBtn" + u.AchievementId.ToString())" type="button" class="btn btn-danger btn-smfa-minus-square text-right" onclick="location.href = '@Url.Action("Remove", "Achievement", new { id = u.AchievementId })';return false;"> Usuń</button>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
-
-    <button type="button" class="btn btn-success btn-smfa-plus-square text-right" data-toggle="modal" data-target="#Add"> Dodaj osiągnięcie</button>
-    <button onclick="Toggle()">Toggle</button>
-
-
-    <script>
-        function reload() {
-            location.href = '@Url.Action("AchievementsManagement", "Achievement")';
-        }
-    </script>
-
-    <script language="Javascript">
-        function Toggle() {
-            $('#LeftMenu').toggle();
-            $('#LeftMenu2').toggle();
-        }
-    </script>
-
-
-        <div id="LeftMenu2" style="display: none" class="m-2">
-            <div id="CreatePartial">
-                @Html.Partial("_CreateAchievementPartialView", new PortfolioWebAppV2.Models.DatabaseModels.Achievement())
-            </div>
-        </div>
-
-
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>*@
-
-@using PortfolioWebAppV2.Models.DatabaseModels
+﻿@using PortfolioWebAppV2.Models.DatabaseModels
 @model IEnumerable<PortfolioWebAppV2.Models.DatabaseModels.Achievement>
 
 @{
@@ -69,13 +8,6 @@
 
 @section Header{ Osiągnięcia }
 
-@section AdditionalCss
-{
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
-}
 
 <!-- data table start -->
 <div class="col-12 mt-5">

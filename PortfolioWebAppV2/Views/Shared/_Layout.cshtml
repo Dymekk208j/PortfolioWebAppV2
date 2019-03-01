@@ -6,16 +6,9 @@
     <title>Damian Dziura - Portfolio</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Lib/Styles/default.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="~/Lib/assets/css/ekko-lightbox.css" rel="stylesheet" />
-
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/umd/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Lib/assets/js/ekko-lightbox.js"></script>
-
+    
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Content/js")
     @RenderSection("AdditionalCss", false)
 
     <script type = 'text/javascript' >

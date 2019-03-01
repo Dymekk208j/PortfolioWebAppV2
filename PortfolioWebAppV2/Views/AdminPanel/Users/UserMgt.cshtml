@@ -7,55 +7,38 @@
 }
 
 @section Header{ Lista użytkowników }
-@section AdditionalCss
-{
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
-}
+   
 
-<!-- data table start -->
-<div class="col-12 mt-5">
-    <div class="card">
-        <div class="card-body">
-            <div class="
+    <!-- data table start -->
+    <div class="col-12 mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="
                  ">
-                <table id="dataTable" class="text-center hover">
-                    <thead class="bg-light text-capitalize ">
-                        <tr>
-                            <th>Login</th>
-                            <th>E-mail</th>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (ApplicationUser u in Model)
-                        {
-                            @Html.Partial("Users/_UserListPartialView", u)
-                        }
-                    </tbody>
-                </table>
+                    <table id="dataTable" class="text-center hover">
+                        <thead class="bg-light text-capitalize ">
+                            <tr>
+                                <th>Login</th>
+                                <th>E-mail</th>
+                                <th>Imię</th>
+                                <th>Nazwisko</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ApplicationUser u in Model)
+                            {
+                                @Html.Partial("Users/_UserListPartialView", u)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@foreach (ApplicationUser u in Model)
-{
-    UpdateViewModel z = Mapper.Map<ApplicationUser, UpdateViewModel>(u);
+    @foreach (ApplicationUser u in Model)
+    {
+        UpdateViewModel z = Mapper.Map<ApplicationUser, UpdateViewModel>(u);
 
-    @Html.Partial("users/_UserEditPartial", z)
-}
-
-@section AdditionalJs
-{
-    <!-- Start datatable js -->
-    @*<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>*@
-    <script src="~/Scripts/jquery.dataTables.js"></script>
-    @*<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>*@
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
-}
+        @Html.Partial("users/_UserEditPartial", z)
+    }

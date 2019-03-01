@@ -43,6 +43,10 @@ namespace PortfolioWebAppV2.Repository
         public bool Add(Project entity)
         {
             Context.Projects.Add(entity);
+            Context.Entry(entity.Icon).State = EntityState.Unchanged;
+            Context.Entry(entity.Technologies).State = EntityState.Unchanged;
+            Context.Entry(entity.Images).State = EntityState.Unchanged;
+
             return Context.SaveChanges() > 0;
         }
 

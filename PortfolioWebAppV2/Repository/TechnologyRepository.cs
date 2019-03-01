@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using Unity.Attributes;
@@ -29,6 +30,7 @@ namespace PortfolioWebAppV2.Repository
         public bool Add(Technology entity)
         {
             Context.Technologies.Add(entity);
+            Context.Entry(entity.Projects).State = EntityState.Unchanged;
             return Context.SaveChanges() > 0;
         }
 
