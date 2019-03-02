@@ -44,7 +44,7 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         [Display(Name = "GitHub link")]
         public string GitHubLink { get; set; }
 
-        public virtual ICollection<Technology> Technologies { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual List<Technology> Technologies { get; set; }
+        public virtual List<Image> Images { get; set; }
     }
 }

@@ -1,11 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -187,6 +193,28 @@ namespace PortfolioWebAppV2.Controllers
             _repository.RemoveFromPortfolio(id);
 
             return RedirectToAction("EditCv", "AdminPanel");
+        }
+
+        [HttpGet]
+        public void GetXml()
+        {     
+            var project = _repository.Get(5);
+      
+            var json = JsonConvert.SerializeObject(project);           
+
+            // To convert JSON text contained in string json into an XML node
+            XmlDocument dd = JsonConvert.DeserializeXmlNode(json, "Root");
+            dd.Save("D:\\test.xml");
+
+
+
+
+            Response.Clear();
+            Response.Write(dd);
+            Response.ContentType = "text/xml";
+            Response.End();
+
+            //throw new NotImplementedException();
         }
     }
 }

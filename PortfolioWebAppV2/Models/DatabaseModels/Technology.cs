@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace PortfolioWebAppV2.Models.DatabaseModels
 {
@@ -18,6 +20,9 @@ namespace PortfolioWebAppV2.Models.DatabaseModels
         [Display(Name = "Nazwa technologii")]
         public string Name { get; set; }
         public bool ShowInCv { get; set; }
+
+        [JsonIgnore] 
+        [IgnoreDataMember] 
         public ICollection<Project> Projects { get; set; }
     }
 }
