@@ -16,12 +16,7 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css">
 
-    <script>
-        function SelectCheckBox(x) {
-            var name = "@Html.Raw("#tech")" + x;
-            $(name).click();
-        }
-    </script>
+
 
     <style>
         .iconCard:hover {
@@ -141,14 +136,25 @@
                         if (Model != null)
                         {
                             <button type="button" id="DeleteButton" onclick="location.href = '@Url.Action("RemoveProject", "Projects", new {projectId = Model.ProjectId, temporary = Model.TempProject})';" class="btn btn-sm btn-danger"><i class="ti-trash mr-2"></i>Usuń projekt</button>
-                            <button type="submit" id="SaveButton" class="btn btn-sm btn-secondary"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
+
+                            <a class="btn btn-sm btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="ti-file mr-2"></i>Operacje XML
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="@Url.Action("PreviewXmlFile", "Projects", new { projectId = Model.ProjectId})">Podgląd</a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#UploadXmlFile">Importuj</a>
+                                <a class="dropdown-item" href="@Url.Action("ExportXmlFile", "Projects", new {projectId = Model.ProjectId})">Pobierz</a>
+                            </div>
+
+                            <button type="submit" id="SaveButton" class="btn btn-sm btn-success"><i class="ti-save mr-2"></i>Zapisz zmiany</button>
                             if (Model.TempProject)
-                             {
-                                 <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
-                             }
+                            {
+                                <button type="button" id="CreateButton" onclick="AddToPortfolio()" class="btn btn-sm btn-primary"><i class="ti-cloud-up mr-2"></i>Dodaj do portfolio</button>
+                            }
                         }
                     }
-                    
+
                 </div>
 
             </div>
@@ -159,15 +165,37 @@
 }
 @Html.Action("GetIconsSelectorPanel", "Projects")
 
-@if (Model != null)
+@using (
+    Html.BeginForm("ImportXmlFile", "Projects", FormMethod.Post,
+        new { enctype = "multipart/form-data", onsubmit = "return confirm('Czy na pewno chcesz przesłać plik?');" }))
 {
-    foreach (TechnologyViewModel m in Model.Technologies)
-    {
-        <script>
-    SelectCheckBox(@Html.Raw(m.TechnologyId))
-        </script>
-    }
+    <div class="modal fade" id="UploadXmlFile" tabindex="-1" role="dialog" aria-labelledby="UploadXmlFileLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UploadXmlFileLabel">Prześlij plik xml</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.TextBox("file", "", new { type = "file" }) <br />
+                    @Html.HiddenFor(m => m.ProjectId)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Wyślij</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+
+
+
+
+
+
 @section AdditionalJs
 {
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
@@ -176,6 +204,22 @@
     <link href="~/Content/summernote/summernote-bs4.css" rel="stylesheet" />
     <script src="~/Scripts/summernote/summernote-bs4.js"></script>
 
+    <script>
+        function SelectCheckBox(x) {
+            var name = "@Html.Raw("#tech")" + x;
+            $(name).click();
+        }
+    </script>
+    
+    @if (Model != null)
+    {
+        foreach (TechnologyViewModel m in Model.Technologies)
+        {
+            <script>
+                SelectCheckBox(@Html.Raw(m.TechnologyId))
+            </script>
+        }
+    }
     <script type="text/javascript">
         $('#TextBoxShortDescription').summernote({
             height: 100,

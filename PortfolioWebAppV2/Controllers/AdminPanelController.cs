@@ -82,6 +82,7 @@ namespace PortfolioWebAppV2.Controllers
             return View("Users/BlockedUsers", usersList);
         }
 
+
     }
 
 }

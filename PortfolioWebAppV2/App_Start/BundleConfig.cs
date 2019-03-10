@@ -29,7 +29,8 @@ namespace PortfolioWebAppV2
                "~/Lib/assets/css/typography.css",
                "~/Lib/assets/css/default-css.css",
                 "~/Lib/assets/css/styles.css",
-               "~/Lib/assets/css/responsive.css"));
+               "~/Lib/assets/css/responsive.css",
+               "~/Lib/Styles/jquery.dataTables.css"));
 
 
             bundles.Add(new StyleBundle("~/Content/AdminPanelBodyJs").Include(

@@ -4,14 +4,13 @@ using Newtonsoft.Json;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
 using PortfolioWebAppV2.Repository;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace PortfolioWebAppV2.Controllers
 {
@@ -68,8 +67,9 @@ namespace PortfolioWebAppV2.Controllers
                 else
                     projectViewModel.Icon =
                         _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
-            }else projectViewModel.Icon =  projectViewModel.Icon.ImageId < 1 ?  
-                null : _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
+            }
+            else projectViewModel.Icon = projectViewModel.Icon.ImageId < 1 ?
+               null : _repository.GetAllIcons().First(m => m.ImageId == projectViewModel.Icon.ImageId);
 
             projectViewModel.AuthorId = HttpContext.User.Identity.GetUserId();
 
@@ -196,25 +196,53 @@ namespace PortfolioWebAppV2.Controllers
         }
 
         [HttpGet]
-        public void GetXml()
-        {     
-            var project = _repository.Get(5);
-      
-            var json = JsonConvert.SerializeObject(project);           
+        public void PreviewXmlFile(int projectId)
+        {
+            var project = _repository.Get(projectId);
+            var json = JsonConvert.SerializeObject(project);
 
-            // To convert JSON text contained in string json into an XML node
-            XmlDocument dd = JsonConvert.DeserializeXmlNode(json, "Root");
-            dd.Save("D:\\test.xml");
-
-
-
+            XmlDocument xml = JsonConvert.DeserializeXmlNode(json, "ProjectViewModel");
 
             Response.Clear();
-            Response.Write(dd);
+            Response.Write(xml.OuterXml);
             Response.ContentType = "text/xml";
             Response.End();
+        }
 
-            //throw new NotImplementedException();
+        [HttpGet]
+        public FileResult ExportXmlFile(int projectId)
+        {
+            var project = _repository.Get(projectId);
+            project.Images = null;
+
+            var json = JsonConvert.SerializeObject(project);
+
+            XmlDocument xml = JsonConvert.DeserializeXmlNode(json, "ProjectViewModel");
+
+            return File(Encoding.UTF8.GetBytes(xml.OuterXml), "application/xml", project.Title + ".xml");
+        }
+
+
+        public ActionResult ImportXmlFile(HttpPostedFileBase file, ProjectViewModel project)
+        {
+            if (file.ContentLength > 0 && file.ContentType == "text/xml")
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(file.InputStream);
+
+                var json = JsonConvert.SerializeXmlNode(xml, Formatting.None, true);
+
+                Project proj = JsonConvert.DeserializeObject<Project>(json);
+                proj.ProjectId = project.ProjectId;
+
+                ProjectViewModel projectViewModel = Mapper.Map<Project, ProjectViewModel>(proj);
+
+                ModelState.Clear();
+                return View("EditProject", projectViewModel);
+            }
+
+            ModelState.AddModelError("CustomError", @"Niepoprawny format przesłanego pliku.");
+            return View("EditProject", project);
         }
     }
 }
