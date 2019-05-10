@@ -202,6 +202,9 @@ namespace PortfolioWebAppV2.Controllers
             var json = JsonConvert.SerializeObject(project);
 
             XmlDocument xml = JsonConvert.DeserializeXmlNode(json, "ProjectViewModel");
+            xml.PrependChild(xml.CreateProcessingInstruction(
+                "xml-stylesheet",
+                "type='text/xsl' href='template.xslt'"));
 
             Response.Clear();
             Response.Write(xml.OuterXml);
@@ -218,6 +221,9 @@ namespace PortfolioWebAppV2.Controllers
             var json = JsonConvert.SerializeObject(project);
 
             XmlDocument xml = JsonConvert.DeserializeXmlNode(json, "ProjectViewModel");
+            xml.PrependChild(xml.CreateProcessingInstruction(
+                "xml-stylesheet",
+                "type='text/xsl' href='template.xslt'"));
 
             return File(Encoding.UTF8.GetBytes(xml.OuterXml), "application/xml", project.Title + ".xml");
         }
