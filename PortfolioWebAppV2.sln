@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioWebAppV2", "Portfo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioWebAppV2.Tests.Unit", "PortfolioWebAppV2Tests1\PortfolioWebAppV2.Tests.Unit.csproj", "{8E7C19FC-D11C-41ED-8A02-C49A18FD09AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioWebAppV2.Specs", "PortfolioWebAppV2.Specs\PortfolioWebAppV2.Specs.csproj", "{999151BA-1347-4C74-BE6E-F72857300450}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8E7C19FC-D11C-41ED-8A02-C49A18FD09AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E7C19FC-D11C-41ED-8A02-C49A18FD09AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E7C19FC-D11C-41ED-8A02-C49A18FD09AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{999151BA-1347-4C74-BE6E-F72857300450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{999151BA-1347-4C74-BE6E-F72857300450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{999151BA-1347-4C74-BE6E-F72857300450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{999151BA-1347-4C74-BE6E-F72857300450}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

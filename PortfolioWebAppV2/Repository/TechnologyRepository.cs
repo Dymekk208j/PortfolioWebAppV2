@@ -30,7 +30,7 @@ namespace PortfolioWebAppV2.Repository
         public bool Add(Technology entity)
         {
             Context.Technologies.Add(entity);
-            Context.Entry(entity.Projects).State = EntityState.Unchanged;
+            if(entity.Projects != null) Context.Entry(entity.Projects).State = EntityState.Unchanged;
             return Context.SaveChanges() > 0;
         }
 

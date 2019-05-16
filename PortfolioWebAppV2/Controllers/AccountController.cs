@@ -1,20 +1,37 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using PortfolioWebAppV2.Models.DatabaseModels;
 using PortfolioWebAppV2.Models.ViewModels;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace PortfolioWebAppV2.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+#if DEBUG
+        [AllowAnonymous]
+        public ActionResult TestLogin()
+        {
+            LoginViewModel model = new LoginViewModel() { Password = "Damian13", RememberMe = false, UserName = "Dymek" };
+
+            ApplicationUser user = UserManager.Find(model.UserName, model.Password);
+            if (user != null)
+            {
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                ClaimsIdentity identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+#endif
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
@@ -31,8 +48,8 @@ namespace PortfolioWebAppV2.Controllers
         {
             ApplicationDbContext db = new ApplicationDbContext();
             ApplicationUser usr = (from u in db.Users
-                       where u.Id == userId
-                       select u).FirstOrDefault();
+                                   where u.Id == userId
+                                   select u).FirstOrDefault();
             if (usr == null) return RedirectToAction("UserMgt", "AdminPanel");
 
             db.Entry(usr).State = System.Data.Entity.EntityState.Deleted;
@@ -64,8 +81,8 @@ namespace PortfolioWebAppV2.Controllers
             ApplicationDbContext db = new ApplicationDbContext();
 
             ApplicationUser author = (from x in db.Users
-                          where x.Id == authorId
-                          select x).FirstOrDefault();
+                                      where x.Id == authorId
+                                      select x).FirstOrDefault();
 
             if (author != null) return author.UserName;
             return "";
@@ -169,13 +186,7 @@ namespace PortfolioWebAppV2.Controllers
 
         #region Helpers
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
 
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
