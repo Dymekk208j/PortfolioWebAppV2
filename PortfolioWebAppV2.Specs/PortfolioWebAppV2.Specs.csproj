@@ -17,15 +17,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AboutMeFeature.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutMeFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Update="AchievementFeature.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AchievementFeature.feature</DependentUpon>
+    </Compile>
+    <Compile Update="AdditionalInformationFeature.feature.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AdditionalInformationFeature.feature</DependentUpon>
+    </Compile>
     <Compile Update="AdministratorPanelFeature.feature.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AdministratorPanelFeature.feature</DependentUpon>
-    </Compile>
-    <Compile Update="CreateAchievementFeature.feature.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>CreateAchievementFeature.feature</DependentUpon>
     </Compile>
     <Compile Update="CreateProjectFeature.feature.cs">
       <DesignTime>True</DesignTime>
@@ -52,13 +62,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="AboutMeFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AboutMeFeature.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="AchievementFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AchievementFeature.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="AdditionalInformationFeature.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AdditionalInformationFeature.feature.cs</LastGenOutput>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="AdministratorPanelFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AdministratorPanelFeature.feature.cs</LastGenOutput>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="CreateAchievementFeature.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CreateAchievementFeature.feature.cs</LastGenOutput>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="CreateProjectFeature.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
